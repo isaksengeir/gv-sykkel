@@ -515,4 +515,61 @@ footer small{font-size:.8rem;color:var(--muted)}
   position:absolute;
   top:-18%;left:-18%;
   width:136%;height:136%;
-  
+  animation:wheel-spin 9s linear infinite;
+  pointer-events:none;
+  transform-origin:center center;
+}
+@keyframes wheel-spin{to{transform:rotate(360deg)}}
+.wheel-wrap img{
+  position:relative;z-index:1;
+  width:100%;height:100%;
+  object-fit:contain;
+}
+/* Hero logo inherits wrap sizing — remove its own width */
+.hero-logo{width:100%;height:100%;margin-bottom:0}
+/* Wrap itself gets the margin */
+.wheel-wrap{margin-bottom:1.8rem}
+
+
+/* ── Boundaries / Mitt fokus ── */
+.boundaries{padding:5rem 0}
+.boundaries-card{
+  background:linear-gradient(180deg,var(--bg2) 0%,var(--bg3) 100%);
+  border:1px solid var(--border);
+  border-left:3px solid var(--purple-hi);
+  padding:2.8rem 2.5rem;
+}
+.boundaries-card .tag{margin-bottom:.9rem}
+.boundaries-card .h2{
+  font-size:clamp(1.8rem,3.6vw,2.6rem);margin-bottom:1rem;
+}
+.boundaries-intro{font-size:1rem;line-height:1.7;color:var(--text);margin-bottom:1.8rem}
+.boundaries-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;
+  padding:1.4rem 0;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  margin-bottom:1.5rem;
+}
+.boundaries-col h4{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--purple-hi);font-weight:700;margin-bottom:1rem;
+}
+.boundaries-list{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.boundaries-list li{
+  display:flex;align-items:flex-start;gap:.7rem;
+  font-size:.95rem;color:var(--text);line-height:1.5;
+}
+.boundaries-list li::before{
+  content:'';width:5px;height:5px;background:var(--purple-hi);
+  border-radius:50%;flex-shrink:0;margin-top:.55rem;
+}
+.boundaries-outro{
+  font-size:.97rem;line-height:1.65;color:var(--text);
+  font-style:italic;
+}
+@media(max-width:599px){
+  .boundaries-grid{grid-template-columns:1fr;gap:1.8rem;padding:1.2rem 0}
+  .boundaries-card{padding:2rem 1.5rem}
+}
