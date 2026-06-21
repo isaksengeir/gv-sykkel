@@ -11,9 +11,15 @@
     });
   }
 
-  // ── Nav scroll ──
-  const nav=document.getElementById('nav');
-  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
+  // ── Nav scroll + progress bar ──
+  const nav=document.getElementById('nav'),sp=document.getElementById('SP');
+  const onScroll=()=>{
+    nav.classList.toggle('scrolled',scrollY>60);
+    if(sp){const h=document.documentElement.scrollHeight-innerHeight;sp.style.width=(h>0?scrollY/h*100:0)+'%';}
+  };
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll,{passive:true});
+  onScroll();
 
   // ── Hamburger ──
   const HB=document.getElementById('HB'),DW=document.getElementById('DW');

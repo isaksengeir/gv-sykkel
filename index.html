@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div class="scroll-progress" id="SP" aria-hidden="true"></div>
 <div class="cursor" id="C"></div>
 <div class="cursor-ring" id="CR"></div>
 
@@ -58,6 +59,18 @@
     <polygon points="0,500 100,380 300,450 500,300 700,420 800,250 1000,380 1200,280 1440,380 1440,500" fill="rgba(20,8,45,0.7)"/>
   </svg>
   <div class="particles" id="P" aria-hidden="true"></div>
+  <svg class="hero-rider" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="22" cy="44" r="12"/>
+    <circle cx="78" cy="44" r="12"/>
+    <path d="M22 44 L48 44 L38 22 Z"/>
+    <path d="M48 44 L68 24 L38 22"/>
+    <path d="M68 24 L78 44"/>
+    <path d="M38 22 L38 19"/>
+    <path d="M38 19 L57 12"/>
+    <circle cx="62" cy="8.5" r="4"/>
+    <path d="M57 12 L67 23"/>
+    <path d="M38 19 L44 32 L48 44"/>
+  </svg>
   <div class="hero-content">
     <div class="wheel-wrap"><svg class="wheel-svg" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="rgba(180,155,225,0.55)" stroke-width="1.5" fill="none" stroke-linecap="round"><line x1="130.0" y1="32.0" x2="130.0" y2="21.0"/><line x1="179.0" y1="45.1" x2="184.5" y2="35.6"/><line x1="214.9" y1="81.0" x2="224.4" y2="75.5"/><line x1="228.0" y1="130.0" x2="239.0" y2="130.0"/><line x1="214.9" y1="179.0" x2="224.4" y2="184.5"/><line x1="179.0" y1="214.9" x2="184.5" y2="224.4"/><line x1="130.0" y1="228.0" x2="130.0" y2="239.0"/><line x1="81.0" y1="214.9" x2="75.5" y2="224.4"/><line x1="45.1" y1="179.0" x2="35.6" y2="184.5"/><line x1="32.0" y1="130.0" x2="21.0" y2="130.0"/><line x1="45.1" y1="81.0" x2="35.6" y2="75.5"/><line x1="81.0" y1="45.1" x2="75.5" y2="35.6"/></g><circle cx="130" cy="130" r="112" fill="none" stroke="rgba(155,135,215,0.32)" stroke-width="1.5"/><circle cx="130" cy="130" r="121" fill="none" stroke="rgba(175,150,225,0.55)" stroke-width="5.5"/></svg><img class="hero-logo logo-img" src="logo.png" alt="GV Sykkel" width="190" height="190"></div>
     <p class="hero-eyebrow">Bjerkakervegen 5 &middot; 9006 Tromsø</p>
@@ -72,6 +85,30 @@
   <div class="scroll-cue" aria-hidden="true">
     <span>Scroll</span>
     <div class="scroll-cue-line"></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- TRUST STRIP -->
+<div class="trust">
+  <div class="container trust-inner">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.4"/><path d="M12 3v3.6 M12 17.4V21 M3 12h3.6 M17.4 12H21 M5.6 5.6l2.5 2.5 M15.9 15.9l2.5 2.5 M18.4 5.6l-2.5 2.5 M8.1 15.9l-2.5 2.5"/></svg>
+      <span>20+ års<br>sykkelerfaring</span>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="8.5" width="11" height="7" rx="3.5"/><rect x="11" y="8.5" width="11" height="7" rx="3.5"/><circle cx="6" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1" fill="currentColor" stroke="none"/></svg>
+      <span>Drivverk og<br>voksing av kjede</span>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><circle cx="12" cy="13" r="2.2"/><path d="M12 5.4v3.4 M12 17.4v3.4 M4.4 13h3.4 M16.6 13h3.4 M6.6 7.6l2.4 2.4 M15 17l2.4 2.4 M17.4 7.6L15 10 M9 17l-2.4 2.4"/><path d="M10.9 5.4V3.6h2.2v1.8"/></svg>
+      <span>Tubeless og<br>hjuloppsett</span>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 9.5h17 M8 3v4 M16 3v4"/><path d="M8.5 14.2l2.2 2.2 4-4.4"/></svg>
+      <span>Alt etter<br>avtale</span>
+    </div>
   </div>
 </div>
 
@@ -106,6 +143,12 @@
 
 <!-- SERVICES -->
 <div class="services" id="tjenester">
+  <svg class="deco-cog deco-cog-tr" viewBox="0 0 200 200" fill="none" stroke="currentColor" aria-hidden="true">
+    <circle cx="100" cy="100" r="74" stroke-width="13" stroke-dasharray="5 11"/>
+    <circle cx="100" cy="100" r="66" stroke-width="3"/>
+    <circle cx="100" cy="100" r="26" stroke-width="3"/>
+    <g stroke-width="6"><path d="M100 74V34 M100 126v40 M74 100H34 M126 100h40"/></g>
+  </svg>
   <div class="container">
     <div class="services-head reveal">
       <div>
@@ -117,37 +160,59 @@
     <div class="grid-3">
       <div class="card reveal">
         <span class="card-num" aria-hidden="true">01</span>
-        <span class="card-icon">⛓️</span>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="8" width="11" height="8" rx="4"/>
+          <rect x="11" y="8" width="11" height="8" rx="4"/>
+          <circle cx="6" cy="12" r="1.1" fill="currentColor" stroke="none"/>
+          <circle cx="18" cy="12" r="1.1" fill="currentColor" stroke="none"/>
+        </svg>
         <div class="card-title">Voksing av kjede</div>
         <p class="card-desc">Voks gir renere drivverk, lavere friksjon og lengre levetid på kjede og kassett. Fungerer på alle typer sykler.</p>
       </div>
       <div class="card reveal">
         <span class="card-num" aria-hidden="true">02</span>
-        <span class="card-icon">⚙️</span>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.3"/>
+          <path d="M12 2.2v3 M12 18.8v3 M2.2 12h3 M18.8 12h3 M4.9 4.9l2.1 2.1 M16.9 16.9l2.2 2.2 M19.1 4.9l-2.1 2.1 M7.1 16.9l-2.2 2.2"/>
+        </svg>
         <div class="card-title">Gir &amp; Bremser</div>
         <p class="card-desc">Presis justering slik at sykkelen skifter og bremser som den skal. Inkludert skifte av kassett, kjede og bremseklosser.</p>
       </div>
       <div class="card reveal">
         <span class="card-num" aria-hidden="true">03</span>
-        <span class="card-icon">🫧</span>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3.4c3.3 3.9 5.6 6.8 5.6 9.6a5.6 5.6 0 0 1-11.2 0c0-2.8 2.3-5.7 5.6-9.6z"/>
+          <path d="M9.4 12.8a2.6 2.6 0 0 0 2.6 2.6"/>
+        </svg>
         <div class="card-title">Vask &amp; Klargjøring</div>
         <p class="card-desc">Grundig vask med eller uten avfetting av drivverk. Perfekt til sesongstart eller etter tøffe turer i gjørme og grusk.</p>
       </div>
       <div class="card reveal">
         <span class="card-num" aria-hidden="true">04</span>
-        <span class="card-icon">🔘</span>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="13" r="8"/>
+          <circle cx="12" cy="13" r="2.3"/>
+          <path d="M12 5.2v3.5 M12 17.3V20.8 M4.2 13h3.5 M16.3 13h3.5 M6.5 7.5l2.5 2.5 M15 17l2.5 2.5 M17.5 7.5L15 10 M9 17l-2.5 2.5"/>
+          <path d="M10.8 5.2V3.4h2.4v1.8"/>
+        </svg>
         <div class="card-title">Tubeless-oppsett</div>
         <p class="card-desc">Sett opp tubeless på ett eller begge hjul for punkteringsbeskyttelse og bedre grep i norsk terreng.</p>
       </div>
       <div class="card reveal">
         <span class="card-num" aria-hidden="true">05</span>
-        <span class="card-icon">🔍</span>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="10.5" cy="10.5" r="6.5"/>
+          <line x1="15.4" y1="15.4" x2="21" y2="21"/>
+          <path d="M7.8 10.6l1.9 1.9 3.4-4"/>
+        </svg>
         <div class="card-title">Teknisk Gjennomgang</div>
         <p class="card-desc">Rask teknisk kontroll som identifiserer hva som trenger oppmerksomhet før det blir et større problem.</p>
       </div>
       <div class="card reveal">
         <span class="card-num" aria-hidden="true">06</span>
-        <span class="card-icon">🛠️</span>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+        </svg>
         <div class="card-title">Full Service</div>
         <p class="card-desc">Komplett gjennomgang av sykkelen. Alt sjekkes, justeres og smøres, så sykkelen går som ny.</p>
       </div>
@@ -203,6 +268,12 @@
 
 <!-- PRICES -->
 <section class="prices" id="prisliste">
+  <svg class="deco-cog deco-cog-bl" viewBox="0 0 200 200" fill="none" stroke="currentColor" aria-hidden="true">
+    <circle cx="100" cy="100" r="74" stroke-width="13" stroke-dasharray="5 11"/>
+    <circle cx="100" cy="100" r="66" stroke-width="3"/>
+    <circle cx="100" cy="100" r="26" stroke-width="3"/>
+    <g stroke-width="6"><path d="M100 74V34 M100 126v40 M74 100H34 M126 100h40"/></g>
+  </svg>
   <div class="container">
     <div class="reveal">
       <div class="tag">Transparente priser</div>
@@ -224,19 +295,19 @@
       <div class="p-row"><div class="p-name">Skifte kassett</div><div class="p-price">250 kr</div></div>
       <div class="p-row">
         <div class="p-name">Skifte dekk, ett hjul<small>+ dekk/slange ved behov</small></div>
-        <div class="p-price">200 kr</div>
-      </div>
-      <div class="p-row">
-        <div class="p-name">Skifte dekk, begge hjul<small>+ dekk/slanger ved behov</small></div>
-        <div class="p-price">350 kr</div>
-      </div>
-      <div class="p-row">
-        <div class="p-name">Tubeless-oppsett, ett hjul<small>+ ventiler, felgtape etc ved behov</small></div>
         <div class="p-price">300 kr</div>
       </div>
       <div class="p-row">
+        <div class="p-name">Skifte dekk, begge hjul<small>+ dekk/slanger ved behov</small></div>
+        <div class="p-price">490 kr</div>
+      </div>
+      <div class="p-row">
+        <div class="p-name">Tubeless-oppsett, ett hjul<small>+ ventiler, felgtape etc ved behov</small></div>
+        <div class="p-price">350 kr</div>
+      </div>
+      <div class="p-row">
         <div class="p-name">Tubeless-oppsett, begge hjul<small>+ ventiler, felgtape ved behov</small></div>
-        <div class="p-price">550 kr</div>
+        <div class="p-price">590 kr</div>
       </div>
       <div class="p-row">
         <div class="p-name">Retting av felg<small>Per hjul</small></div>
