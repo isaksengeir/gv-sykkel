@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Galleri fra GV Sykkel: før og etter, voksing av kjede, bremsevedlikehold og service. Sykkelverksted i Tromsø.">
+<title>Galleri – GV Sykkel | Sykkelverksted i Tromsø</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0a0612">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="scroll-progress" id="SP" aria-hidden="true"></div>
+<div class="cursor" id="C"></div>
+<div class="cursor-ring" id="CR"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="index.html">
+    <img class="logo-img" src="logo.png" alt="GV Sykkel logo" width="38" height="38">
+    <div>
+      <div class="nav-logo-name">GV Sykkel</div>
+      <span class="nav-logo-loc">Bjerkaker · Tromsø</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#om-oss">Om meg</a></li>
+    <li><a href="index.html#tjenester">Tjenester</a></li>
+    <li><a href="index.html#prisliste">Prisliste</a></li>
+    <li><a href="galleri.html" aria-current="page">Galleri</a></li>
+    <li><a href="index.html#kontakt" class="nav-cta">Book service</a></li>
+  </ul>
+  <button class="hamburger" id="HB" aria-label="Åpne meny" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<nav class="nav-drawer" id="DW" aria-label="Mobilmeny">
+  <a href="index.html#om-oss">Om meg</a>
+  <a href="index.html#tjenester">Tjenester</a>
+  <a href="index.html#prisliste">Prisliste</a>
+  <a href="galleri.html" aria-current="page">Galleri</a>
+  <a href="index.html#kontakt">Book service</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-head">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <svg class="hero-mountains" viewBox="0 0 1440 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="0,500 200,200 350,350 500,150 650,300 720,80 800,260 950,120 1100,280 1250,160 1440,300 1440,500" fill="rgba(123,47,190,0.5)"/>
+    <polygon points="0,500 150,280 300,400 450,200 600,350 720,100 840,220 1000,180 1150,320 1300,200 1440,320 1440,500" fill="rgba(74,24,130,0.4)"/>
+    <polygon points="0,500 100,380 300,450 500,300 700,420 800,250 1000,380 1200,280 1440,380 1440,500" fill="rgba(20,8,45,0.7)"/>
+  </svg>
+  <div class="particles" id="P" aria-hidden="true"></div>
+  <div class="page-head-content">
+    <p class="hero-eyebrow">Fra verkstedet</p>
+    <h1 class="page-title"><span class="hi">ARBEID</span> &amp; RESULTAT</h1>
+    <p class="page-lead">Litt av det jeg har skrudd på. Før og etter, vedlikehold og service, fra barnesykler til elsykler og landevei.</p>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <div class="container">
+
+    <div class="reveal">
+      <div class="tag">Før &amp; etter</div>
+      <div class="accent-line"></div>
+      <h2 class="h2">SE FORSKJELLEN</h2>
+      <p class="services-sub" style="margin-bottom:2.4rem">De beste resultatene snakker for seg selv. Her er noen sykler som har vært innom.</p>
+    </div>
+
+    <div class="ba-grid reveal">
+      <figure class="ba-card">
+        <img src="media/web/ba-barnesykkel.jpg" alt="Barnesykkel før og etter oppussing" width="1448" height="1086" loading="lazy" data-zoom="media/web/ba-barnesykkel.jpg">
+        <figcaption class="ba-cap">Barnesykkel: fra glemt til som ny</figcaption>
+      </figure>
+      <figure class="ba-card">
+        <img src="media/web/ba-drivverk.jpg" alt="Drivverk og kassett før og etter rens" width="1448" height="1086" loading="lazy" data-zoom="media/web/ba-drivverk.jpg">
+        <figcaption class="ba-cap">Drivverk: før og etter grundig rens</figcaption>
+      </figure>
+    </div>
+
+    <div class="reveal">
+      <div class="tag">I verkstedet</div>
+      <div class="accent-line"></div>
+      <h2 class="h2">HÅNDVERKET</h2>
+      <p class="services-sub" style="margin-bottom:2.4rem">Vedlikehold gjort grundig. Trykk på et bilde for å se det større.</p>
+    </div>
+
+    <div class="gallery-grid reveal">
+      <figure class="gallery-item">
+        <img src="media/web/voksing-kjede.jpg" alt="Voksing av kjede" width="975" height="1300" loading="lazy" data-zoom="media/web/voksing-kjede.jpg">
+        <figcaption class="gallery-cap">Voksing av kjede</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="media/web/kjedemaaling.jpg" alt="Kontroll av kjedeslitasje med måleverktøy" width="1300" height="731" loading="lazy" data-zoom="media/web/kjedemaaling.jpg">
+        <figcaption class="gallery-cap">Kontroll av kjedeslitasje</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="media/web/bremselufting-2.jpg" alt="Lufting av hydrauliske bremser" width="975" height="1300" loading="lazy" data-zoom="media/web/bremselufting-2.jpg">
+        <figcaption class="gallery-cap">Lufting av hydrauliske bremser</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="media/web/elsykkel-stativ.jpg" alt="Elsykkel på arbeidsstativ til full service" width="1300" height="975" loading="lazy" data-zoom="media/web/elsykkel-stativ.jpg">
+        <figcaption class="gallery-cap">Elsykkel inne til full service</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="media/web/bremselufting-1.jpg" alt="Bremsevedlikehold med SRAM bleed-kit" width="975" height="1300" loading="lazy" data-zoom="media/web/bremselufting-1.jpg">
+        <figcaption class="gallery-cap">Bremsevedlikehold (SRAM bleed)</figcaption>
+      </figure>
+      <figure class="gallery-item">
+        <img src="media/web/barnesykkel-ferdig.jpg" alt="Ferdig oppusset barnesykkel" width="975" height="1300" loading="lazy" data-zoom="media/web/barnesykkel-ferdig.jpg">
+        <figcaption class="gallery-cap">Oppusset barnesykkel, klar til bruk</figcaption>
+      </figure>
+    </div>
+
+    <div class="gallery-cta reveal">
+      <h3>Vil du ha sykkelen din i toppform?</h3>
+      <p>Ta kontakt for en uforpliktende prat eller for å avtale service.</p>
+      <a href="index.html#kontakt" class="btn"><span>Book service</span></a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">
+    <img class="logo-img" src="logo.png" alt="GV Sykkel logo" width="30" height="30" loading="lazy">
+    <span>GV Sykkel</span>
+  </div>
+  <span class="foot-tag">"I just want to ride my bike"</span>
+  <div class="foot-social">
+    <a href="tel:+4799242782">992 42 782</a>
+    <a href="https://www.facebook.com/gvsykkel" target="_blank" rel="noopener" aria-label="GV Sykkel på Facebook">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+      <span>Facebook</span>
+    </a>
+  </div>
+  <small>Bjerkakervegen 5, 9006 Tromsø</small>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="LB" aria-hidden="true">
+  <button class="lightbox-close" id="LBC" aria-label="Lukk">×</button>
+  <img id="LBI" src="" alt="">
+</div>
+
+<script src="script.js" defer></script>
+<script>
+(function(){
+  var lb=document.getElementById('LB'),lbi=document.getElementById('LBI'),lbc=document.getElementById('LBC');
+  document.querySelectorAll('img[data-zoom]').forEach(function(el){
+    el.style.cursor='zoom-in';
+    el.addEventListener('click',function(){
+      lbi.src=el.getAttribute('data-zoom');lbi.alt=el.alt;
+      lb.classList.add('open');lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    });
+  });
+  function close(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');lbi.src='';document.body.style.overflow='';}
+  lb.addEventListener('click',function(e){if(e.target!==lbi)close();});
+  lbc.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+</script>
+</body>
+</html>

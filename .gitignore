@@ -1,1 +1,6 @@
 .claude/
+
+# Originale, ukomprimerte mediefiler (HEIC/MP4/store bilder) holdes utenfor repoet.
+# Kun web-optimaliserte versjoner i media/web/ committes.
+media/*
+!media/web/
