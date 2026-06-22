@@ -11,6 +11,34 @@
     });
   }
 
+  // ── Language toggle (NO / EN) ──
+  (function(){
+    var KEY='gv-lang';
+    function apply(lang){
+      document.documentElement.lang=lang;
+      document.querySelectorAll('[data-en]').forEach(function(el){
+        if(el.getAttribute('data-no')===null) el.setAttribute('data-no',el.innerHTML);
+        el.innerHTML = lang==='en' ? el.getAttribute('data-en') : el.getAttribute('data-no');
+      });
+      document.querySelectorAll('[data-en-ph]').forEach(function(el){
+        if(el.getAttribute('data-no-ph')===null) el.setAttribute('data-no-ph',el.getAttribute('placeholder')||'');
+        el.setAttribute('placeholder', lang==='en' ? el.getAttribute('data-en-ph') : el.getAttribute('data-no-ph'));
+      });
+      document.querySelectorAll('.lang-btn').forEach(function(b){
+        var on=b.getAttribute('data-lang')===lang;
+        b.classList.toggle('active',on);
+        b.setAttribute('aria-pressed',on?'true':'false');
+      });
+      try{localStorage.setItem(KEY,lang);}catch(e){}
+    }
+    var init='no';
+    try{var s=localStorage.getItem(KEY); if(s==='en'||s==='no') init=s;}catch(e){}
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      b.addEventListener('click',function(){apply(b.getAttribute('data-lang'));});
+    });
+    apply(init);
+  })();
+
   // ── Nav scroll + progress bar ──
   const nav=document.getElementById('nav'),sp=document.getElementById('SP');
   const onScroll=()=>{

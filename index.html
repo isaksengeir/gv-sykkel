@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="description" content="GV Sykkel: sykkelservice og vedlikehold i Tromsø. Voksing av kjede, gir, bremser, tubeless og full service. Etter avtale.">
-<title>GV Sykkel: Sykkelservice i Tromsø</title>
+<title data-en="GV Sykkel: Bike Service in Tromsø">GV Sykkel: Sykkelservice i Tromsø</title>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -33,21 +33,28 @@
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="#om-oss">Om meg</a></li>
-    <li><a href="#tjenester">Tjenester</a></li>
-    <li><a href="#prisliste">Prisliste</a></li>
-    <li><a href="galleri.html">Galleri</a></li>
+    <li><a href="#om-oss" data-en="About">Om meg</a></li>
+    <li><a href="#tjenester" data-en="Services">Tjenester</a></li>
+    <li><a href="#prisliste" data-en="Prices">Prisliste</a></li>
+    <li><a href="galleri.html" data-en="Gallery">Galleri</a></li>
     <li><a href="#kontakt" class="nav-cta">Book service</a></li>
   </ul>
-  <button class="hamburger" id="HB" aria-label="Åpne meny" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav-actions">
+    <div class="lang-switch" role="group" aria-label="Språk / Language">
+      <button type="button" class="lang-btn" data-lang="no">NO</button>
+      <span class="lang-sep" aria-hidden="true">|</span>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <button class="hamburger" id="HB" aria-label="Åpne meny" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 <nav class="nav-drawer" id="DW" aria-label="Mobilmeny">
-  <a href="#om-oss">Om meg</a>
-  <a href="#tjenester">Tjenester</a>
-  <a href="#prisliste">Prisliste</a>
-  <a href="galleri.html">Galleri</a>
+  <a href="#om-oss" data-en="About">Om meg</a>
+  <a href="#tjenester" data-en="Services">Tjenester</a>
+  <a href="#prisliste" data-en="Prices">Prisliste</a>
+  <a href="galleri.html" data-en="Gallery">Galleri</a>
   <a href="#kontakt">Book service</a>
 </nav>
 
@@ -76,12 +83,12 @@
   <div class="hero-content">
     <div class="wheel-wrap"><svg class="wheel-svg" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="rgba(180,155,225,0.55)" stroke-width="1.5" fill="none" stroke-linecap="round"><line x1="130.0" y1="32.0" x2="130.0" y2="21.0"/><line x1="179.0" y1="45.1" x2="184.5" y2="35.6"/><line x1="214.9" y1="81.0" x2="224.4" y2="75.5"/><line x1="228.0" y1="130.0" x2="239.0" y2="130.0"/><line x1="214.9" y1="179.0" x2="224.4" y2="184.5"/><line x1="179.0" y1="214.9" x2="184.5" y2="224.4"/><line x1="130.0" y1="228.0" x2="130.0" y2="239.0"/><line x1="81.0" y1="214.9" x2="75.5" y2="224.4"/><line x1="45.1" y1="179.0" x2="35.6" y2="184.5"/><line x1="32.0" y1="130.0" x2="21.0" y2="130.0"/><line x1="45.1" y1="81.0" x2="35.6" y2="75.5"/><line x1="81.0" y1="45.1" x2="75.5" y2="35.6"/></g><circle cx="130" cy="130" r="112" fill="none" stroke="rgba(155,135,215,0.32)" stroke-width="1.5"/><circle cx="130" cy="130" r="121" fill="none" stroke="rgba(175,150,225,0.55)" stroke-width="5.5"/></svg><img class="hero-logo logo-img" src="logo.png" alt="GV Sykkel" width="190" height="190"></div>
     <p class="hero-eyebrow">Bjerkakervegen 5 &middot; 9006 Tromsø</p>
-    <h1 class="hero-title">DIN LOKALE<br><span class="hi">SYKKEL</span>MEKANIKER</h1>
+    <h1 class="hero-title" data-en="YOUR LOCAL<br><span class='hi'>BIKE</span> MECHANIC">DIN LOKALE<br><span class="hi">SYKKEL</span>MEKANIKER</h1>
     <p class="hero-quote">"I just want to ride my bike"</p>
-    <p class="hero-sub">Et hobbyprosjekt drevet av ekte glede for sykling, og lyst til å hjelpe deg å holde sykkelen i toppform.</p>
+    <p class="hero-sub" data-en="A hobby project driven by genuine love for cycling, and a wish to help you keep your bike in top shape.">Et hobbyprosjekt drevet av ekte glede for sykling, og lyst til å hjelpe deg å holde sykkelen i toppform.</p>
     <div class="hero-btns">
-      <a href="#tjenester" class="btn"><span>Se tjenester</span></a>
-      <a href="#prisliste" class="btn-ghost">Prisliste</a>
+      <a href="#tjenester" class="btn"><span data-en="View services">Se tjenester</span></a>
+      <a href="#prisliste" class="btn-ghost" data-en="Prices">Prisliste</a>
     </div>
   </div>
   <div class="scroll-cue" aria-hidden="true">
@@ -97,19 +104,19 @@
   <div class="container trust-inner">
     <div class="trust-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.4"/><path d="M12 3v3.6 M12 17.4V21 M3 12h3.6 M17.4 12H21 M5.6 5.6l2.5 2.5 M15.9 15.9l2.5 2.5 M18.4 5.6l-2.5 2.5 M8.1 15.9l-2.5 2.5"/></svg>
-      <span>20+ års<br>sykkelerfaring</span>
+      <span data-en="20+ years<br>of experience">20+ års<br>sykkelerfaring</span>
     </div>
     <div class="trust-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="8.5" width="11" height="7" rx="3.5"/><rect x="11" y="8.5" width="11" height="7" rx="3.5"/><circle cx="6" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1" fill="currentColor" stroke="none"/></svg>
-      <span>Drivverk og<br>voksing av kjede</span>
+      <span data-en="Drivetrain &amp;<br>chain waxing">Drivverk og<br>voksing av kjede</span>
     </div>
     <div class="trust-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><circle cx="12" cy="13" r="2.2"/><path d="M12 5.4v3.4 M12 17.4v3.4 M4.4 13h3.4 M16.6 13h3.4 M6.6 7.6l2.4 2.4 M15 17l2.4 2.4 M17.4 7.6L15 10 M9 17l-2.4 2.4"/><path d="M10.9 5.4V3.6h2.2v1.8"/></svg>
-      <span>Tubeless og<br>hjuloppsett</span>
+      <span data-en="Tubeless &amp;<br>wheel setup">Tubeless og<br>hjuloppsett</span>
     </div>
     <div class="trust-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 9.5h17 M8 3v4 M16 3v4"/><path d="M8.5 14.2l2.2 2.2 4-4.4"/></svg>
-      <span>Alt etter<br>avtale</span>
+      <span data-en="All by<br>appointment">Alt etter<br>avtale</span>
     </div>
   </div>
 </div>
@@ -122,20 +129,20 @@
         <img class="logo-img" src="logo.png" alt="GV Sykkel logo" width="280" height="280" loading="lazy">
       </div>
       <div class="reveal d1">
-        <div class="tag">Om GV Sykkel</div>
+        <div class="tag" data-en="About GV Sykkel">Om GV Sykkel</div>
         <div class="accent-line"></div>
-        <h2 class="h2">LIDENSKAP<br>PÅ TO HJUL</h2>
-        <p class="body-text">GV sykkel er et <strong>lite hobbyprosjekt</strong> drevet av min interesse for sykling. Jeg elsker å sykle, liker å skru, og ønsker å bruke kunnskapen og erfaringen min til å hjelpe andre med service, vedlikehold og klargjøring av sykkel.</p>
-        <p class="body-text">Jeg har holdt på med sykling siden starten av 2000-tallet og har gjennom mange år vært familiens og venners faste sykkelmekaniker. Nå åpner jeg dørene for <strong>flere i Tromsø</strong>.</p>
+        <h2 class="h2" data-en="PASSION<br>ON TWO WHEELS">LIDENSKAP<br>PÅ TO HJUL</h2>
+        <p class="body-text" data-en="GV Sykkel is a <strong>small hobby project</strong> driven by my passion for cycling. I love to ride, I enjoy wrenching, and I want to use my knowledge and experience to help others with service, maintenance and bike preparation.">GV sykkel er et <strong>lite hobbyprosjekt</strong> drevet av min interesse for sykling. Jeg elsker å sykle, liker å skru, og ønsker å bruke kunnskapen og erfaringen min til å hjelpe andre med service, vedlikehold og klargjøring av sykkel.</p>
+        <p class="body-text" data-en="I have been cycling since the early 2000s and have been the regular bike mechanic for family and friends for many years. Now I am opening the doors to <strong>more people in Tromsø</strong>.">Jeg har holdt på med sykling siden starten av 2000-tallet og har gjennom mange år vært familiens og venners faste sykkelmekaniker. Nå åpner jeg dørene for <strong>flere i Tromsø</strong>.</p>
         <div class="pullquote">"I just want to ride my bike"</div>
         <div class="check-list">
-          <div class="check-item"><div class="dot"></div><span>Over 20 år med sykkelerfaring, fra landevei til grus, for store og små</span></div>
-          <div class="check-item"><div class="dot"></div><span>Alle tjenester etter avtale: enkelt, ryddig og forutsigbart</span></div>
-          <div class="check-item"><div class="dot"></div><span>Begrenset kapasitet, fordi jeg prioriterer kvalitet og god dialog</span></div>
-          <div class="check-item"><div class="dot"></div><span>God erfaring med voksing av kjede, for sykler og elsykler</span></div>
-          <div class="check-item"><div class="dot"></div><span>Uforpliktende prat alltid velkommen</span></div>
+          <div class="check-item"><div class="dot"></div><span data-en="Over 20 years of cycling experience, from road to gravel, for young and old">Over 20 år med sykkelerfaring, fra landevei til grus, for store og små</span></div>
+          <div class="check-item"><div class="dot"></div><span data-en="All services by appointment: simple, tidy and predictable">Alle tjenester etter avtale: enkelt, ryddig og forutsigbart</span></div>
+          <div class="check-item"><div class="dot"></div><span data-en="Limited capacity, because I prioritise quality and good dialogue">Begrenset kapasitet, fordi jeg prioriterer kvalitet og god dialog</span></div>
+          <div class="check-item"><div class="dot"></div><span data-en="Solid experience with chain waxing, for bikes and e-bikes">God erfaring med voksing av kjede, for sykler og elsykler</span></div>
+          <div class="check-item"><div class="dot"></div><span data-en="A no-obligation chat is always welcome">Uforpliktende prat alltid velkommen</span></div>
         </div>
-        <a href="#kontakt" class="btn"><span>Ta en prat</span></a>
+        <a href="#kontakt" class="btn"><span data-en="Have a chat">Ta en prat</span></a>
       </div>
     </div>
   </div>
@@ -154,10 +161,10 @@
   <div class="container">
     <div class="services-head reveal">
       <div>
-        <div class="tag">Hva jeg tilbyr</div>
-        <h2 class="h2">TJENESTER</h2>
+        <div class="tag" data-en="What I offer">Hva jeg tilbyr</div>
+        <h2 class="h2" data-en="SERVICES">TJENESTER</h2>
       </div>
-      <p class="services-sub">Vedlikehold og utskifting av drivverk, justering av gir og bremser, vask og klargjøring, samt tubeless-oppsett. Alltid etter avtale, alltid ryddig prosess.</p>
+      <p class="services-sub" data-en="Maintenance and replacement of drivetrain parts, gear and brake adjustment, washing and preparation, plus tubeless setup. Always by appointment, always a tidy process.">Vedlikehold og utskifting av drivverk, justering av gir og bremser, vask og klargjøring, samt tubeless-oppsett. Alltid etter avtale, alltid ryddig prosess.</p>
     </div>
     <div class="grid-3">
       <div class="card reveal">
@@ -168,8 +175,8 @@
           <circle cx="6" cy="12" r="1.1" fill="currentColor" stroke="none"/>
           <circle cx="18" cy="12" r="1.1" fill="currentColor" stroke="none"/>
         </svg>
-        <div class="card-title">Voksing av kjede</div>
-        <p class="card-desc">Voks gir renere drivverk, lavere friksjon og lengre levetid på kjede og kassett. Fungerer på alle typer sykler.</p>
+        <div class="card-title" data-en="Chain waxing">Voksing av kjede</div>
+        <p class="card-desc" data-en="Wax gives a cleaner drivetrain, lower friction and longer life for chain and cassette. Works on all types of bikes.">Voks gir renere drivverk, lavere friksjon og lengre levetid på kjede og kassett. Fungerer på alle typer sykler.</p>
       </div>
       <div class="card reveal">
         <span class="card-num" aria-hidden="true">02</span>
@@ -177,8 +184,8 @@
           <circle cx="12" cy="12" r="3.3"/>
           <path d="M12 2.2v3 M12 18.8v3 M2.2 12h3 M18.8 12h3 M4.9 4.9l2.1 2.1 M16.9 16.9l2.2 2.2 M19.1 4.9l-2.1 2.1 M7.1 16.9l-2.2 2.2"/>
         </svg>
-        <div class="card-title">Gir &amp; Bremser</div>
-        <p class="card-desc">Presis justering slik at sykkelen skifter og bremser som den skal. Skifte av kassett, kjede og bremseklosser, og lufting av hydrauliske bremser.</p>
+        <div class="card-title" data-en="Gears &amp; Brakes">Gir &amp; Bremser</div>
+        <p class="card-desc" data-en="Precise adjustment so the bike shifts and brakes as it should. Replacement of cassette, chain and brake pads, and bleeding of hydraulic brakes.">Presis justering slik at sykkelen skifter og bremser som den skal. Skifte av kassett, kjede og bremseklosser, og lufting av hydrauliske bremser.</p>
       </div>
       <div class="card reveal">
         <span class="card-num" aria-hidden="true">03</span>
@@ -186,8 +193,8 @@
           <path d="M12 3.4c3.3 3.9 5.6 6.8 5.6 9.6a5.6 5.6 0 0 1-11.2 0c0-2.8 2.3-5.7 5.6-9.6z"/>
           <path d="M9.4 12.8a2.6 2.6 0 0 0 2.6 2.6"/>
         </svg>
-        <div class="card-title">Vask &amp; Klargjøring</div>
-        <p class="card-desc">Grundig vask med eller uten avfetting av drivverk. Perfekt til sesongstart eller etter tøffe turer i gjørme og grusk.</p>
+        <div class="card-title" data-en="Wash &amp; Prep">Vask &amp; Klargjøring</div>
+        <p class="card-desc" data-en="Thorough wash with or without degreasing the drivetrain. Perfect for the start of the season or after tough rides in mud and grit.">Grundig vask med eller uten avfetting av drivverk. Perfekt til sesongstart eller etter tøffe turer i gjørme og grusk.</p>
       </div>
       <div class="card reveal">
         <span class="card-num" aria-hidden="true">04</span>
@@ -197,8 +204,8 @@
           <path d="M12 5.2v3.5 M12 17.3V20.8 M4.2 13h3.5 M16.3 13h3.5 M6.5 7.5l2.5 2.5 M15 17l2.5 2.5 M17.5 7.5L15 10 M9 17l-2.5 2.5"/>
           <path d="M10.8 5.2V3.4h2.4v1.8"/>
         </svg>
-        <div class="card-title">Tubeless-oppsett</div>
-        <p class="card-desc">Sett opp tubeless på ett eller begge hjul for punkteringsbeskyttelse og bedre grep i norsk terreng.</p>
+        <div class="card-title" data-en="Tubeless Setup">Tubeless-oppsett</div>
+        <p class="card-desc" data-en="Set up tubeless on one or both wheels for puncture protection and better grip in Norwegian terrain.">Sett opp tubeless på ett eller begge hjul for punkteringsbeskyttelse og bedre grep i norsk terreng.</p>
       </div>
       <div class="card reveal">
         <span class="card-num" aria-hidden="true">05</span>
@@ -207,35 +214,35 @@
           <line x1="15.4" y1="15.4" x2="21" y2="21"/>
           <path d="M7.8 10.6l1.9 1.9 3.4-4"/>
         </svg>
-        <div class="card-title">Teknisk Gjennomgang</div>
-        <p class="card-desc">Rask teknisk kontroll som identifiserer hva som trenger oppmerksomhet før det blir et større problem.</p>
+        <div class="card-title" data-en="Technical Check">Teknisk Gjennomgang</div>
+        <p class="card-desc" data-en="A quick technical inspection that identifies what needs attention before it becomes a bigger problem.">Rask teknisk kontroll som identifiserer hva som trenger oppmerksomhet før det blir et større problem.</p>
       </div>
       <div class="card reveal">
         <span class="card-num" aria-hidden="true">06</span>
         <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
         </svg>
-        <div class="card-title">Full Service</div>
-        <p class="card-desc">Komplett gjennomgang av sykkelen. Alt sjekkes, justeres og smøres, så sykkelen går som ny.</p>
+        <div class="card-title" data-en="Full Service">Full Service</div>
+        <p class="card-desc" data-en="A complete overhaul of the bike. Everything is checked, adjusted and lubricated, so the bike runs like new.">Komplett gjennomgang av sykkelen. Alt sjekkes, justeres og smøres, så sykkelen går som ny.</p>
       </div>
     </div>
 
     <!-- WAX SPOTLIGHT -->
     <div class="wax-spot reveal">
       <div>
-        <h3>⚡ Voksing av kjede,<br>også aktuelt for elsykler!</h3>
-        <p>Tromsø ser en eksplosiv vekst i elsykler, og for tunge elsykler er et rent, vokset kjede ekstra viktig. Høyere moment gir raskere slitasje på et ubehandlet kjede. Voks reduserer friksjon, samler mindre smuss og forlenger levetiden på både kjede, kassett og bakgir betraktelig.</p>
+        <h3 data-en="⚡ Chain waxing,<br>great for e-bikes too!">⚡ Voksing av kjede,<br>også aktuelt for elsykler!</h3>
+        <p data-en="Tromsø is seeing explosive growth in e-bikes, and for heavy e-bikes a clean, waxed chain matters even more. Higher torque wears an untreated chain faster. Wax reduces friction, collects less dirt and significantly extends the life of the chain, cassette and rear derailleur.">Tromsø ser en eksplosiv vekst i elsykler, og for tunge elsykler er et rent, vokset kjede ekstra viktig. Høyere moment gir raskere slitasje på et ubehandlet kjede. Voks reduserer friksjon, samler mindre smuss og forlenger levetiden på både kjede, kassett og bakgir betraktelig.</p>
         <div class="wax-tags">
-          <span class="wax-tag">Elsykkel</span>
-          <span class="wax-tag">Landevei</span>
+          <span class="wax-tag" data-en="E-bike">Elsykkel</span>
+          <span class="wax-tag" data-en="Road">Landevei</span>
           <span class="wax-tag">Gravel</span>
           <span class="wax-tag">MTB</span>
         </div>
       </div>
       <div>
-        <p style="font-size:.95rem;color:var(--text);line-height:1.72;">Vokset kjede er ikke bare for racing. Det er rett og slett bedre vedlikehold, og sparer deg for tid og penger på sikt. Ta kontakt om du vil vite mer om hva som passer for din sykkel.</p>
+        <p style="font-size:.95rem;color:var(--text);line-height:1.72;" data-en="A waxed chain isn't just for racing. It's simply better maintenance, and saves you time and money in the long run. Get in touch if you want to know more about what suits your bike.">Vokset kjede er ikke bare for racing. Det er rett og slett bedre vedlikehold, og sparer deg for tid og penger på sikt. Ta kontakt om du vil vite mer om hva som passer for din sykkel.</p>
         <br>
-        <a href="#kontakt" class="btn" style="margin-top:.5rem"><span>Spør meg om voksing</span></a>
+        <a href="#kontakt" class="btn" style="margin-top:.5rem"><span data-en="Ask me about waxing">Spør meg om voksing</span></a>
       </div>
     </div>
   </div>
@@ -247,21 +254,21 @@
 <section class="boundaries" id="apent">
   <div class="container">
     <div class="boundaries-card reveal">
-      <div class="tag">Med åpne kort</div>
-      <h2 class="h2">MITT FOKUS</h2>
-      <p class="boundaries-intro">Jeg er en hobbymekaniker med stor lidenskap, men noen oppgaver er andre aktører i Tromsø bedre rustet for. Når du trenger spesialisert hjelp eller reklamasjon på sykler kjøpt et annet sted, anbefaler jeg deg å gå dit i stedet. Det er den ærlige veien.</p>
+      <div class="tag" data-en="Straight talk">Med åpne kort</div>
+      <h2 class="h2" data-en="MY FOCUS">MITT FOKUS</h2>
+      <p class="boundaries-intro" data-en="I'm a hobby mechanic with great passion, but some jobs are better handled by other shops in Tromsø. When you need specialised help or a warranty claim on bikes bought elsewhere, I recommend you go there instead. That's the honest way.">Jeg er en hobbymekaniker med stor lidenskap, men noen oppgaver er andre aktører i Tromsø bedre rustet for. Når du trenger spesialisert hjelp eller reklamasjon på sykler kjøpt et annet sted, anbefaler jeg deg å gå dit i stedet. Det er den ærlige veien.</p>
       <div class="boundaries-grid">
         <div class="boundaries-col">
-          <h4>Dette tar jeg ikke på meg</h4>
+          <h4 data-en="What I don't take on">Dette tar jeg ikke på meg</h4>
           <ul class="boundaries-list">
-            <li>Reparasjon av elmotor og batteri</li>
-            <li>Service og overhaling av dempegaffel</li>
-            <li>Reparasjon av skadet ramme</li>
-            <li>Reklamasjon på sykler kjøpt hos andre</li>
+            <li data-en="Repair of e-motors and batteries">Reparasjon av elmotor og batteri</li>
+            <li data-en="Service and overhaul of suspension forks">Service og overhaling av dempegaffel</li>
+            <li data-en="Repair of damaged frames">Reparasjon av skadet ramme</li>
+            <li data-en="Warranty claims on bikes bought elsewhere">Reklamasjon på sykler kjøpt hos andre</li>
           </ul>
         </div>
       </div>
-      <p class="boundaries-outro">Det jeg gjør, gjør jeg grundig. Begrenset kapasitet betyr at hver sykkel får den tiden den trenger, og at du får en ærlig dialog underveis.</p>
+      <p class="boundaries-outro" data-en="What I do, I do thoroughly. Limited capacity means each bike gets the time it needs, and that you get an honest dialogue along the way.">Det jeg gjør, gjør jeg grundig. Begrenset kapasitet betyr at hver sykkel får den tiden den trenger, og at du får en ærlig dialog underveis.</p>
     </div>
   </div>
 </section>
@@ -278,69 +285,69 @@
   </svg>
   <div class="container">
     <div class="reveal">
-      <div class="tag">Transparente priser</div>
+      <div class="tag" data-en="Transparent prices">Transparente priser</div>
       <div class="accent-line"></div>
-      <h2 class="h2">PRISLISTE</h2>
-      <p class="price-note">Alle priser gjelder arbeid. Deler og forbruksmateriell kommer i tillegg der det er aktuelt.</p>
+      <h2 class="h2" data-en="PRICE LIST">PRISLISTE</h2>
+      <p class="price-note" data-en="All prices are for labour. Parts and consumables come in addition where applicable.">Alle priser gjelder arbeid. Deler og forbruksmateriell kommer i tillegg der det er aktuelt.</p>
     </div>
     <div class="grid-prices reveal">
       <div class="p-row p-featured">
-        <div class="p-name">Voksing av kjede<small>Renere drivverk for alle sykkeltyper</small></div>
+        <div class="p-name" data-en="Chain waxing<small>Cleaner drivetrain for all bike types</small>">Voksing av kjede<small>Renere drivverk for alle sykkeltyper</small></div>
         <div class="p-price">300 kr</div>
       </div>
       <div class="p-row p-featured">
-        <div class="p-name">Avfetting av kjede før voksing<small>Tillegg, anbefalt for nye kjeder</small></div>
+        <div class="p-name" data-en="Degreasing before waxing<small>Add-on, recommended for new chains</small>">Avfetting av kjede før voksing<small>Tillegg, anbefalt for nye kjeder</small></div>
         <div class="p-price">+100 kr</div>
       </div>
-      <div class="p-row"><div class="p-name">Justering av gir</div><div class="p-price">290 kr</div></div>
-      <div class="p-row"><div class="p-name">Skifte kjede</div><div class="p-price">250 kr</div></div>
-      <div class="p-row"><div class="p-name">Skifte kassett</div><div class="p-price">250 kr</div></div>
+      <div class="p-row"><div class="p-name" data-en="Gear adjustment">Justering av gir</div><div class="p-price">290 kr</div></div>
+      <div class="p-row"><div class="p-name" data-en="Chain replacement">Skifte kjede</div><div class="p-price">250 kr</div></div>
+      <div class="p-row"><div class="p-name" data-en="Cassette replacement">Skifte kassett</div><div class="p-price">250 kr</div></div>
       <div class="p-row">
-        <div class="p-name">Skifte dekk, ett hjul<small>+ dekk/slange ved behov</small></div>
+        <div class="p-name" data-en="Tyre change, one wheel<small>+ tyre/tube if needed</small>">Skifte dekk, ett hjul<small>+ dekk/slange ved behov</small></div>
         <div class="p-price">300 kr</div>
       </div>
       <div class="p-row">
-        <div class="p-name">Skifte dekk, begge hjul<small>+ dekk/slanger ved behov</small></div>
+        <div class="p-name" data-en="Tyre change, both wheels<small>+ tyres/tubes if needed</small>">Skifte dekk, begge hjul<small>+ dekk/slanger ved behov</small></div>
         <div class="p-price">490 kr</div>
       </div>
       <div class="p-row">
-        <div class="p-name">Tubeless-oppsett, ett hjul<small>+ ventiler, felgtape etc ved behov</small></div>
+        <div class="p-name" data-en="Tubeless setup, one wheel<small>+ valves, rim tape etc. if needed</small>">Tubeless-oppsett, ett hjul<small>+ ventiler, felgtape etc ved behov</small></div>
         <div class="p-price">350 kr</div>
       </div>
       <div class="p-row">
-        <div class="p-name">Tubeless-oppsett, begge hjul<small>+ ventiler, felgtape ved behov</small></div>
+        <div class="p-name" data-en="Tubeless setup, both wheels<small>+ valves, rim tape if needed</small>">Tubeless-oppsett, begge hjul<small>+ ventiler, felgtape ved behov</small></div>
         <div class="p-price">590 kr</div>
       </div>
       <div class="p-row">
-        <div class="p-name">Retting av felg<small>Per hjul</small></div>
-        <div class="p-price">fra 399 kr</div>
+        <div class="p-name" data-en="Wheel truing<small>Per wheel</small>">Retting av felg<small>Per hjul</small></div>
+        <div class="p-price" data-en="from 399 kr">fra 399 kr</div>
       </div>
-      <div class="p-row"><div class="p-name">Vask av sykkel</div><div class="p-price">250 kr</div></div>
-      <div class="p-row"><div class="p-name">Vask inkl. avfetting drivverk</div><div class="p-price">350 kr</div></div>
+      <div class="p-row"><div class="p-name" data-en="Bike wash">Vask av sykkel</div><div class="p-price">250 kr</div></div>
+      <div class="p-row"><div class="p-name" data-en="Wash incl. drivetrain degreasing">Vask inkl. avfetting drivverk</div><div class="p-price">350 kr</div></div>
       <div class="p-row">
-        <div class="p-name">Skifte bremseklosser, én brems<small>+ bremseklosser</small></div>
+        <div class="p-name" data-en="Brake pad change, one brake<small>+ brake pads</small>">Skifte bremseklosser, én brems<small>+ bremseklosser</small></div>
         <div class="p-price">250 kr</div>
       </div>
       <div class="p-row">
-        <div class="p-name">Skifte bremseklosser, foran + bak<small>+ bremseklosser</small></div>
+        <div class="p-name" data-en="Brake pad change, front + rear<small>+ brake pads</small>">Skifte bremseklosser, foran + bak<small>+ bremseklosser</small></div>
         <div class="p-price">450 kr</div>
       </div>
       <div class="p-row">
-        <div class="p-name">Lufting av hydrauliske bremser, én brems<small>Inkl. bremseolje</small></div>
+        <div class="p-name" data-en="Hydraulic brake bleed, one brake<small>Incl. brake fluid</small>">Lufting av hydrauliske bremser, én brems<small>Inkl. bremseolje</small></div>
         <div class="p-price">490 kr</div>
       </div>
       <div class="p-row">
-        <div class="p-name">Lufting av hydrauliske bremser, foran + bak<small>Inkl. bremseolje</small></div>
+        <div class="p-name" data-en="Hydraulic brake bleed, front + rear<small>Incl. brake fluid</small>">Lufting av hydrauliske bremser, foran + bak<small>Inkl. bremseolje</small></div>
         <div class="p-price">790 kr</div>
       </div>
-      <div class="p-row"><div class="p-name">Teknisk gjennomgang / kontroll</div><div class="p-price">150 kr</div></div>
+      <div class="p-row"><div class="p-name" data-en="Technical check / inspection">Teknisk gjennomgang / kontroll</div><div class="p-price">150 kr</div></div>
       <div class="p-row p-featured">
-        <div class="p-name">Montering/klargjøring av sykkel kjøpt på nett<small>Sykkel i eske, montert og justert klar til bruk</small></div>
-        <div class="p-price">fra 590 kr</div>
+        <div class="p-name" data-en="Assembly of bike bought online<small>Boxed bike, assembled and adjusted ready to ride</small>">Montering/klargjøring av sykkel kjøpt på nett<small>Sykkel i eske, montert og justert klar til bruk</small></div>
+        <div class="p-price" data-en="from 590 kr">fra 590 kr</div>
       </div>
       <div class="p-row p-featured">
-        <div class="p-name">Full service<small>+ deler ved behov</small></div>
-        <div class="p-price">fra 990 kr</div>
+        <div class="p-name" data-en="Full service<small>+ parts if needed</small>">Full service<small>+ deler ved behov</small></div>
+        <div class="p-price" data-en="from 990 kr">fra 990 kr</div>
       </div>
     </div>
   </div>
@@ -353,24 +360,24 @@
   <div class="container">
     <div class="contact-grid">
       <div class="reveal">
-        <div class="tag">Kom i gang</div>
+        <div class="tag" data-en="Get started">Kom i gang</div>
         <div class="accent-line"></div>
         <h2 class="h2">BOOK<br>SERVICE</h2>
-        <p style="font-size:1rem;line-height:1.7;color:var(--text);margin-top:.4rem">Ta gjerne kontakt for en uforpliktende prat eller for å avtale service. Svarer så fort jeg kan!</p>
+        <p style="font-size:1rem;line-height:1.7;color:var(--text);margin-top:.4rem" data-en="Feel free to get in touch for a no-obligation chat or to book a service. I'll reply as soon as I can!">Ta gjerne kontakt for en uforpliktende prat eller for å avtale service. Svarer så fort jeg kan!</p>
         <div class="info-list">
           <a class="info-item info-item-link" href="tel:+4799242782">
             <div class="info-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             </div>
             <div>
-              <div class="info-label">Telefon</div>
+              <div class="info-label" data-en="Phone">Telefon</div>
               <div class="info-val">992 42 782</div>
             </div>
           </a>
           <div class="info-item">
             <div class="info-icon" aria-hidden="true">📍</div>
             <div>
-              <div class="info-label">Adresse</div>
+              <div class="info-label" data-en="Address">Adresse</div>
               <div class="info-val">Bjerkakervegen 5<br>9006 Tromsø</div>
             </div>
           </div>
@@ -378,14 +385,14 @@
             <div class="info-icon" aria-hidden="true">📅</div>
             <div>
               <div class="info-label">Booking</div>
-              <div class="info-val">Alle tjenester etter avtale.<br>Send melding, så finner vi en tid.</div>
+              <div class="info-val" data-en="All services by appointment.<br>Send a message and we'll find a time.">Alle tjenester etter avtale.<br>Send melding, så finner vi en tid.</div>
             </div>
           </div>
           <div class="info-item">
             <div class="info-icon" aria-hidden="true">💬</div>
             <div>
-              <div class="info-label">Uforpliktende</div>
-              <div class="info-val">Usikker på hva sykkelen trenger?<br>Bare spør, det koster ingenting.</div>
+              <div class="info-label" data-en="No obligation">Uforpliktende</div>
+              <div class="info-val" data-en="Not sure what your bike needs?<br>Just ask, it costs nothing.">Usikker på hva sykkelen trenger?<br>Bare spør, det koster ingenting.</div>
             </div>
           </div>
         </div>
@@ -394,8 +401,8 @@
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
           </span>
           <span class="social-text">
-            <span class="social-label">Følg oss</span>
-            <span class="social-handle">GV Sykkel på Facebook</span>
+            <span class="social-label" data-en="Follow us">Følg oss</span>
+            <span class="social-handle" data-en="GV Sykkel on Facebook">GV Sykkel på Facebook</span>
           </span>
           <span class="social-arrow" aria-hidden="true">→</span>
         </a>
@@ -404,33 +411,33 @@
         <form class="form" action="https://formspree.io/f/xrejbdbd" method="POST" novalidate>
           <div class="f-row">
             <div class="f-group">
-              <label class="f-label" for="fn">Fornavn</label>
-              <input class="f-input" type="text" id="fn" name="fornavn" placeholder="Ola" required>
+              <label class="f-label" for="fn" data-en="First name">Fornavn</label>
+              <input class="f-input" type="text" id="fn" name="fornavn" placeholder="Ola" data-en-ph="John" required>
             </div>
             <div class="f-group">
-              <label class="f-label" for="ln">Etternavn</label>
-              <input class="f-input" type="text" id="ln" name="etternavn" placeholder="Nordmann">
+              <label class="f-label" for="ln" data-en="Last name">Etternavn</label>
+              <input class="f-input" type="text" id="ln" name="etternavn" placeholder="Nordmann" data-en-ph="Doe">
             </div>
           </div>
           <div class="f-row">
             <div class="f-group">
-              <label class="f-label" for="em">E-post</label>
-              <input class="f-input" type="email" id="em" name="email" placeholder="ola@example.no" required>
+              <label class="f-label" for="em" data-en="Email">E-post</label>
+              <input class="f-input" type="email" id="em" name="email" placeholder="ola@example.no" data-en-ph="john@example.com" required>
             </div>
             <div class="f-group">
-              <label class="f-label" for="ph">Telefon</label>
+              <label class="f-label" for="ph" data-en="Phone">Telefon</label>
               <input class="f-input" type="tel" id="ph" name="telefon" placeholder="000 00 000" autocomplete="tel">
             </div>
           </div>
           <div class="f-group">
-            <label class="f-label" for="bk">Type sykkel</label>
-            <input class="f-input" type="text" id="bk" name="sykkel" placeholder="F.eks. elsykkel, MTB, landevei...">
+            <label class="f-label" for="bk" data-en="Type of bike">Type sykkel</label>
+            <input class="f-input" type="text" id="bk" name="sykkel" placeholder="F.eks. elsykkel, MTB, landevei..." data-en-ph="E.g. e-bike, MTB, road...">
           </div>
           <div class="f-group">
-            <label class="f-label" for="ms">Hva trenger du hjelp med?</label>
-            <textarea class="f-area" id="ms" name="melding" placeholder="Beskriv hva som er galt, eller hvilken tjeneste du ønsker..." required></textarea>
+            <label class="f-label" for="ms" data-en="What do you need help with?">Hva trenger du hjelp med?</label>
+            <textarea class="f-area" id="ms" name="melding" placeholder="Beskriv hva som er galt, eller hvilken tjeneste du ønsker..." data-en-ph="Describe what's wrong, or which service you'd like..." required></textarea>
           </div>
-          <button type="submit" class="f-submit">Send forespørsel →</button>
+          <button type="submit" class="f-submit" data-en="Send request →">Send forespørsel →</button>
         </form>
       </div>
     </div>

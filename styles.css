@@ -148,6 +148,22 @@ nav.scrolled{
 .nav-cta:hover{background:var(--purple-hi)!important}
 .nav-cta::after{display:none!important}
 
+.nav-actions{display:flex;align-items:center;gap:.85rem}
+.lang-switch{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:'Barlow Condensed',sans-serif;
+}
+.lang-btn{
+  background:none;border:none;
+  font-family:inherit;font-size:.85rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);
+  padding:.2rem .1rem;transition:color .2s;
+}
+.lang-btn:hover{color:var(--white)}
+.lang-btn.active{color:var(--purple-hi)}
+.lang-btn:focus-visible{outline:2px solid var(--purple-hi);outline-offset:2px}
+.lang-sep{color:var(--border);font-size:.8rem}
+
 .hamburger{
   display:none;flex-direction:column;gap:5px;
   width:44px;height:44px;align-items:center;justify-content:center;
