@@ -11,6 +11,43 @@
     });
   }
 
+  // ── "Aktuelt"-stripe (rediger STATUS for å oppdatere alle sider) ──
+  var STATUS = {
+    show: true,
+    no: 'Sommerferie 13. juli til 2. august. Book gjerne time før eller etter!',
+    en: 'Summer holiday 13 July to 2 August. Feel free to book before or after!'
+  };
+  (function(){
+    if(!STATUS.show) return;
+    var KEY='gv-status-dismissed';
+    try{ if(localStorage.getItem(KEY)===STATUS.no) return; }catch(e){}
+    var bar=document.createElement('div');
+    bar.className='status-bar';
+    bar.setAttribute('role','status');
+    var msg=document.createElement('span');
+    msg.className='status-msg';
+    msg.setAttribute('data-en',STATUS.en);
+    msg.innerHTML=STATUS.no;
+    var btn=document.createElement('button');
+    btn.type='button';
+    btn.className='status-close';
+    btn.setAttribute('aria-label','Lukk');
+    btn.innerHTML='&times;';
+    btn.addEventListener('click',function(){
+      try{localStorage.setItem(KEY,STATUS.no);}catch(e){}
+      bar.remove();
+      document.documentElement.classList.remove('has-status');
+      document.documentElement.style.removeProperty('--status-h');
+    });
+    bar.appendChild(msg);
+    bar.appendChild(btn);
+    document.body.insertBefore(bar,document.body.firstChild);
+    document.documentElement.classList.add('has-status');
+    var setH=function(){document.documentElement.style.setProperty('--status-h',bar.offsetHeight+'px');};
+    setH();
+    window.addEventListener('resize',setH,{passive:true});
+  })();
+
   // ── Language toggle (NO / EN) ──
   (function(){
     var KEY='gv-lang';
