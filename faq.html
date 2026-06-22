@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Spørsmål og svar om GV Sykkel: booking, tjenester, voksing av kjede, priser og betaling. Sykkelverksted i Tromsø.">
+<title data-en="Q&amp;A – GV Sykkel | Bike Workshop in Tromsø">Spørsmål og svar – GV Sykkel | Sykkelverksted i Tromsø</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0a0612">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="scroll-progress" id="SP" aria-hidden="true"></div>
+<div class="cursor" id="C"></div>
+<div class="cursor-ring" id="CR"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="index.html">
+    <img class="logo-img" src="logo.png" alt="GV Sykkel logo" width="38" height="38">
+    <div>
+      <div class="nav-logo-name">GV Sykkel</div>
+      <span class="nav-logo-loc">Bjerkaker · Tromsø</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#om-oss" data-en="About">Om meg</a></li>
+    <li><a href="index.html#tjenester" data-en="Services">Tjenester</a></li>
+    <li><a href="index.html#prisliste" data-en="Prices">Prisliste</a></li>
+    <li><a href="galleri.html" data-en="Gallery">Galleri</a></li>
+    <li><a href="faq.html" aria-current="page">FAQ</a></li>
+    <li><a href="index.html#kontakt" class="nav-cta">Book service</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div class="lang-switch" role="group" aria-label="Språk / Language">
+      <button type="button" class="lang-btn" data-lang="no">NO</button>
+      <span class="lang-sep" aria-hidden="true">|</span>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <button class="hamburger" id="HB" aria-label="Åpne meny" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<nav class="nav-drawer" id="DW" aria-label="Mobilmeny">
+  <a href="index.html#om-oss" data-en="About">Om meg</a>
+  <a href="index.html#tjenester" data-en="Services">Tjenester</a>
+  <a href="index.html#prisliste" data-en="Prices">Prisliste</a>
+  <a href="galleri.html" data-en="Gallery">Galleri</a>
+  <a href="faq.html" aria-current="page">FAQ</a>
+  <a href="index.html#kontakt">Book service</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-head">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <svg class="hero-mountains" viewBox="0 0 1440 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="0,500 200,200 350,350 500,150 650,300 720,80 800,260 950,120 1100,280 1250,160 1440,300 1440,500" fill="rgba(123,47,190,0.5)"/>
+    <polygon points="0,500 150,280 300,400 450,200 600,350 720,100 840,220 1000,180 1150,320 1300,200 1440,320 1440,500" fill="rgba(74,24,130,0.4)"/>
+    <polygon points="0,500 100,380 300,450 500,300 700,420 800,250 1000,380 1200,280 1440,380 1440,500" fill="rgba(20,8,45,0.7)"/>
+  </svg>
+  <div class="particles" id="P" aria-hidden="true"></div>
+  <div class="page-head-content">
+    <p class="hero-eyebrow" data-en="Common questions">Vanlige spørsmål</p>
+    <h1 class="page-title" data-en="QUESTIONS <span class='hi'>&amp; ANSWERS</span>">SPØRSMÅL <span class="hi">&amp; SVAR</span></h1>
+    <p class="page-lead" data-en="Quick answers to what people ask most. If you can't find your answer, just get in touch.">Korte svar på det folk oftest lurer på. Finner du ikke svaret, er det bare å ta kontakt.</p>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+
+    <div class="faq-search reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <input type="search" id="FQ" class="faq-input" placeholder="Søk i spørsmål..." data-en-ph="Search questions..." aria-label="Søk i spørsmål og svar" autocomplete="off">
+    </div>
+
+    <div class="faq-cat reveal">
+      <h2 class="faq-cat-title" data-en="Booking &amp; practical">Booking og praktisk</h2>
+      <details class="faq-item">
+        <summary><span data-en="How do I book?">Hvordan bestiller jeg time?</span></summary>
+        <div class="faq-a" data-en="Everything is by appointment. Call or text 992 42 782, message me on Facebook, or use the contact form, and we'll find a time together.">Alt skjer etter avtale. Ring eller send melding til 992 42 782, ta kontakt på Facebook, eller bruk kontaktskjemaet, så finner vi en tid sammen.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span data-en="Where are you located?">Hvor holder du til?</span></summary>
+        <div class="faq-a" data-en="Bjerkakervegen 5, 9006 Tromsø (Bjerkaker). By appointment only.">Bjerkakervegen 5, 9006 Tromsø (Bjerkaker). Kun etter avtale.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span data-en="Do you have fixed opening hours?">Har du faste åpningstider?</span></summary>
+        <div class="faq-a" data-en="No. This is a hobby project with limited capacity, so everything is arranged individually, often in the evenings and at weekends.">Nei. Dette er et hobbyprosjekt med begrenset kapasitet, så alt avtales individuelt, ofte på kveldstid og i helger.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span data-en="Do you take a summer holiday?">Har du sommerferie?</span></summary>
+        <div class="faq-a" data-en="Yes, I take a holiday every summer. Check Facebook for the current dates.">Ja, jeg tar ferie hver sommer. Følg med på Facebook for gjeldende datoer.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span data-en="How long does a job take?">Hvor lang tid tar en jobb?</span></summary>
+        <div class="faq-a" data-en="It depends on the job. We agree on timing when you book.">Det varierer med oppdraget. Vi avtaler tidsbruk når du booker.</div>
+      </details>
+    </div>
+
+    <div class="faq-cat reveal">
+      <h2 class="faq-cat-title" data-en="Services">Tjenester</h2>
+      <details class="faq-item">
+        <summary><span data-en="What kinds of bikes do you work on?">Hva slags sykler jobber du med?</span></summary>
+        <div class="faq-a" data-en="Road, gravel, mountain, hybrid, kids' bikes and e-bikes. Big and small are equally welcome.">Landevei, gravel, terreng, hybrid, barnesykler og elsykler. Store og små er like velkomne.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span data-en="Do you work on e-bikes?">Jobber du på elsykler?</span></summary>
+        <div class="faq-a" data-en="Yes, I do service, drivetrain, brakes and waxing on e-bikes. But I don't repair the e-motor or battery itself.">Ja, jeg gjør service, drivverk, bremser og voksing på elsykler. Men jeg reparerer ikke selve elmotoren eller batteriet.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span data-en="Is there anything you don't take on?">Er det noe du ikke tar på deg?</span></summary>
+        <div class="faq-a" data-en="Yes. I don't do e-motor or battery repair, suspension fork service, frame repair, or warranty claims on bikes bought elsewhere. For those I recommend a specialised workshop.">Ja. Jeg gjør ikke reparasjon av elmotor og batteri, service av dempegaffel, rammereparasjon, eller reklamasjon på sykler kjøpt hos andre. Da anbefaler jeg et spesialisert verksted.</div>
+      </details>
+    </div>
+
+    <div class="faq-cat reveal">
+      <h2 class="faq-cat-title" data-en="Chain waxing">Voksing av kjede</h2>
+      <details class="faq-item">
+        <summary><span data-en="What is chain waxing, and why?">Hva er voksing av kjede, og hvorfor?</span></summary>
+        <div class="faq-a" data-en="The chain is cleaned and treated with wax instead of oil. It gives a cleaner drivetrain, lower friction and longer life for the chain, cassette and rear derailleur. Especially worth it for heavy e-bikes.">Kjedet rengjøres og behandles med voks i stedet for olje. Det gir renere drivverk, lavere friksjon og lengre levetid på kjede, kassett og bakgir. Ekstra verdt det for tunge elsykler.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span data-en="Can you wax a chain I've already used?">Kan du vokse et kjede jeg har brukt en stund?</span></summary>
+        <div class="faq-a" data-en="Yes, but it has to be degreased thoroughly first (add-on 100 kr). You'll get the best result on a new or clean chain.">Ja, men det må avfettes grundig først (tillegg 100 kr). Best resultat får du på et nytt eller rent kjede.</div>
+      </details>
+    </div>
+
+    <div class="faq-cat reveal">
+      <h2 class="faq-cat-title" data-en="Price &amp; payment">Pris og betaling</h2>
+      <details class="faq-item">
+        <summary><span data-en="What does it cost?">Hva koster det?</span></summary>
+        <div class="faq-a" data-en="See the <a href='index.html#prisliste'>price list</a> for labour. Prices are for labour; parts and consumables come in addition where needed.">Se <a href="index.html#prisliste">prislista</a> for arbeidet. Prisene gjelder arbeid; deler og forbruksmateriell kommer i tillegg der det trengs.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span data-en="How do I pay?">Hvordan betaler jeg?</span></summary>
+        <div class="faq-a" data-en="You can pay by Vipps or cash.">Du kan betale med Vipps eller kontant.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span data-en="Are parts included in the price?">Er deler inkludert i prisen?</span></summary>
+        <div class="faq-a" data-en="No, prices are for labour. Parts and consumables come in addition.">Nei, prisene er for arbeid. Deler og forbruksmateriell kommer i tillegg.</div>
+      </details>
+    </div>
+
+    <div class="faq-cat reveal">
+      <h2 class="faq-cat-title" data-en="Other">Annet</h2>
+      <details class="faq-item">
+        <summary><span data-en="Does the bike need to be clean when I drop it off?">Må sykkelen være ren når jeg leverer?</span></summary>
+        <div class="faq-a" data-en="It helps, but it's not required. I also offer washing if you'd like.">Det hjelper, men er ikke et krav. Jeg tilbyr også vask hvis du ønsker.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span data-en="Can I get advice without booking?">Kan jeg få råd uten å bestille?</span></summary>
+        <div class="faq-a" data-en="Yes, a no-obligation chat costs nothing. If you're unsure what your bike needs, just ask.">Ja, en uforpliktende prat koster ingenting. Er du usikker på hva sykkelen trenger, bare spør.</div>
+      </details>
+    </div>
+
+    <p class="faq-noresult" id="FNR" data-en="No questions match your search." hidden>Ingen spørsmål matcher søket.</p>
+
+    <div class="gallery-cta reveal">
+      <h3 data-en="Didn't find your answer?">Fant du ikke svaret?</h3>
+      <p data-en="Get in touch and I'll help you out.">Ta kontakt, så hjelper jeg deg.</p>
+      <a href="index.html#kontakt" class="btn"><span>Book service</span></a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">
+    <img class="logo-img" src="logo.png" alt="GV Sykkel logo" width="30" height="30" loading="lazy">
+    <span>GV Sykkel</span>
+  </div>
+  <span class="foot-tag">"I just want to ride my bike"</span>
+  <div class="foot-social">
+    <a href="tel:+4799242782">992 42 782</a>
+    <a href="https://www.facebook.com/gvsykkel" target="_blank" rel="noopener" aria-label="GV Sykkel på Facebook">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+      <span>Facebook</span>
+    </a>
+  </div>
+  <small>Bjerkakervegen 5, 9006 Tromsø</small>
+</footer>
+
+<script src="script.js" defer></script>
+<script>
+(function(){
+  var input=document.getElementById('FQ');
+  if(!input) return;
+  var items=[].slice.call(document.querySelectorAll('.faq-item'));
+  var cats=[].slice.call(document.querySelectorAll('.faq-cat'));
+  var nores=document.getElementById('FNR');
+  function run(){
+    var q=(input.value||'').toLowerCase().trim();
+    var any=false;
+    items.forEach(function(it){
+      var match = q==='' || it.textContent.toLowerCase().indexOf(q)!==-1;
+      it.style.display = match ? '' : 'none';
+      it.open = (match && q!=='');
+      if(match) any=true;
+    });
+    cats.forEach(function(cat){
+      var visible = [].slice.call(cat.querySelectorAll('.faq-item')).some(function(it){return it.style.display!=='none';});
+      cat.style.display = visible ? '' : 'none';
+    });
+    if(nores) nores.hidden = any;
+  }
+  input.addEventListener('input', run);
+  // Re-run filter after a language switch so matching keeps working in both languages
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click', function(){ if(input.value.trim()!=='') run(); });
+  });
+})();
+</script>
+</body>
+</html>
