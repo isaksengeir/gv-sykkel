@@ -14,11 +14,17 @@
   // ── "Aktuelt"-stripe (rediger STATUS for å oppdatere alle sider) ──
   var STATUS = {
     show: true,
+    from:  '',            // valgfri: vis FRA og med denne datoen (ÅÅÅÅ-MM-DD). Tom = vis med en gang.
+    until: '2026-08-02',  // valgfri: vis TIL og med denne datoen, skjules dagen etter. Tom = ingen utløp.
     no: 'Sommerferie 13. juli til 2. august. Book gjerne time før eller etter!',
     en: 'Summer holiday 13 July to 2 August. Feel free to book before or after!'
   };
   (function(){
     if(!STATUS.show) return;
+    function parseDate(s){var p=String(s).split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+    var now=new Date();
+    if(STATUS.from && now < parseDate(STATUS.from)) return;            // ikke startet ennå
+    if(STATUS.until){ var u=parseDate(STATUS.until); u.setHours(23,59,59,999); if(now > u) return; } // utløpt
     var KEY='gv-status-dismissed';
     try{ if(localStorage.getItem(KEY)===STATUS.no) return; }catch(e){}
     var bar=document.createElement('div');
