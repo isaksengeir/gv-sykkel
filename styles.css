@@ -132,7 +132,7 @@ nav{
 }
 nav.scrolled{
   background:rgba(7,7,16,.96);border-bottom-color:var(--border);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
 }
 .nav-logo{display:flex;align-items:center;gap:.55rem;text-decoration:none}
 .nav-logo img{height:38px;width:auto;filter:drop-shadow(0 0 7px rgba(130,60,200,.48))}
@@ -197,7 +197,7 @@ nav.scrolled{
 .nav-drawer{
   display:none;position:fixed;top:68px;left:0;right:0;
   background:rgba(7,7,16,.98);border-bottom:1px solid var(--border);
-  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   padding:1.2rem 2rem 2rem;z-index:199;flex-direction:column;gap:.2rem;
 }
 .nav-drawer.open{display:flex}
@@ -226,8 +226,8 @@ nav.scrolled{
     linear-gradient(rgba(123,47,190,.048) 1px,transparent 1px),
     linear-gradient(90deg,rgba(123,47,190,.048) 1px,transparent 1px);
   background-size:54px 54px;
-  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,#000 0%,transparent 100%);
   -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,#000 0%,transparent 100%);
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,#000 0%,transparent 100%);
 }
 .hero-mountains{
   position:absolute;bottom:0;left:0;right:0;height:50%;opacity:.09;pointer-events:none;
@@ -451,6 +451,9 @@ nav.scrolled{
   font-size:1.8rem;letter-spacing:.03em;color:var(--white);margin-bottom:.5rem;
 }
 .wax-spot p{font-size:.97rem;line-height:1.7;color:var(--text)}
+.wax-spot .btn{margin-top:.5rem}
+.contact-intro{font-size:1rem;line-height:1.7;color:var(--text);margin-top:.4rem}
+.gallery-lead{margin-bottom:2.4rem}
 .wax-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
 .wax-tag{
   font-family:'Barlow Condensed',sans-serif;
