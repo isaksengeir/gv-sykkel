@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GV Sykkel – prisliste (generator)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#7B2FBE;--purple-hi:#A040F0;--bg:#070710;--bg2:#0D0D1A;
+    --white:#F2F0FF;--text:#C0BEDD;--muted:#9090B0;--border:rgba(130,60,200,.22);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1350px}
+  body{
+    font-family:'Barlow',sans-serif;background:var(--bg);color:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  .card{
+    position:relative;width:1080px;height:1350px;overflow:hidden;
+    padding:54px 70px 46px;
+    background:
+      radial-gradient(ellipse 90% 55% at 50% -5%,rgba(123,47,190,.22) 0%,transparent 65%),
+      radial-gradient(ellipse 70% 45% at 50% 108%,rgba(123,47,190,.18) 0%,transparent 70%),
+      linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+  }
+  /* faint grid */
+  .grid{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(123,47,190,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(123,47,190,.05) 1px,transparent 1px);
+    background-size:54px 54px;
+    -webkit-mask-image:radial-gradient(ellipse 80% 75% at 50% 45%,#000 0%,transparent 100%);
+    mask-image:radial-gradient(ellipse 80% 75% at 50% 45%,#000 0%,transparent 100%);
+  }
+  .cog{
+    position:absolute;right:-130px;bottom:-150px;width:480px;height:480px;
+    color:var(--purple-hi);opacity:.05;
+  }
+  .inner{position:relative;z-index:2;display:flex;flex-direction:column;height:100%}
+
+  /* Header */
+  .head{text-align:center;margin-bottom:20px}
+  .head img{width:84px;height:84px;filter:drop-shadow(0 0 22px rgba(123,47,190,.55));margin-bottom:12px}
+  .eyebrow{
+    font-family:'Barlow Condensed',sans-serif;font-weight:600;
+    font-size:20px;letter-spacing:.26em;text-transform:uppercase;color:var(--purple-hi);
+    margin-bottom:6px;
+  }
+  .title{
+    font-family:'Bebas Neue',sans-serif;font-size:84px;line-height:.9;
+    color:var(--white);letter-spacing:.02em;
+  }
+  /* chain divider */
+  .chain{
+    height:14px;margin:16px 0 6px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E%3Cg fill='none' stroke='%23A040F0' stroke-width='1' opacity='.55'%3E%3Cline x1='0' y1='4' x2='12' y2='4'/%3E%3Cline x1='0' y1='10' x2='12' y2='10'/%3E%3Ccircle cx='6' cy='7' r='3'/%3E%3Ccircle cx='6' cy='7' r='1' fill='%23A040F0' stroke='none'/%3E%3C/g%3E%3C/svg%3E") repeat-x center;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 18%,#000 82%,transparent);
+    mask-image:linear-gradient(to right,transparent,#000 18%,#000 82%,transparent);
+  }
+
+  /* Price list */
+  .list{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .row{
+    display:flex;justify-content:space-between;align-items:center;gap:18px;
+    padding:5px 14px;border-bottom:1px solid var(--border);
+  }
+  .row:last-child{border-bottom:none}
+  .row .n{font-size:22px;color:var(--text);font-weight:600;letter-spacing:.005em}
+  .row .p{
+    font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--purple-hi);
+    letter-spacing:.02em;white-space:nowrap;
+  }
+  .row.feat{background:rgba(123,47,190,.12);border-bottom:1px solid var(--border);
+    border-left:3px solid var(--purple-hi);padding-left:11px;margin:1px 0}
+  .row.feat .n{color:var(--white);font-weight:700}
+
+  /* Footer */
+  .foot{margin-top:16px;text-align:center}
+  .note{font-family:'Barlow',sans-serif;font-style:italic;font-size:17px;color:var(--muted);margin-bottom:12px}
+  .contact{
+    display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;
+    font-family:'Barlow Condensed',sans-serif;font-weight:700;
+    font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:var(--white);
+  }
+  .contact .sep{color:var(--purple-hi)}
+  .contact .hl{color:var(--purple-hi)}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="grid"></div>
+  <svg class="cog" viewBox="0 0 200 200" fill="none" stroke="currentColor" aria-hidden="true">
+    <circle cx="100" cy="100" r="74" stroke-width="13" stroke-dasharray="5 11"/>
+    <circle cx="100" cy="100" r="66" stroke-width="3"/>
+    <circle cx="100" cy="100" r="26" stroke-width="3"/>
+    <g stroke-width="6"><path d="M100 74V34 M100 126v40 M74 100H34 M126 100h40"/></g>
+  </svg>
+  <div class="inner">
+    <div class="head">
+      <img src="../logo.png" alt="GV Sykkel">
+      <div class="eyebrow">Sykkelservice · Bjerkaker, Tromsø</div>
+      <div class="title">PRISLISTE</div>
+    </div>
+    <div class="chain"></div>
+
+    <div class="list">
+      <div class="row feat"><span class="n">Voksing av kjede</span><span class="p">300 kr</span></div>
+      <div class="row feat"><span class="n">Avfetting før voksing</span><span class="p">+100 kr</span></div>
+      <div class="row"><span class="n">Justering av gir</span><span class="p">290 kr</span></div>
+      <div class="row"><span class="n">Skifte kjede</span><span class="p">250 kr</span></div>
+      <div class="row"><span class="n">Skifte kassett</span><span class="p">250 kr</span></div>
+      <div class="row"><span class="n">Skifte dekk, ett hjul</span><span class="p">300 kr</span></div>
+      <div class="row"><span class="n">Skifte dekk, begge hjul</span><span class="p">490 kr</span></div>
+      <div class="row"><span class="n">Tubeless-oppsett, ett hjul</span><span class="p">350 kr</span></div>
+      <div class="row"><span class="n">Tubeless-oppsett, begge hjul</span><span class="p">590 kr</span></div>
+      <div class="row"><span class="n">Retting av felg (per hjul)</span><span class="p">fra 399 kr</span></div>
+      <div class="row"><span class="n">Vask av sykkel</span><span class="p">250 kr</span></div>
+      <div class="row"><span class="n">Vask inkl. avfetting</span><span class="p">350 kr</span></div>
+      <div class="row"><span class="n">Skifte bremseklosser, én brems</span><span class="p">250 kr</span></div>
+      <div class="row"><span class="n">Skifte bremseklosser, foran + bak</span><span class="p">450 kr</span></div>
+      <div class="row"><span class="n">Bremselufting, én brems</span><span class="p">490 kr</span></div>
+      <div class="row"><span class="n">Bremselufting, foran + bak</span><span class="p">790 kr</span></div>
+      <div class="row"><span class="n">Teknisk gjennomgang</span><span class="p">150 kr</span></div>
+      <div class="row feat"><span class="n">Montering av sykkel kjøpt på nett</span><span class="p">fra 590 kr</span></div>
+      <div class="row feat"><span class="n">Full service</span><span class="p">fra 990 kr</span></div>
+    </div>
+
+    <div class="foot">
+      <div class="note">Alle priser gjelder arbeid. Deler kommer i tillegg. Alt etter avtale.</div>
+      <div class="contact">
+        <span class="hl">992 42 782</span>
+        <span class="sep">·</span>
+        <span class="hl">www.gvsykkel.no</span>
+        <span class="sep">·</span>
+        <span>Bjerkakervegen 5</span>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
