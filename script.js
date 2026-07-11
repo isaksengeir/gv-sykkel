@@ -16,8 +16,8 @@
     show: true,
     from:  '',            // valgfri: vis FRA og med denne datoen (ÅÅÅÅ-MM-DD). Tom = vis med en gang.
     until: '2026-08-02',  // valgfri: vis TIL og med denne datoen, skjules dagen etter. Tom = ingen utløp.
-    no: 'Sommerferie 13. juli til 2. august. Book gjerne time før eller etter!',
-    en: 'Summer holiday 13 July to 2 August. Feel free to book before or after!'
+    no: 'Sommerferie 13. juli til 1. august. Tilbake 2. august. Book gjerne time før eller etter!',
+    en: 'Summer holiday 13 July to 1 August. Back on 2 August. Feel free to book before or after!'
   };
   (function(){
     if(!STATUS.show) return;

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Sommerhilsen fra GV Sykkel: tusen takk for våren! Verkstedet holder sommerferie 13. juli til 1. august. Vi ses i august.">
+<link rel="canonical" href="https://www.gvsykkel.no/sommerhilsen.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GV Sykkel">
+<meta property="og:locale" content="nb_NO">
+<meta property="og:title" content="Sommerhilsen: tusen takk for våren!">
+<meta property="og:description" content="En liten hilsen og tusen takk til alle kunder og følgere. Sommerferie 13. juli til 1. august, tilbake 2. august.">
+<meta property="og:url" content="https://www.gvsykkel.no/sommerhilsen.html">
+<meta property="og:image" content="https://www.gvsykkel.no/og-sommer.jpg">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="GV Sykkel: tusen takk for våren. Sommerferie 13. juli til 1. august.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sommerhilsen: tusen takk for våren!">
+<meta name="twitter:description" content="Tusen takk for våren. Sommerferie 13. juli til 1. august. Vi ses i august!">
+<meta name="twitter:image" content="https://www.gvsykkel.no/og-sommer.jpg">
+<title data-en="Summer greeting | GV Sykkel">Sommerhilsen | GV Sykkel</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0a0612">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .greet{padding:4rem 0 2rem}
+  .greet-body{max-width:720px;margin:0 auto}
+  .greet-body p{font-size:1.06rem;line-height:1.82;color:var(--text);margin-bottom:1.2rem}
+  .greet-body p strong{color:var(--white);font-weight:600}
+  .greet-lead-in{font-size:1.18rem!important;color:var(--white)!important}
+  .section-h{
+    font-family:'Bebas Neue',sans-serif;letter-spacing:.02em;
+    font-size:clamp(1.6rem,4.4vw,2.4rem);color:var(--white);
+    text-align:center;margin:0 0 .5rem;
+  }
+  .section-sub{text-align:center;color:var(--muted);max-width:560px;margin:0 auto 2.2rem;font-size:1rem}
+  .showcase{padding:1rem 0 2rem}
+  .ba-stack{display:flex;flex-direction:column;gap:1.6rem;margin-bottom:1.6rem}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
+  @media(max-width:699px){.pair{grid-template-columns:1fr}}
+
+  /* Ferie-boks */
+  .ferie{
+    max-width:720px;margin:1rem auto 0;text-align:center;
+    background:linear-gradient(180deg,rgba(123,47,190,.12),rgba(123,47,190,.05));
+    border:1px solid rgba(123,47,190,.28);border-top:4px solid var(--purple-hi);
+    padding:2.6rem 2rem;
+  }
+  .ferie .tag{margin-bottom:.9rem}
+  .ferie-date{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:clamp(2.4rem,8vw,4.4rem);line-height:1;letter-spacing:.02em;
+    color:var(--purple-hi);text-shadow:0 0 34px rgba(160,64,240,.35);
+    margin:.2rem 0 1rem;
+  }
+  .ferie p{color:var(--text);font-size:1.02rem;line-height:1.7;max-width:520px;margin:0 auto}
+
+  /* Avslutning / signatur */
+  .closing{max-width:720px;margin:3.5rem auto 0;text-align:center}
+  .closing p{font-size:1.1rem;line-height:1.8;color:var(--text);margin-bottom:1.4rem}
+  .sign{
+    display:flex;align-items:center;justify-content:center;gap:1.4rem;
+    margin:2.4rem 0 .5rem;flex-wrap:wrap;
+  }
+  .sign-badge{
+    width:clamp(140px,30vw,190px);height:auto;
+    border:1px solid var(--border);border-left:3px solid var(--purple-hi);
+  }
+  .sign-name{
+    font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.06em;
+    color:var(--white);text-align:left;
+  }
+  .sign-name small{
+    display:block;font-family:'Barlow Condensed',sans-serif;
+    font-size:.82rem;letter-spacing:.2em;text-transform:uppercase;color:var(--purple-hi);
+  }
+  .closing-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1.8rem}
+</style>
+</head>
+<body>
+<div class="scroll-progress" id="SP" aria-hidden="true"></div>
+<div class="cursor" id="C"></div>
+<div class="cursor-ring" id="CR"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="index.html">
+    <img class="logo-img" src="logo.png" alt="GV Sykkel logo" width="38" height="38">
+    <div>
+      <div class="nav-logo-name">GV Sykkel</div>
+      <span class="nav-logo-loc">Bjerkaker · Tromsø</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#om-oss" data-en="About">Om meg</a></li>
+    <li><a href="index.html#tjenester" data-en="Services">Tjenester</a></li>
+    <li><a href="index.html#prisliste" data-en="Prices">Prisliste</a></li>
+    <li><a href="galleri.html" data-en="Gallery">Galleri</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="index.html#kontakt" class="nav-cta">Book service</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div class="lang-switch" role="group" aria-label="Språk / Language">
+      <button type="button" class="lang-btn" data-lang="no">NO</button>
+      <span class="lang-sep" aria-hidden="true">|</span>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <button class="hamburger" id="HB" aria-label="Åpne meny" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<nav class="nav-drawer" id="DW" aria-label="Mobilmeny">
+  <a href="index.html#om-oss" data-en="About">Om meg</a>
+  <a href="index.html#tjenester" data-en="Services">Tjenester</a>
+  <a href="index.html#prisliste" data-en="Prices">Prisliste</a>
+  <a href="galleri.html" data-en="Gallery">Galleri</a>
+  <a href="faq.html">FAQ</a>
+  <a href="index.html#kontakt">Book service</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-head">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <svg class="hero-mountains" viewBox="0 0 1440 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="0,500 200,200 350,350 500,150 650,300 720,80 800,260 950,120 1100,280 1250,160 1440,300 1440,500" fill="rgba(123,47,190,0.5)"/>
+    <polygon points="0,500 150,280 300,400 450,200 600,350 720,100 840,220 1000,180 1150,320 1300,200 1440,320 1440,500" fill="rgba(74,24,130,0.4)"/>
+    <polygon points="0,500 100,380 300,450 500,300 700,420 800,250 1000,380 1200,280 1440,380 1440,500" fill="rgba(20,8,45,0.7)"/>
+  </svg>
+  <div class="particles" id="P" aria-hidden="true"></div>
+  <div class="page-head-content">
+    <p class="hero-eyebrow" data-en="Summer greeting · GV Sykkel">Sommerhilsen · GV Sykkel</p>
+    <h1 class="page-title" data-en="THANK YOU<br>FOR THE <span class='hi'>SPRING</span>">TUSEN TAKK<br>FOR <span class="hi">VÅREN</span></h1>
+    <p class="page-lead" data-en="I'm taking a few well-earned weeks off this summer. But first I want to send a little greeting to everyone who's had their bike in, and share a look back at what we've done together.">Nå tar jeg noen velfortjente uker sommerferie. Men først vil jeg sende en liten hilsen til alle dere som har hatt sykkelen innom, og dele et lite tilbakeblikk på hva vi har fått til sammen.</p>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<!-- GREETING MESSAGE -->
+<section class="greet">
+  <div class="container">
+    <div class="greet-body reveal">
+      <p class="greet-lead-in" data-en="What a first half-year it's been!">For et halvår det har vært!</p>
+      <p data-en="GV Sykkel started as a small hobby project, with no big expectations. I'm incredibly grateful that so many of you got in touch and put your trust in me.">GV Sykkel startet som et lite hobbyprosjekt, uten store forventninger. At så mange av har tatt kontakt og hatt tro på meg, er jeg utrolig takknemlig for.</p>
+      <p data-en="It's been many good hours in the workshop, with everything from <strong>chain waxing and gear and brake adjustment to tubeless, brake bleeds and full services</strong>. Kids' bikes, e-bikes, road bikes and gravel bikes. I've valued every single job just as much.">Det har blitt mange gode timer på verkstedet, med alt fra <strong>voksing av kjeder og justering av gir og bremser til tubeless, lufting av bremser og full service</strong>. Barnesykler, elsykler, landeveissykler og gravelsykler. Jeg har satt like stor pris på hvert eneste oppdrag.</p>
+      <div class="pullquote" data-en="Thank you for the trust, for the jobs and for all the kind feedback. It means more than you know.">Tusen takk for tilliten, for oppdragene og for alle de gode tilbakemeldingene. Det betyr mer enn dere aner.</div>
+      <p data-en="It's you who make this so much fun, and who have me already looking forward to being back in August.">Det er dere som gjør dette så gøy, og som gjør at jeg allerede ser fram til å være tilbake i august.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="showcase">
+  <div class="container">
+    <h2 class="section-h reveal" data-en="A bit of what I've worked on">Litt av det jeg har skrudd på</h2>
+    <p class="section-sub reveal" data-en="Before and after. From worn out to clean and ready for new rides.">Før og etter. Fra sliten til blank og klar for nye turer.</p>
+
+    <div class="ba-stack reveal">
+      <figure class="ba-card">
+        <img src="media/web/ba-nakamura.jpg" alt="Nakamura Evolution før og etter full service og rens" width="1600" height="643" loading="lazy" data-zoom="media/web/ba-nakamura.jpg">
+        <figcaption class="ba-cap" data-en="Nakamura Evolution: full service and thorough clean">Nakamura Evolution: full service og grundig rens</figcaption>
+      </figure>
+      <figure class="ba-card">
+        <img src="media/web/ba-merida.jpg" alt="Merida Crossway før og etter service og klargjøring" width="1600" height="660" loading="lazy" data-zoom="media/web/ba-merida.jpg">
+        <figcaption class="ba-cap" data-en="Merida Crossway: service and ready to ride">Merida Crossway: service og klar til bruk</figcaption>
+      </figure>
+    </div>
+
+    <div class="pair reveal">
+      <figure class="ba-card">
+        <img src="media/web/bmc-gravel.jpg" alt="Gravelsykkel servet og klar" width="1500" height="1125" loading="lazy" data-zoom="media/web/bmc-gravel.jpg">
+        <figcaption class="ba-cap" data-en="Gravel bike serviced and ready">Gravelsykkel servet og klar</figcaption>
+      </figure>
+      <figure class="ba-card">
+        <img src="media/web/bmc-drivverk.jpg" alt="Rent og justert drivverk" width="1500" height="1125" loading="lazy" data-zoom="media/web/bmc-drivverk.jpg">
+        <figcaption class="ba-cap" data-en="Clean, precisely adjusted drivetrain">Rent og finjustert drivverk</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- FERIE -->
+<section class="greet" style="padding-top:1rem">
+  <div class="container">
+    <div class="ferie reveal">
+      <div class="tag" data-en="Summer holiday">Sommerferie</div>
+      <div class="ferie-date">13. juli til 1. august</div>
+      <p data-en="The workshop is closed during these weeks. Got something urgent? Try to get your bike in before 13 July. Otherwise I'll be back, rested and ready, from 2 August.">Verkstedet holder stengt disse ukene. Haster det med en jobb? Prøv å få sykkelen innom før 13. juli. Ellers er jeg tilbake, uthvilt og klar, fra 2. august.</p>
+    </div>
+
+    <div class="closing reveal">
+      <p data-en="Have a wonderful summer out there on two wheels. And remember, a freshly waxed chain never hurt anyone before a long ride 😉">Ha en strålende sommer der ute på to hjul. Og husk, et nyvokset kjede har aldri skadet noen før langtur 😉</p>
+      <div class="sign">
+        <img class="sign-badge" src="media/web/verksted-skilt.jpg" alt="GV Sykkel-skilt på verkstedet" width="1100" height="1467" loading="lazy">
+        <div class="sign-name">Geir Villy<small data-en="GV Sykkel · See you in August">GV Sykkel · Vi ses i august</small></div>
+      </div>
+      <div class="closing-btns">
+        <a href="index.html#kontakt" class="btn"><span data-en="Book for August">Book til august</span></a>
+        <a href="galleri.html" class="btn-ghost" data-en="See the gallery">Se galleriet</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">
+    <img class="logo-img" src="logo.png" alt="GV Sykkel logo" width="30" height="30" loading="lazy">
+    <span>GV Sykkel</span>
+  </div>
+  <span class="foot-tag">"I just want to ride my bike"</span>
+  <div class="foot-social">
+    <a href="tel:+4799242782">992 42 782</a>
+    <a href="https://www.facebook.com/gvsykkel" target="_blank" rel="noopener" aria-label="GV Sykkel på Facebook">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>
+      <span>Facebook</span>
+    </a>
+  </div>
+  <small>Bjerkakervegen 5, 9006 Tromsø</small>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="LB" aria-hidden="true">
+  <button class="lightbox-close" id="LBC" aria-label="Lukk">×</button>
+  <img id="LBI" src="" alt="">
+</div>
+
+<script src="script.js" defer></script>
+<script>
+(function(){
+  var lb=document.getElementById('LB'),lbi=document.getElementById('LBI'),lbc=document.getElementById('LBC');
+  document.querySelectorAll('img[data-zoom]').forEach(function(el){
+    el.style.cursor='zoom-in';
+    el.addEventListener('click',function(){
+      lbi.src=el.getAttribute('data-zoom');lbi.alt=el.alt;
+      lb.classList.add('open');lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    });
+  });
+  function close(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');lbi.src='';document.body.style.overflow='';}
+  lb.addEventListener('click',function(e){if(e.target!==lbi)close();});
+  lbc.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+})();
+</script>
+</body>
+</html>
