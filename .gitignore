@@ -4,3 +4,6 @@
 # Kun web-optimaliserte versjoner i media/web/ committes.
 media/*
 !media/web/
+
+# Interne notater / spec-filer (skal ikke publiseres)
+PRISOPPDATERING.md
