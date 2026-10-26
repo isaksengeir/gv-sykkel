@@ -108,6 +108,7 @@
 
   // ── Particles (sand/dust drifting up) ──
   const pe=document.getElementById('P');
+  if(pe){
   const types=['p-purple','p-purple','p-light','p-dust','p-dust'];
   for(let i=0;i<32;i++){
     const p=document.createElement('div');
@@ -117,6 +118,14 @@
     p.style.cssText=`left:${Math.random()*100}%;animation-duration:${10+Math.random()*14}s;animation-delay:${Math.random()*20}s;width:${size}px;height:${size}px`;
     pe.appendChild(p);
   }
+  }
+
+  // ── Kontaktskjema: forhåndsvelg tema fra lenke (?tema=kjop / gi / bygg / service / annet) ──
+  (function(){
+    var sel=document.getElementById('tm');if(!sel)return;
+    var m=location.search.match(/[?&]tema=([a-z]+)/);if(!m)return;
+    var o=sel.querySelector('option[data-key="'+m[1]+'"]');if(o)sel.value=o.value;
+  })();
 
   // ── Scroll reveal ──
   const io=new IntersectionObserver(entries=>entries.forEach((e,i)=>{

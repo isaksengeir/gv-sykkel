@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sykkelstyler – design drømmesykkelen din | GV Sykkel</title>
+<meta name="description" content="Sykkelstyler fra GV Sykkel: design drømmesykkelen din i 3D. Velg ramme, deler, farger og dekor, juster geometrien og rendre et fotorealistisk bilde.">
+<link rel="canonical" href="https://www.gvsykkel.no/sykkelstyler/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GV Sykkel">
+<meta property="og:title" content="Sykkelstyler – design drømmesykkelen din">
+<meta property="og:description" content="Design sykkelen din i 3D: ramme, deler, farger og dekor. Fra GV Sykkel i Tromsø.">
+<meta property="og:url" content="https://www.gvsykkel.no/sykkelstyler/">
+<meta property="og:image" content="https://www.gvsykkel.no/media/web/sykkelstyler-gt-aggressor.jpg">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: fotostudio til venstre (sticky, fri 3D-kamera), deleskuffer til høyre / under på mobil.
+   Profil: GV Sykkel, lilla #7B2FBE / #A040F0 på nesten sort #0a0612, Bebas Neue + Barlow */
+:root{
+  --bg:#eeecf2; --panel:#f8f7fa; --ink:#1a1522; --mute:#5e5868; --line:#d5d0de;
+  --stage-hi:#fbfafd; --stage-lo:#cdc8d6; --accent:#7B2FBE; --accent-2:#A040F0; --accent-ink:#fff; --glass:rgba(248,247,250,.86);
+  --display:"Bebas Neue",Impact,"Arial Narrow",sans-serif;
+  --body:"Barlow",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0a0612; --panel:#140d20; --ink:#ece8f3; --mute:#a59db3; --line:#2b2238;
+  --stage-hi:#2e2540; --stage-lo:#0a0612; --accent:#A040F0; --accent-2:#c27bff; --accent-ink:#fff; --glass:rgba(20,13,32,.86); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0a0612; --panel:#140d20; --ink:#ece8f3; --mute:#a59db3; --line:#2b2238;
+  --stage-hi:#2e2540; --stage-lo:#0a0612; --accent:#A040F0; --accent-2:#c27bff; --accent-ink:#fff; --glass:rgba(20,13,32,.86); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 40px}
+.app{max-width:1380px;margin:0 auto;display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:960px){.app{grid-template-columns:minmax(0,1.65fr) minmax(360px,1fr);align-items:start}
+  .stagewrap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 14px)}}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 16px;grid-column:1/-1}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+header>div{min-width:0}
+.brand svg{width:clamp(44px,7vw,60px);height:auto;flex:none;color:var(--accent)}
+@media (prefers-reduced-motion:no-preference){.brand .spin{transform-origin:50% 50%;animation:spin 14s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,8.6vw,64px);line-height:.85;margin:2px 0 0;letter-spacing:.02em;text-transform:uppercase}
+h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.presetbar{display:flex;flex-direction:column;gap:6px;align-items:flex-end;min-width:0}
+.keeplook{display:inline-flex;align-items:center;gap:6px;font:12px var(--mono);color:var(--mute);cursor:pointer;user-select:none}
+.keeplook input{width:16px;height:16px;accent-color:var(--accent);margin:0}
+.presets{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:flex-end}
+.presets::before{content:attr(data-label);font:11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-right:4px}
+.stage{position:relative;border-radius:6px;border:1px solid var(--line);overflow:hidden;
+  background:radial-gradient(ellipse 85% 75% at 50% 35%,var(--stage-hi),var(--stage-lo))}
+#view{display:block;width:100%;height:min(66vh,640px);touch-action:none;cursor:grab}
+#view:active{cursor:grabbing}
+.views{position:absolute;left:8px;right:8px;bottom:8px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;pointer-events:none;padding-bottom:2px}
+.views button{flex:none;pointer-events:auto;font:600 11.5px/1 var(--mono);letter-spacing:.03em;text-transform:uppercase;color:var(--ink);background:var(--glass);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:20px;padding:7px 10px;cursor:pointer}
+.views button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.views .sep{flex:none;width:1px;background:var(--line);margin:4px 2px}
+.views button.f{border-style:dashed}
+.hint-drag .mb{display:none}
+@media (pointer:coarse){.hint-drag .mb{display:inline}.hint-drag .dk{display:none}}
+.hint-drag{position:absolute;top:10px;left:12px;right:300px;font:11px var(--mono);color:var(--mute);pointer-events:none}
+.stage[data-bg="lilla"]{background:radial-gradient(ellipse 85% 75% at 50% 38%,#9d74d6,#5c2f94 55%,#1d0c33)}
+.stage[data-bg="svart"]{background:radial-gradient(ellipse 85% 75% at 50% 38%,#45454c,#1c1c20 55%,#050506)}
+.stage[data-bg="hvit"]{background:radial-gradient(ellipse 85% 75% at 50% 38%,#fff,#f1f0f4 55%,#cfced6)}
+.stage[data-bg="lilla"] .hint-drag,.stage[data-bg="svart"] .hint-drag,.stage[data-bg="lilla"] .loading,.stage[data-bg="svart"] .loading{color:rgba(255,255,255,.72)}
+.stage[data-bg="hvit"] .hint-drag,.stage[data-bg="hvit"] .loading{color:#5d5a66}
+.tools{position:absolute;top:8px;right:8px;display:flex;align-items:center;gap:6px}
+.bgsel{display:flex;align-items:center;gap:6px;padding:5px 6px 5px 10px;border-radius:20px;background:var(--glass);backdrop-filter:blur(6px);border:1px solid var(--line)}
+.bgsel span{font:600 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-right:2px}
+.bgsel button{width:22px;height:22px;border-radius:50%;border:1px solid rgba(127,127,127,.55);cursor:pointer;padding:0}
+.bgsel button[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:2px}
+.bgsel button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.renderbtn{display:flex;align-items:center;gap:6px;height:34px;padding:0 13px 0 10px;border-radius:20px;border:1px solid var(--accent);background:var(--accent);color:#fff;font:600 11.5px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 10px rgba(60,20,110,.25)}
+.renderbtn svg{width:18px;height:18px;flex:none}
+.renderbtn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.renderbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stage.used .hint-drag{opacity:0;transition:opacity .6s}
+.photo{position:absolute;left:8px;top:8px;width:min(440px,calc(100% - 300px));padding:6px 8px 7px 12px;border-radius:20px;background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--line);color:var(--ink);box-shadow:0 6px 24px rgba(0,0,0,.18)}
+.photo[hidden]{display:none}
+.photo .ph-top{display:flex;align-items:center;gap:8px;font:11.5px var(--mono)}
+.photo .ph-top span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.photo .btn{padding:4px 10px;font-size:13px;border-radius:14px}
+.photo .ph-top b{font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.photo .ph-top span{color:var(--mute)}
+.photo .ph-row{display:flex;align-items:center;gap:10px;margin-top:6px}
+.photo .ph-track{flex:1;height:3px;border-radius:2px;background:var(--line);overflow:hidden}
+.ph-q{display:flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;flex:none}
+.ph-q button{font:600 10.5px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;padding:5px 9px;border:0;background:transparent;color:var(--mute);cursor:pointer}
+.ph-q button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.ph-q button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.photo .ph-track i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .3s}
+.photo .btn[disabled]{opacity:.5;cursor:default}
+.photo.done{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),0 6px 24px rgba(0,0,0,.2)}
+.photo.done .ph-top span{color:var(--ink);font-weight:600}
+.photo.done .ph-track i{background:linear-gradient(90deg,#2fa36b,#3cc483)}
+@media (prefers-reduced-motion:no-preference){.photo.done #ph-save{animation:phpulse 1.6s ease-in-out 3}@keyframes phpulse{50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 30%,transparent)}}}
+body.photo-on .hint-drag,body.photo-on [data-spin],body.photo-on [data-quality]{display:none}
+/* mobil: stiler på én rad som kan sveipes, visningsknapper under bildet, kompakt verktøyrad */
+@media (max-width:959px){
+  .views{position:static;pointer-events:auto;touch-action:pan-x;padding:7px 8px;background:var(--panel);border-top:1px solid var(--line);gap:6px;-webkit-overflow-scrolling:touch}
+  .views button{padding:8px 11px;font-size:11px}
+  .photo{position:static;transform:none;width:auto;border-radius:0;border:0;border-top:1px solid var(--line);box-shadow:none;background:var(--panel);backdrop-filter:none;padding:8px 10px}
+  .photo.done{box-shadow:inset 0 0 0 2px var(--accent)}
+  .hint-drag{right:160px}
+}
+@media (max-width:700px){
+  header{gap:10px}
+  .presetbar{align-items:stretch;width:100%}
+  .keeplook{align-self:flex-start}
+  .presets{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding:2px 16px 4px;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent)}
+  .presets::-webkit-scrollbar{display:none}
+  .presets .btn{flex:none;white-space:nowrap;padding:7px 11px;font-size:14px}
+  .presets::before{flex:none}
+  .renderbtn{width:38px;height:38px;padding:0;justify-content:center}
+  .renderbtn span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .bgsel{padding:4px 5px}
+  .bgsel span{display:none}
+  .bgsel button{width:26px;height:26px}
+  .hint-drag{right:150px;font-size:10px}
+  .photo .ph-top b{display:none}
+}
+.spec{display:flex;flex-wrap:wrap;gap:4px 14px;padding:10px 12px;border:1px solid var(--line);border-top:0;border-radius:0 0 6px 6px;font-family:var(--mono);font-size:11.5px;color:var(--mute);background:var(--panel)}
+.spec b{color:var(--ink);font-weight:500}
+.loading{position:absolute;inset:0;display:grid;place-items:center;font:12px var(--mono);color:var(--mute);pointer-events:none;padding:16px;text-align:center}
+.loading[hidden]{display:none}
+@media (max-width:959px){.stagewrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;margin-inline:-4px}
+  #view{height:41vh;height:41svh}
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+  .spec{display:none}.hint-drag{font-size:10px}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0}
+.tabs{display:flex;gap:2px;overflow-x:auto;border-bottom:1px solid var(--line);padding:6px 6px 0;scrollbar-width:none}
+.tabs button{font-family:var(--display);font-weight:400;font-size:20px;letter-spacing:.04em;text-transform:uppercase;background:none;border:0;color:var(--mute);padding:8px 11px 9px;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.group{padding:14px 14px 18px;display:grid;gap:14px}
+.item{display:grid;gap:8px;min-width:0}
+.group>*{min-width:0}
+.part{min-width:0;overflow:hidden}
+.lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;gap:8px}
+.lab b{color:var(--ink);font-weight:500;letter-spacing:.02em;text-transform:none;text-align:right}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip,.btn{font:500 14px/1.2 var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:7px 11px;cursor:pointer}
+.chip.sm{font-size:13px;padding:5px 9px}
+.chip:hover,.btn:hover{border-color:var(--mute)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:disabled{opacity:.4;cursor:not-allowed}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.chip.pick{display:grid;gap:2px;text-align:left;padding:8px 10px}
+.chip.pick b{font-weight:600;font-size:13.5px;line-height:1.2}
+.chip.pick small{font:11px/1.3 var(--mono);color:var(--mute)}
+.chip.pick[aria-pressed="true"] small{color:var(--bg);opacity:.75}
+.chip.fx-oil,.dot.fx-oil{background:radial-gradient(circle at 30% 30%,#d9a43a 0 12%,transparent 30%),radial-gradient(circle at 75% 70%,#2fa39a 0 14%,transparent 34%),linear-gradient(125deg,#4a2a86,#2a4fb8 30%,#1f8f9a 50%,#8a3a8f 75%,#3a2470);color:#fff;border-color:transparent}
+.chip.fx-rainbow,.dot.fx-rainbow{background:linear-gradient(90deg,#b8862e,#8a3a9a,#2f56c4,#3aa7d8,#b9c43b,#d08a2f,#b8407e);color:#fff;border-color:transparent}
+.chip.fx-oil[aria-pressed="true"],.chip.fx-rainbow[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:2px}
+.dot{display:inline-block;width:16px;height:16px;border-radius:50%;border:1px solid var(--line);flex:none}
+.dot.fx-chrome,.dot.fx-alu,.dot.fx-braided{background:linear-gradient(160deg,#f6f7f8,#8f989f 45%,#fff 55%,#5d666e)}
+.dot.fx-brushed{background:repeating-linear-gradient(90deg,#c9cdd1 0 2px,#e2e5e8 2px 4px)}
+.dot.fx-gold{background:linear-gradient(160deg,#fff1c4,#c9932f 50%,#fbe39a)}
+.part{border:1px solid var(--line);border-radius:5px;background:var(--bg)}
+.part summary{list-style:none;display:flex;align-items:center;gap:10px;padding:9px 11px;cursor:pointer;min-width:0}
+.part summary::-webkit-details-marker{display:none}
+.part summary span{font-weight:600}
+.part summary small{margin-left:auto;font:11px var(--mono);color:var(--mute);text-align:right;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:55%}
+.part summary::after{content:"+";font:600 16px var(--mono);color:var(--mute);margin-left:4px}
+.part[open] summary::after{content:"−"}
+.pbody{padding:4px 11px 12px;display:grid;gap:10px}
+.sws{display:grid;grid-template-columns:repeat(auto-fill,minmax(26px,1fr));gap:6px;align-items:center}
+.sws.off{opacity:.35}
+.sw{aspect-ratio:1;width:100%;max-width:32px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0}
+.sw[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--panel) inset}
+.custom{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--mute)}
+input[type=color]{width:46px;height:30px;border:1px solid var(--line);border-radius:4px;background:var(--bg);padding:2px;cursor:pointer}
+input[type=text]{font:500 15px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:8px 10px;width:100%;max-width:280px}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.hint{font-size:12.5px;color:var(--mute)}
+.finn{display:grid;gap:8px}
+.sub{font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-top:4px}
+.chip.pick.base{border-style:dashed;border-color:var(--accent)}
+.swgs{display:grid;gap:8px}.swgs.off{opacity:.35}
+.swg>span{display:block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:4px}
+.chip.pick .wl{display:flex;gap:3px;margin-top:3px}.chip.pick .wl .dot,.wallc .dot{width:12px;height:12px}
+.wallc{display:inline-flex;align-items:center;gap:6px}
+.fcard{display:grid;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:5px;background:var(--bg)}
+.fcard.on{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.fcard b{display:block;font-weight:600}
+.fcard small{display:block;font:11.5px var(--mono);color:var(--mute)}
+.fcard span{display:block;font-size:13px;color:var(--mute)}
+.fcard a{font-size:13px;color:var(--accent);font-weight:600}
+.notes{padding:12px 14px;border-top:1px solid var(--line);display:grid;gap:6px;font-size:13.5px}
+.notes h3,.out h3{margin:0;font-family:var(--display);font-weight:400;font-size:22px;text-transform:uppercase;letter-spacing:.03em}
+.notes ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.notes li::marker{color:var(--accent)}
+.out{padding:12px 14px 14px;border-top:1px solid var(--line);display:grid;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+pre{margin:0;font:12px/1.5 var(--mono);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:10px;overflow-x:auto;white-space:pre-wrap;max-height:260px}
+.saved{display:grid;gap:6px}
+.saved div{display:flex;gap:8px;align-items:center;justify-content:space-between;font-size:14px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.snack{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:12px;
+  max-width:calc(100vw - 32px);padding:10px 12px 10px 16px;border-radius:8px;background:var(--ink);color:var(--bg);box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:14px}
+.snack[hidden]{display:none}
+.snack .btn{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,transparent);padding:5px 10px;font-weight:600}
+.combo{display:grid;gap:6px}
+.combo-cur{width:100%;display:flex;align-items:center;gap:10px;text-align:left;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;cursor:pointer}
+.combo-cur:hover{border-color:var(--mute)}
+.combo-cur span{display:grid;gap:1px;min-width:0;flex:1}
+.combo-cur b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.combo-cur small{font:11.5px var(--mono);color:var(--mute)}
+.combo-cur i{font-style:normal;color:var(--mute)}
+.combo-cur .dot,.combo li .dot{width:18px;height:18px}
+.combo-q{position:relative}
+.combo-ic{position:absolute;left:11px;top:50%;width:16px;height:16px;transform:translateY(-50%);color:var(--mute);pointer-events:none}
+.combo-q input{width:100%;max-width:none;font:500 16px var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 40px 10px 34px;-webkit-appearance:none;appearance:none}
+.combo-x{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:34px;height:34px;border:0;border-radius:50%;background:none;color:var(--mute);font:400 22px/1 var(--body);cursor:pointer}
+.combo-x:hover{color:var(--ink)}
+.combo ul{list-style:none;margin:0;padding:4px;border:1px solid var(--line);border-radius:8px;background:var(--panel);max-height:min(56vh,460px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.combo li{display:flex;align-items:center;gap:10px;padding:8px;min-height:44px;border-radius:5px;cursor:pointer}
+.combo li span{display:grid;min-width:0;flex:1}
+.combo li b{font-weight:600;font-size:14.5px}
+.combo li small{font:11px var(--mono);color:var(--mute)}
+.combo li em{font:600 10.5px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-style:normal}
+.combo li.act,.combo li:hover{background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.combo li.grp{cursor:default;min-height:0;padding:10px 8px 4px;font:600 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);background:none}
+.combo li.empty{cursor:default;color:var(--mute);font-size:13.5px}
+@media (max-width:959px){
+  .combo ul{max-height:none;overflow:visible}
+  body.picking .stagewrap{position:relative;top:auto}}
+.chip:focus-visible,.btn:focus-visible,.combo-cur:focus-visible,.combo-x:focus-visible,.sw:focus-visible,.tabs button:focus-visible,.views button:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* GV-ramme: topplinje med vei tilbake og språkvalg, og info under appen */
+.gvbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.gvbar a.back{display:inline-flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font:600 13px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase}
+.gvbar a.back img{width:26px;height:26px}
+.gvbar a.back:hover{color:var(--accent)}
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.lang button{font:600 11.5px/1 var(--mono);letter-spacing:.06em;padding:6px 10px;border:0;background:transparent;color:var(--mute);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.lead{margin:4px 0 0;color:var(--mute);font-size:15px}
+.gvinfo{max-width:1380px;margin:34px auto 0;padding-top:26px;border-top:1px solid var(--line)}
+.gvinfo h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,6vw,46px);line-height:.95;text-transform:uppercase;letter-spacing:.02em;margin:0 0 10px}
+.gvinfo h2 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gvinfo>p{max-width:760px;margin:0 0 22px;font-size:16px;line-height:1.6;color:var(--ink)}
+.gvcards{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.gvcard{display:grid;gap:8px;align-content:start;padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+.gvcard.hi{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.gvcard h3{margin:0;font-family:var(--display);font-weight:400;font-size:24px;text-transform:uppercase;letter-spacing:.03em}
+.gvcard p{margin:0;font-size:14.5px;line-height:1.55;color:var(--mute)}
+.gvcard a.btn{justify-self:start;text-decoration:none;margin-top:4px;display:inline-flex;align-items:center;gap:8px}
+.gvcard a.btn svg{width:16px;height:16px}
+.gvfoot{max-width:1380px;margin:26px auto 0;font:11.5px var(--mono);color:var(--mute);display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between}
+.gvfoot a{color:var(--mute)}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="gvbar">
+    <a class="back" href="../index.html"><img src="../logo.png" alt="" width="26" height="26"><span>← GV Sykkel</span></a>
+    <div class="lang" role="group" aria-label="Språk"><button type="button" data-lang="no" aria-pressed="true">NO</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+  </div>
+  <header>
+    <div>
+      <div class="brand">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g class="spin" fill="none" stroke="currentColor"><circle cx="32" cy="32" r="28" stroke-width="5"/><circle cx="32" cy="32" r="22.5" stroke-width="1.2" opacity=".6"/>
+          <g stroke-width="1.3"><path d="M32 9v46M9 32h46M15.7 15.7l32.6 32.6M48.3 15.7L15.7 48.3M23.2 10.8l17.6 42.4M40.8 10.8L23.2 53.2M10.8 23.2l42.4 17.6M10.8 40.8l42.4-17.6"/></g>
+          <circle cx="32" cy="32" r="4.5" fill="currentColor" stroke="none"/></g></svg>
+        <div><div class="eyebrow">GV Sykkel · Tromsø</div><h1 data-noi18n>Sykkel<span>styler</span></h1><p class="lead">Design drømmesykkelen din i 3D.</p></div>
+      </div>
+    </div>
+    <div class="presetbar"><label class="keeplook" title="Når dette er på, endrer stilene bare deler og delefarger. Rammefarge og dekor blir som før."><input type="checkbox" id="keeplook" checked> Behold farge og dekor</label><div class="presets" id="presets" data-label="Stiler"></div></div>
+  </header>
+
+  <div class="stagewrap">
+    <div class="stage" id="stage" data-bg="lilla">
+      <canvas id="view" aria-label="3D-modell av sykkelen. Dra for å rotere, høyreklikk eller to fingre for å flytte, dobbeltklikk for å zoome inn på en del."></canvas>
+      <div class="loading" id="loading">Laster 3D…</div>
+      <div class="hint-drag"><span class="dk">Dra: roter · høyreklikk eller shift: flytt · scroll: zoom · dobbeltklikk: zoom inn på delen</span><span class="mb">1 finger: roter · 2 fingre: flytt og zoom</span></div>
+      <div class="tools">
+        <button type="button" class="renderbtn" data-photo aria-pressed="false" title="Rendre et fotorealistisk bilde"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2.3l1.4-2h5.6l1.4 2h2.3A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Rendre bilde</span></button>
+        <div class="bgsel" role="group" aria-label="Bakgrunn i showroomet"><span>Rom</span><button type="button" data-bg="lilla" title="Lilla (GV Sykkel)" aria-label="Lilla bakgrunn (GV Sykkel)" style="background:radial-gradient(circle at 40% 35%,#9d74d6,#3c1a66)"></button><button type="button" data-bg="svart" title="Svart" aria-label="Svart bakgrunn" style="background:radial-gradient(circle at 40% 35%,#55555c,#08080a)"></button><button type="button" data-bg="hvit" title="Hvit" aria-label="Hvit bakgrunn" style="background:radial-gradient(circle at 40% 35%,#fff,#d6d4dc)"></button></div>
+      </div>
+      <div class="photo" id="photo" hidden role="status" aria-live="polite">
+        <div class="ph-top"><b title="Lyset regnes ut fysisk riktig, og bildet blir skarpere for hver runde. Flytter du kameraet, starter det på nytt.">Rendrer</b><span id="ph-n"></span><button type="button" class="btn primary" id="ph-save" disabled>Lagre bilde</button><button type="button" class="btn" id="ph-close" aria-label="Avslutt rendring">Lukk</button></div>
+        <div class="ph-row"><div class="ph-q" role="group" aria-label="Kvalitet"><button type="button" data-rq="rask" aria-pressed="false" title="Rundt 40 sekunder i skjermoppløsning">Rask</button><button type="button" data-rq="beste" aria-pressed="true" title="Rundt 2 minutter, dobbel oppløsning og dybdeskarphet">Beste</button><button type="button" data-rq="ultra" aria-pressed="false" title="Rundt 5 minutter, høyest oppløsning og flest runder">Ultra</button></div><div class="ph-track"><i id="ph-bar"></i></div></div>
+      </div>
+      <div class="views" id="views">
+        <button data-view="q">3/4</button><button data-view="r">Drivside</button><button data-view="l">Venstre</button><button data-view="f">Forfra</button><button data-view="t">Ovenfra</button><button data-spin aria-pressed="false">Snurr</button><button data-quality aria-pressed="true">Høy kvalitet</button>
+        <i class="sep"></i>
+        <button class="f" data-focus="cockpit">Cockpit</button><button class="f" data-focus="fork">Gaffel</button><button class="f" data-focus="brakeF">Forbrems</button><button class="f" data-focus="brakeR">Bakbrems</button><button class="f" data-focus="cassette">Kassett</button><button class="f" data-focus="crank">Krank</button><button class="f" data-focus="saddle">Sete</button><button class="f" data-focus="hubF">Fornav</button>
+      </div>
+    </div>
+    <div class="spec" id="spec"></div>
+  </div>
+
+  <div class="panel">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="group" id="group"></div>
+    <div class="notes" id="notes"></div>
+    <div class="out">
+      <h3>Byggeliste</h3>
+      <pre id="list"></pre>
+      <div class="row">
+        <button class="btn primary" id="copy">Kopier byggeliste</button>
+        <input type="text" id="bname" placeholder="Navn på bygget" aria-label="Navn på bygget" style="max-width:190px">
+        <button class="btn" id="save">Lagre bygg</button>
+      </div>
+      <div class="saved" id="saved"></div>
+    </div>
+  </div>
+</div>
+
+<section class="gvinfo" aria-labelledby="gvinfo-h">
+  <h2 id="gvinfo-h">Design drømmesykkelen din</h2>
+  <p>Vet du ikke helt hva du vil ha, eller hvordan delene passer sammen? I Sykkelstyler kan du prøve deg fram. De vanligste syklene ligger inne, og du kan justere rammegeometrien så den passer en hvilken som helst sykkel. Bytt deler, farger og dekor, og se resultatet med en gang.</p>
+  <div class="gvcards">
+    <div class="gvcard hi">
+      <h3>Vil du ha den bygget?</h3>
+      <p>Jeg bygger og bygger om sykler etter ønske. Kopier byggelisten og send den til meg, så ser vi på hva som er mulig.</p>
+      <a class="btn primary" href="../index.html?tema=bygg#kontakt">Ta kontakt</a>
+    </div>
+    <div class="gvcard">
+      <h3>Del bygget ditt</h3>
+      <p>Rendre et bilde av sykkelen og del det med oss på Facebook. Vi vil gjerne se hva du har laget!</p>
+      <a class="btn" href="https://www.facebook.com/gvsykkel" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.52c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg>GV Sykkel på Facebook</a>
+    </div>
+    <div class="gvcard">
+      <h3>Ser du noe som mangler?</h3>
+      <p>Savner du en sykkel, en del eller en farge? Ta gjerne kontakt, så ser jeg på det.</p>
+      <a class="btn" href="../index.html?tema=annet#kontakt">Gi beskjed</a>
+    </div>
+  </div>
+</section>
+<footer class="gvfoot" data-noi18n><span>© 2026 GV Sykkel · Bjerkakervegen 5, 9006 Tromsø</span><a href="../index.html">gvsykkel.no</a></footer>
+
+<div class="snack" id="snack" role="status" aria-live="polite" hidden></div>
+<script>
+/*I18N*/
+</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/","three/examples/jsm/":"https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/","three-mesh-bvh":"https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.7.6/build/index.module.js","three-gpu-pathtracer":"https://cdn.jsdelivr.net/npm/three-gpu-pathtracer@0.0.23/build/index.module.js","denoiser":"https://cdn.jsdelivr.net/npm/denoiser@0.0.11/dist/index.mjs"}}</script>
+<script type="module">
+/*APP*/
+</script>
