@@ -5,7 +5,8 @@ index.html er hele appen i én fil (HDRI-lyset ligger innebygd). Den kan åpnes 
 ## Struktur
 - index.html: ferdig bygget app
 - src/app.js: all logikk, 3D-modellering, lys og rendring
-- src/shell.html: HTML og CSS, med plassholderen /*APP*/ der app.js settes inn
+- src/shell.html: HTML og CSS, med plassholderne /*I18N*/ og /*APP*/ der i18n.js og app.js settes inn
+- src/i18n.js: språkbytte NO/EN. Ny tekst i appen må legges inn her (EN = eksakt tekst, RULES = tekst med tall/navn)
 - assets/studio_small_03_1k.hdr: studiolys (HDRI), bygges inn i index.html som base64
 - build.py: bygger index.html på nytt etter endringer i src eller assets
 

@@ -81,7 +81,7 @@
     'Solo / bobber-sete': 'Solo / bobber saddle', 'store fjærer': 'big springs', 'kort nese': 'short nose',
     'utsparing': 'cutout', '3D-printet gitter': '3D-printed lattice', 'karbonskinner': 'carbon rails',
     'kanal i hele lengden': 'full-length channel', 'Kium-skinner': 'Kium rails', 'Landeveissete': 'Road saddle',
-    'Bananasete med sissybar': 'Banana seat with sissy bar', '70-talls stil': '70s style',
+    'S-Works Power med Mirror': 'S-Works Power with Mirror', 'Bananasete med sissybar': 'Banana seat with sissy bar', '70-talls stil': '70s style',
     // sidevegger og dekk
     'Mørk tan (tanwall)': 'Dark tan (tanwall)', 'Skinwall / lys tan': 'Skinwall / light tan', 'Creme': 'Cream',
     'Brun med hvit stripe': 'Brown with white stripe', 'Kaffe': 'Coffee', 'Cruiserdekk (generisk)': 'Cruiser tyre (generic)',
@@ -371,12 +371,23 @@
         continue;
       }
       if (!re.test(s)) continue;
-      const parts = s.split(re);
+      const parts = splitTop(s, re);
+      if (parts.length < 2) continue;
       let changed = false;
       const out = parts.map(p => { if (re.test(p) && p.trim().length <= 3) return p; const t = T(p); if (t !== p) changed = true; return t; });
       if (changed) return out.join('');
     }
     return null;
+  }
+  // del bare utenfor parenteser, så «Landevei (STI, brems og gir)» holdes samlet
+  function splitTop(s, re) {
+    const raw = s.split(re), out = [];
+    let depth = 0;
+    for (const p of raw) {
+      if (depth > 0 && out.length) out[out.length - 1] += p; else out.push(p);
+      for (const ch of p) { if (ch === '(') depth++; else if (ch === ')') depth = Math.max(0, depth - 1); }
+    }
+    return out;
   }
   // desimalkomma blir punktum på engelsk: 27,5 → 27.5
   const fix = s => s.replace(/(\d),(\d)/g, '$1.$2').replace(/\bca\. /g, 'approx. ');
