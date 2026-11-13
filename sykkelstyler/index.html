@@ -287,7 +287,7 @@ pre{margin:0;font:12px/1.5 var(--mono);background:var(--bg);border:1px solid var
         <div class="ph-row"><div class="ph-q" role="group" aria-label="Kvalitet"><button type="button" data-rq="rask" aria-pressed="false" title="Rundt 40 sekunder i skjermoppløsning">Rask</button><button type="button" data-rq="beste" aria-pressed="true" title="Rundt 2 minutter, dobbel oppløsning og dybdeskarphet">Beste</button><button type="button" data-rq="ultra" aria-pressed="false" title="Rundt 5 minutter, høyest oppløsning og flest runder">Ultra</button></div><div class="ph-track"><i id="ph-bar"></i></div></div>
       </div>
       <div class="views" id="views">
-        <button data-view="q">3/4</button><button data-view="r">Drivside</button><button data-view="l">Venstre</button><button data-view="f">Forfra</button><button data-view="t">Ovenfra</button><button data-spin aria-pressed="false">Snurr</button><button data-quality aria-pressed="true">Høy kvalitet</button>
+        <button data-view="q">3/4</button><button data-view="r">Drivside</button><button data-view="l">Venstre</button><button data-view="f">Forfra</button><button data-view="t">Ovenfra</button><button data-spin aria-pressed="false">Snurr</button><button data-quality aria-pressed="true">Høy kvalitet</button><button data-autof aria-pressed="true" title="Zoom automatisk inn på delen du endrer">Auto-fokus</button>
         <i class="sep"></i>
         <button class="f" data-focus="cockpit">Cockpit</button><button class="f" data-focus="fork">Gaffel</button><button class="f" data-focus="brakeF">Forbrems</button><button class="f" data-focus="brakeR">Bakbrems</button><button class="f" data-focus="cassette">Kassett</button><button class="f" data-focus="crank">Krank</button><button class="f" data-focus="saddle">Sete</button><button class="f" data-focus="hubF">Fornav</button>
       </div>
@@ -410,7 +410,9 @@ pre{margin:0;font:12px/1.5 var(--mono);background:var(--bg);border:1px solid var
     'Elektronisk, 2 klinger': 'Electronic, 2 chainrings',
     // styrer
     'Flatt riserstyre': 'Flat riser bar', 'Moto / klunker-styre': 'Moto / klunker bar', 'Generisk': 'Generic',
-    'høy og bred': 'tall and wide', 'Cruiserstyre': 'Cruiser bar', 'stor backsweep': 'big backsweep',
+    'høy og bred': 'tall and wide', 'Cruiserstyre': 'Cruiser bar', 'Motocross-styre': 'Motocross bar',
+    'Vinkel på stigningen': 'Riser angle', 'Tverrstag': 'Crossbar', 'med tverrstag': 'with crossbar', 'uten tverrstag': 'without crossbar',
+    'Lav vinkel gir slake, skrå sider. Høy vinkel gir bratte, nesten loddrette sider.': 'A low angle gives gentle, sloping sides. A high angle gives steep, almost vertical sides.', 'stor backsweep': 'big backsweep',
     'BMX-styre 9"': 'BMX bar 9"', 'med tverrstag': 'with crossbar', 'Landevei kompakt': 'Road compact',
     'Klassisk rundbøyd': 'Classic round bend',
     // seter
@@ -445,7 +447,7 @@ pre{margin:0;font:12px/1.5 var(--mono);background:var(--bg);border:1px solid var
     'Landevei (STI, brems og gir)': 'Road (STI, brake and shift)', 'Hydraulisk med reservoar': 'Hydraulic with reservoir',
     'MTB wirehendel': 'MTB cable lever', 'Lang klassisk': 'Long classic', 'Krom cruiserhendel': 'Chrome cruiser lever',
     'BMX med kuleende': 'BMX with ball end', 'Integrert styre og stem': 'Integrated bar and stem',
-    'Moderne 2-delt': 'Modern 2-piece', 'Firkantaksling, klassisk': 'Square taper, classic',
+    'Moderne 2-delt': 'Modern 2-piece', 'CNC-krank (104 BCD)': 'CNC crank (104 BCD)', 'CNC enduro-stem': 'CNC enduro stem', 'Klingeform': 'Chainring shape', 'Firkantaksling, klassisk': 'Square taper, classic',
     'Ett-delt (cruiser)': 'One-piece (cruiser)', 'BMX 3-delt': 'BMX 3-piece', 'Alu flat med pinner': 'Alu flat with pins',
     'Plast plattform': 'Plastic platform', 'Gummiblokk, klassisk': 'Rubber block, classic',
     'Klikk MTB (SPD)': 'Clipless MTB (SPD)', 'Klikk landevei (SPD-SL)': 'Clipless road (SPD-SL)',
@@ -558,7 +560,7 @@ pre{margin:0;font:12px/1.5 var(--mono);background:var(--bg);border:1px solid var
     'Rundt 2 minutter, dobbel oppløsning og dybdeskarphet': 'About 2 minutes, double resolution and depth of field',
     'Beste': 'Best', 'Rundt 5 minutter, høyest oppløsning og flest runder': 'About 5 minutes, highest resolution and most passes',
     'Drivside': 'Drive side', 'Venstre': 'Left', 'Forfra': 'Front', 'Ovenfra': 'Top', 'Snurr': 'Spin',
-    'Høy kvalitet': 'High quality', 'Høy kvalitet …': 'High quality …', 'Rask visning': 'Fast view',
+    'Høy kvalitet': 'High quality', 'Høy kvalitet …': 'High quality …', 'Rask visning': 'Fast view', 'Auto-fokus': 'Auto focus', 'Zoom automatisk inn på delen du endrer': 'Automatically zoom in on the part you change',
     'Forbrems': 'Front brake', 'Bakbrems': 'Rear brake', 'Kassett': 'Cassette', 'Fornav': 'Front hub',
     'Byggeliste': 'Build list', 'Kopier byggeliste': 'Copy build list', 'Navn på bygget': 'Build name',
     'Lagre bygg': 'Save build', 'Last inn': 'Load', 'Slett': 'Delete', 'Angre': 'Undo', 'Fortsett forrige': 'Continue previous',
@@ -637,6 +639,7 @@ pre{margin:0;font:12px/1.5 var(--mono);background:var(--bg);border:1px solid var
     [/^(post|flat) mount bremsefeste$/, a => `${a} mount brakes`],
     [/^([+-]?\d+) mm akse-krone$/, a => `${a} mm axle-to-crown`],
     [/^(\d+) mm spacere$/, a => `${a} mm spacers`],
+    [/^(\d+)° stigning$/, a => `${a}° riser angle`],
     [/^girhendler (.+)$/, a => `shifters ${T(a)}`],
     [/^styrebånd (.+)$/, a => `bar tape ${T(a)}`],
     [/^flaske (.+)$/, a => `bottle ${T(a)}`],
@@ -962,6 +965,7 @@ const BARS={
    horn:[[-.006,.04,.205],[.03,.041,.208],[.07,.044,.211],[.1,.048,.211],[.112,.05,.21]]},
  albatross:{n:'Nitto Albatross',s:'550 mm, 50 mm rise, 25,4 klemme',p:[[0,0,.05],[.04,.01,.13],[.03,.04,.22],[-.05,.05,.27],[-.173,.05,.275]],clamp:.0254},
  moto:{n:'Moto / klunker-styre',s:'Generisk, høy og bred',p:[[0,0,.06],[.008,.05,.15],[-.05,.1,.25],[-.1,.105,.35]]},
+ mx:{n:'Motocross-styre',gen:true,get s(){return `${st.mxW} mm, ${st.mxRise} mm rise, ${st.mxAng}° stigning, ${st.mxSweep}° backsweep, ${st.mxCross==='no'?'uten':'med'} tverrstag`}},
  cruiser:{n:'Cruiserstyre',s:'Generisk, stor backsweep',p:[[0,0,.05],[.025,.1,.13],[-.08,.17,.25],[-.2,.165,.31],[-.29,.155,.3]]},
  bmx:{n:'BMX-styre 9"',s:'Generisk, med tverrstag',p:[[0,0,.04],[0,0,.08],[-.035,.2,.15],[-.05,.225,.22],[-.058,.229,.36]],cross:true},
  roadcompact:{n:'Landevei kompakt',s:'Generisk, 420 mm, reach 75, drop 125',drop:{w:.42,r:.075,d:.125,fl:0}},
@@ -1028,8 +1032,8 @@ const LEGS={thin:'Tynne',std:'Normale',fat:'Kraftige'};
 const BRAKES={hyd:{n:'Hydraulisk skivebrems',s:'Slange, 2 stempler'},mech:{n:'Mekanisk skivebrems',s:'Wire og arm'},vbrake:{n:'V-brems',s:'Felgbrems på sokler'},
  canti:{n:'Cantilever',s:'Felgbrems med tverrwire'},caliper:{n:'Kaliperbrems',s:'Felgbrems, sentermontert'},drum:{n:'Trommelbrems',s:'I navet'},none:{n:'Ingen',s:'F.eks. med fotbremsnav'}};
 const LEVERS={road:'Landevei (STI, brems og gir)',hyd:'Hydraulisk med reservoar',mtb:'MTB wirehendel',long:'Lang klassisk',vintage:'Krom cruiserhendel',bmx:'BMX med kuleende'};
-const STEMS={ahead:'Ahead',quill:'Quill-look',bmx:'BMX toploader',integrated:'Integrert styre og stem'};
-const CRANKS={modern:'Moderne 2-delt',square:'Firkantaksling, klassisk',onepiece:'Ett-delt (cruiser)',bmx:'BMX 3-delt'};
+const STEMS={ahead:'Ahead',cnc:'CNC enduro-stem',quill:'Quill-look',bmx:'BMX toploader',integrated:'Integrert styre og stem'};
+const CRANKS={modern:'Moderne 2-delt',cnc:'CNC-krank (104 BCD)',square:'Firkantaksling, klassisk',onepiece:'Ett-delt (cruiser)',bmx:'BMX 3-delt'};
 const PEDALS={flat:'Alu flat med pinner',plastic:'Plast plattform',rat:'Rat-trap',block:'Gummiblokk, klassisk',spd:'Klikk MTB (SPD)',road:'Klikk landevei (SPD-SL)'};
 // felger: d = dybde (mm, dr = bak hvis ulik), iw/ew = indre/ytre bredde (mm), prof = form i 3D, s = hjulstørrelser, b = bremsetype (disc/rim/both), src = kilde for målene
 const RIMDB={
@@ -1085,7 +1089,7 @@ const PAINT0={frame:P_('gloss','#1f3a6b'),accent:P_('gloss','#8cb8d8'),headset:P
  levers:P_('alu'),blevers:P_('alu'),hoods:P_('rubber'),calipers:P_('matt'),rotors:P_('alu'),housing:P_('gloss','#f2efe6'),hose:P_('matt'),crank:P_('matt'),ring:P_('matt'),cassette:P_('alu'),chain:P_('alu'),der:P_('matt'),pedals:P_('matt'),
  rims:P_('matt'),spokes:P_('alu'),nipples:P_('alu'),hubs:P_('matt'),saddle:P_('vinyl'),post:P_('matt'),clamp:P_('matt'),decal2:P_('gloss','#e0782f'),fender:P_('matt'),guard:P_('chrome'),kick:P_('alu'),cage:P_('matt'),bottle:P_('gloss','#f2efe6'),bell:P_('chrome'),bolts:P_('alu')};
 const DEFAULT_BIKE='talon29';
-const BASE={bike:DEFAULT_BIKE,finn:null,geo:geoOf(DEFAULT_BIKE),geoEdited:false,forkType:'susp',forkBlade:'curve',forkCrown:'uni',forkLeg:'std',forkDelta:0,barType:'riser',stemType:'ahead',stemLen:60,stemAng:6,spacers:15,lever:'mtb',
+const BASE={bike:DEFAULT_BIKE,finn:null,geo:geoOf(DEFAULT_BIKE),geoEdited:false,forkType:'susp',forkBlade:'curve',forkCrown:'uni',forkLeg:'std',forkDelta:0,barType:'riser',mxRise:90,mxW:780,mxAng:60,mxSweep:6,mxCross:'yes',ringShape:'round',stemType:'ahead',stemLen:60,stemAng:6,spacers:15,lever:'mtb',
  brakeF:'mech',brakeR:'mech',rotor:160,drive:'3x8',crank:'square',crankLen:170,pedals:'plastic',guard:'no',tire:'hookworm',tireW:2.5,wall:'black',rim:'mtb',spokesN:32,
  saddle:'mtb',saddleH:.15,fender:'none',kick:'none',bottle:'none',bell:'no',decal:'',decalStyle:'none',p:PAINT0};
 // stiler endrer deler og farger, ikke ramme, geometri eller tilbehør
@@ -1612,6 +1616,19 @@ function cyl(a,b,r,m,seg=24,rTop,p){const d=new V3().subVectors(b,a),L=d.length(
 function sph(c,r,m,p){const me=new THREE.Mesh(new THREE.SphereGeometry(r,24,16),m);me.position.copy(c);return put(me,p)}
 function box(a,b,w,t,m,p){const d=new V3().subVectors(b,a),L=d.length();const me=new THREE.Mesh(new THREE.BoxGeometry(L,w,t),m);
   me.position.copy(a).addScaledVector(d,.5);me.quaternion.setFromUnitVectors(new V3(1,0,0),d.normalize());return put(me,p)}
+// motocross-styre regnet ut fra innstillingene. Punkter som [bakover, opp, utover] fra stemklemmen.
+function mxBar(){const R=st.mxRise/1000,W=st.mxW/2000,ang=st.mxAng*D2R,sw=Math.tan(st.mxSweep*D2R),c=0.08,lean=0.012;
+  const run=R/Math.tan(ang),dz=Math.cos(ang),dy=Math.sin(ang),rl=Math.hypot(run,R),rb=Math.min(0.03,rl/2.4);
+  const q=(p0,p1,p2,t)=>[(1-t)*(1-t)*p0[0]+2*(1-t)*t*p1[0]+t*t*p2[0],(1-t)*(1-t)*p0[1]+2*(1-t)*t*p1[1]+t*t*p2[1]];
+  const zy=[[0.05,0],[c-rb-0.012,0]],C1=[c,0],C2=[c+run,R];
+  for(let i=0;i<=8;i++)zy.push(q([c-rb,0],C1,[c+dz*rb,dy*rb],i/8));
+  for(let i=1;i<4;i++){const t=i/4;zy.push([c+dz*rb+(run-2*dz*rb)*t,dy*rb+(R-2*dy*rb)*t])}
+  for(let i=0;i<=8;i++)zy.push(q([C2[0]-dz*rb,R-dy*rb],C2,[C2[0]+rb,R],i/8));
+  zy.push([C2[0]+rb+0.05,R]);for(let z=C2[0]+rb+0.1;z<W-0.01;z+=0.05)zy.push([z,R]);zy.push([W,R]);
+  // x: stigningen heller litt bakover, toppen får backsweep
+  const xs=([z,y])=>z<=C2[0]?-lean*Math.max(0,Math.min(1,y/R)):-lean-(z-C2[0])*sw;
+  const p=zy.map(pt=>[xs(pt),pt[1],pt[0]]);
+  const k=0.78,cz=c+run*k;return {p,crossAt:st.mxCross==='no'?null:[-lean*k,R*k,cz]}}
 function tube(pts,r,m,seg=64,closed=false,p,rs=14){const cv=new THREE.CatmullRomCurve3(pts,closed,'centripetal');const me=new THREE.Mesh(new THREE.TubeGeometry(cv,seg,r,rs,closed),m);put(me,p);return cv}
 function rrect(w,h,r){const s=new THREE.Shape(),x=-w/2,y=-h/2;r=Math.min(r,w/2,h/2);s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);return s}
 function rbox(w,h,d,r,m,p){const bev=Math.min(r,d/2.2,w/3,h/3);const g=new THREE.ExtrudeGeometry(rrect(w-bev*2,h-bev*2,Math.max(0.0004,r-bev)),{depth:Math.max(0.0002,d-bev*2),bevelEnabled:true,bevelThickness:bev,bevelSize:bev,bevelSegments:3,curveSegments:5});
@@ -2093,10 +2110,11 @@ function cockpit(){
       // bakre klemme: slisset ører bak styrerøret med to bolter på tvers
       const ear=rbox(0.016,H*0.86,0.03,0.004,sm);orient(ear,v(A(STC,K(n,-0.024))),Math.atan2(n.y,n.x));
       [-1,1].forEach(k=>{const c=A(A(STC,K(n,-0.027)),K(up,k*0.012));cyl(v(c,-0.015),v(c,0.015),0.0045,sm,16);bolt(v(c,0.015),new V3(0,0,1),0.0032,M.bolts);hexnut(v(c,-0.015),new V3(0,0,-1),0.0036,0.003,M.bolts)})}
+    else if(st.stemType==='cnc')cncStem(STC,E,dir,sm);
     else aheadStem(STC,E,dir,sm);
   }
   FOCUS.cockpit=v(E);
-  const e=v(E),BR=BARS[st.barType],br=0.0111;
+  const e=v(E),BR0=BARS[st.barType],BR=BR0.gen?{...BR0,...mxBar()}:BR0,br=0.0111;
   if(BR.drop){dropBar(e,BR.drop);return}
   const mk=a=>new V3(e.x+a[0],e.y+a[1],a[2]);
   const half=BR.p.map(mk);
@@ -2104,6 +2122,8 @@ function cockpit(){
   const cv=tube(pts,br,M.bar,180,false,null,20);
   cyl(e.clone().setZ(-0.035),e.clone().setZ(0.035),(BR.clamp||0.0318)/2,M.bar,32);
   if(BR.cross){cyl(cv.getPointAt(0.33),cv.getPointAt(0.67),0.008,M.bar,16)}
+  // tverrstag mellom toppen av stigningene (motocross-styre)
+  if(BR.crossAt&&BR.crossAt.length){const c=BR.crossAt;cyl(mk([c[0],c[1],-c[2]]),mk(c),0.0085,M.bar,16)}
   // sløyfe foran (Jones): én sammenhengende sløyfe fra hjørne til hjørne foran stemmen
   if(BR.loop){const lp=BR.loop.map(mk);tube([...lp.slice().reverse().map(p=>new V3(p.x,p.y,-p.z)),...lp.slice(1)],0.0111,M.bar,120,false,null,18)}
   // sløyfe på hver side (Moloko): åttetall med stemklemmen i midten
@@ -2144,9 +2164,31 @@ function aheadStem(STC,E,dir,sm){const up=GM.up,H=0.04,rS=0.0186,pr=Rot(dir,Math
   fp(ang+0.55,ang+1.5,0.04,0);fp(ang-1.5,ang-0.55,0.04,0);[-1,1].forEach(k=>fp(ang-0.6,ang+0.6,0.0075,k*0.01625));
   [-1,1].forEach(k=>{const a=ang+k*1.05,rd=new V3(Math.cos(a),Math.sin(a),0);[-0.0125,0.0125].forEach(z=>{const c=e.clone().addScaledVector(rd,0.0198).setZ(z);
     cyl(c,c.clone().addScaledVector(rd,0.0026),0.0044,sm,20,0.0042);bolt(c.clone().addScaledVector(rd,0.0026),rd,0.0027,M.bolts)})})}
+// CNC enduro-stem: fresset kasse med sidevegger og vindu, flat topp og bunn, kraftig styrerørsklemme og heldekkende frontplate med fire bolter
+function cncStem(STC,E,dir,sm){const up=GM.up,H=0.042,rS=0.0195,pr=Rot(dir,Math.PI/2),ang=Math.atan2(dir.y,dir.x),e=v(E),nb=GM.n,W=0.0205;
+  cyl(v(A(STC,K(up,-H/2))),v(A(STC,K(up,H/2))),rS,sm,48);
+  cyl(v(A(STC,K(up,H/2))),v(A(STC,K(up,H/2+0.0045))),0.0172,M.headset,40,0.0165);bolt(v(A(STC,K(up,H/2+0.0045))),v(up),0.0038,M.bolts);
+  const bk=A(STC,K(nb,-rS));box(v(A(bk,K(up,-H/2+0.0008))),v(A(bk,K(up,H/2-0.0008))),0.0018,0.0018,M.socket);
+  [-0.0105,0.0105].forEach(h=>{const c=A(A(STC,K(nb,-rS+0.001)),K(up,h));cyl(v(c,-0.0135),v(c,0.0135),0.0058,sm,20,0.0058);bolt(v(c,0.0135),new V3(0,0,1),0.0033,M.bolts)});
+  // sidevegger: firkant fra styrerørsklemmen til styreklemmen, med et skrått vindu gjennom
+  const Pb=A(STC,K(up,-H/2)),Pt=A(STC,K(up,H/2)),Fb=A(E,K(pr,-0.0195)),Ft=A(E,K(pr,0.0195));
+  const Q=(u,w)=>{const lo=M2(Pb,Fb,u),hi=M2(Pt,Ft,u);return M2(lo,hi,w)};
+  const sh=new THREE.Shape();[Pb,Fb,Ft,Pt].forEach((p,i)=>i?sh.lineTo(p.x,p.y):sh.moveTo(p.x,p.y));sh.closePath();
+  if(st.stemLen>=35){const h=new THREE.Path(),win=[Q(0.5,0.3),Q(0.78,0.36),Q(0.78,0.64),Q(0.5,0.7)];win.forEach((p,i)=>i?h.lineTo(p.x,p.y):h.moveTo(p.x,p.y));h.closePath();sh.holes.push(h)}
+  const wt=0.0055,wg=new THREE.ExtrudeGeometry(sh,{depth:wt,bevelEnabled:true,bevelThickness:0.0009,bevelSize:0.0009,bevelSegments:2,curveSegments:8});wg.translate(0,0,-wt/2);
+  [-1,1].forEach(s=>{const me=put(new THREE.Mesh(wg,sm));me.position.z=s*(W-wt/2-0.0009)});
+  // topp og bunn mellom veggene
+  [[Pt,Ft,1],[Pb,Fb,-1]].forEach(([p0,p1,k])=>{const L=L2(Sb(p1,p0));if(L<0.004)return;const mid=A(M2(p0,p1,.5),K(pr,-k*0.0025)),rz=Math.atan2(p1.y-p0.y,p1.x-p0.x);
+    put(orient(rbox(L,0.005,2*W-0.004,0.0015,sm),v(mid),rz))});
+  // styreklemmen: bakre halvdel i kroppen og en heldekkende frontplate med fire bolter
+  const shell=(a0,a1,r0,r1,dz)=>{const s2=new THREE.Shape();s2.absarc(0,0,r1,a0,a1,false);s2.absarc(0,0,r0,a1,a0,true);s2.closePath();
+    const g=new THREE.ExtrudeGeometry(s2,{depth:dz,bevelEnabled:true,bevelThickness:0.0009,bevelSize:0.0009,bevelSegments:2,curveSegments:24});g.translate(0,0,-dz/2);const me=put(new THREE.Mesh(g,sm));me.position.copy(e);return me};
+  const back=ang+Math.PI;shell(back-1.35,back+1.35,0.0159,0.0215,2*W-0.002);shell(ang-1.4,ang+1.4,0.0161,0.0215,2*W-0.004);
+  [-1,1].forEach(k=>{const a2=ang+k*1.12,rd=new V3(Math.cos(a2),Math.sin(a2),0);[-0.0125,0.0125].forEach(z=>{const c=e.clone().addScaledVector(rd,0.021).setZ(z);
+    cyl(c,c.clone().addScaledVector(rd,0.0024),0.0046,sm,20,0.0044);bolt(c.clone().addScaledVector(rd,0.0024),rd,0.0028,M.bolts)})})}
 function stemFace(e){const sm=M.stem;
   // ahead og integrert (med flatt styre brukes ahead-stemmen) har frontplaten sin i aheadStem
-  if(st.stemType==='ahead'||st.stemType==='integrated')return;
+  if(st.stemType==='ahead'||st.stemType==='integrated'||st.stemType==='cnc')return;
   const ang=st.stemAng*D2R;
   if(st.stemType==='bmx'){
     // toploader: styret ligger i en vugge på toppen, lokket over har fire loddrette bolter
@@ -2407,8 +2449,15 @@ function unit(front,type){
 /* ---------- drivverk ---------- */
 function drivetrain(){
   const D=DRIVES[st.drive],zc=-0.05,cm=M.crank,bb=v(GM.BB),ra=v(GM.RA),rings=D.ring,ringR=pitchR(rings[0]);
-  rings.forEach((n,i)=>{const gm=gear(n,pitchR(n)-0.016,0.0028,M.ring,null,rings.length>1?0:5);gm.position.copy(bb).setZ(rings.length>1?-0.059+i*0.0068:zc)});
-  for(let i=0;i<5;i++){const a=i/5*Math.PI*2+0.4;bolt(bb.clone().add(new V3(Math.cos(a)*(ringR-0.013),Math.sin(a)*(ringR-0.013),0)).setZ(zc-0.004),new V3(0,0,-1),0.0035,M.bolts)}
+  const cncK=st.crank==='cnc'&&rings.length===1,armA=-55*D2R,oval=rings.length===1&&st.ringShape==='oval';
+  rings.forEach((n,i)=>{const gm=gear(n,pitchR(n)-(cncK?0.02:0.016),0.0028,M.ring,null,rings.length>1?0:cncK?4:5);gm.position.copy(bb).setZ(rings.length>1?-0.059+i*0.0068:zc);
+    if(cncK)gm.rotation.z=armA+Math.PI/4;
+    // oval klinge: lang akse omtrent på tvers av kranken, slik ovale klinger monteres
+    if(oval){const g2=new THREE.Group();g2.position.copy(gm.position);g2.rotation.z=armA+Math.PI/2-0.15;B.add(g2);gm.position.set(0,0,0);gm.rotation.z=(cncK?armA+Math.PI/4:0)-(armA+Math.PI/2-0.15);g2.add(gm);g2.scale.set(1.06,0.94,1)}});
+  if(cncK){const rb=(pitchR(rings[0])-0.02)*0.8;for(let i=0;i<4;i++){const a=armA+Math.PI/4+i*Math.PI/2;bolt(bb.clone().add(new V3(Math.cos(a)*rb,Math.sin(a)*rb,0)).setZ(zc-0.003),new V3(0,0,-1),0.0034,M.bolts);
+      box(bb.clone().setZ(-0.06),bb.clone().add(new V3(Math.cos(a)*rb,Math.sin(a)*rb,0)).setZ(-0.06),0.012,0.009,M.crank)}
+    cyl(bb.clone().setZ(-0.066),bb.clone().setZ(-0.052),0.022,M.crank,40)}
+  else for(let i=0;i<5;i++){const a=i/5*Math.PI*2+0.4;bolt(bb.clone().add(new V3(Math.cos(a)*(ringR-0.013),Math.sin(a)*(ringR-0.013),0)).setZ(zc-0.004),new V3(0,0,-1),0.0035,M.bolts)}
   let cogR;
   if(D.t==='der'){const [mn,mx,cnt]=D.cs,spc=cnt>=11?0.0039:0.0044;
     for(let i=0;i<cnt;i++){const n=Math.round(mx*Math.pow(mn/mx,i/(cnt-1)));const gm=gear(n,0.012,0.0018,M.cassette,null,n>28?5:0);gm.position.copy(ra).setZ(-0.026-i*spc)}
@@ -2534,6 +2583,14 @@ function drivetrain(){
     if(st.crank==='onepiece'){const k1=v(A(GM.BB,K(dir,0.03)),s*0.07),k2=v(A(GM.BB,K(dir,cl*0.75)),s*0.085);tube([bb.clone().setZ(s*0.045),k1,k2,pd.clone().setZ(s*0.087)],0.0085,cm,40,false,null,16);
       cyl(bb.clone().setZ(s*0.04),bb.clone().setZ(s*0.05),0.026,M.headset,32)}
     else if(st.crank==='bmx'){box(bb.clone().setZ(zA),pd,0.022,0.018,cm);cyl(bb.clone().setZ(zA-0.01),bb.clone().setZ(zA+0.01),0.017,cm,32);bolt(bb.clone().setZ(zA+s*0.009),new V3(0,0,s),0.005,M.bolts)}
+    else if(st.crank==='cnc'){
+      const w0=0.022,w1=0.0125,arm=()=>{const p=new THREE.Shape();p.moveTo(0,-w0);p.lineTo(cl,-w1);p.absarc(cl,0,w1,-Math.PI/2,Math.PI/2,false);p.lineTo(0,w0);p.absarc(0,0,w0,Math.PI/2,Math.PI*1.5,false);return p};
+      const mk=(shape,th,z)=>{const g=new THREE.ExtrudeGeometry(shape,{depth:th,bevelEnabled:true,bevelThickness:0.0015,bevelSize:0.0015,bevelSegments:3,curveSegments:20});g.translate(0,0,-th/2);const me=put(new THREE.Mesh(g,cm));me.position.copy(bb).setZ(z);me.rotation.z=a;return me};
+      mk(arm(),0.012,zA);
+      const rim=arm(),pk=new THREE.Path(),pw0=w0-0.0055,pw1=w1-0.0045,x0=0.03,x1=cl-0.017;pk.moveTo(x0,-pw0*0.85);pk.lineTo(x1,-pw1);pk.lineTo(x1,pw1);pk.lineTo(x0,pw0*0.85);pk.closePath();rim.holes.push(pk);
+      mk(rim,0.0045,zA+s*0.0075);
+      cyl(bb.clone().setZ(zA),bb.clone().setZ(zA+s*0.0115),0.0215,cm,40);bolt(bb.clone().setZ(zA+s*0.0115),new V3(0,0,s),0.0065,M.bolts);
+      cyl(pd.clone().setZ(zA),pd.clone().setZ(zA+s*0.0095),0.0125,cm,32)}
     else{const sh=new THREE.Shape();const w0=st.crank==='modern'?0.02:0.016,w1=0.011;sh.moveTo(0,-w0);sh.lineTo(cl,-w1);sh.absarc(cl,0,w1,-Math.PI/2,Math.PI/2,false);sh.lineTo(0,w0);sh.absarc(0,0,w0,Math.PI/2,Math.PI*1.5,false);
       const th=st.crank==='modern'?0.016:0.012;const g=new THREE.ExtrudeGeometry(sh,{depth:th,bevelEnabled:true,bevelThickness:0.003,bevelSize:0.003,bevelSegments:4,curveSegments:16});g.translate(0,0,-th/2);
       const me=put(new THREE.Mesh(g,cm));me.position.copy(bb).setZ(zA);me.rotation.z=a;
@@ -2851,6 +2908,15 @@ function animTo(th,ph,r,tg){let d=th;while(d-cam.theta>Math.PI)d-=2*Math.PI;whil
   const to={th:d,ph,r,tg:tg?tg.clone():cam.target.clone()};if(reduce){cam.theta=to.th;cam.phi=to.ph;cam.r=to.r;cam.target.copy(to.tg);return}
   tween={from:{th:cam.theta,ph:cam.phi,r:cam.r,tg:cam.target.clone()},to,t0:performance.now()}}
 function goView(k){const V={q:[0.75,1.27,3.1],r:[0,1.52,3.0],l:[Math.PI,1.52,3.0],f:[Math.PI/2,1.42,3.1],t:[0.3,0.35,3.2]}[k];animTo(V[0],V[1],V[2],new V3(0,0.55,0))}
+// auto-fokus: når en komponent byttes, zoomer kameraet inn på delen etter at sykkelen er bygget på nytt.
+// Bare når man går til en ny del, så egen kameravinkel på samme del får stå. Farger utløser ikke zoom.
+const AUTOF={barType:'cockpit',stemType:'cockpit',stemLen:'cockpit',stemAng:'cockpit',spacers:'cockpit',lever:'cockpit',
+  mxRise:'cockpit',mxW:'cockpit',mxAng:'cockpit',mxSweep:'cockpit',mxCross:'cockpit',saddle:'saddle',saddleH:'saddle',
+  forkType:'fork',forkBlade:'fork',forkCrown:'fork',forkLeg:'fork',forkDelta:'fork',brakeF:'brakeF',brakeR:'brakeR',rotor:'brakeF',
+  drive:'cassette',crank:'crank',ringShape:'crank',crankLen:'crank',pedals:'crank'};
+let autoF=(()=>{try{return localStorage.getItem('styler-autofocus')!=='0'}catch(e){return true}})(),lastAuto=null,pendingFocus=null;
+function autoFocus(k){const f=AUTOF[k];if(!autoF||!f||PH.on||PH.busy||f===lastAuto)return;lastAuto=f;pendingFocus=f}
+function setAutoF(on){autoF=on;lastAuto=null;try{localStorage.setItem('styler-autofocus',on?'1':'0')}catch(e){}const b=document.querySelector('[data-autof]');if(b)b.setAttribute('aria-pressed',on)}
 function focusPart(k){const p=FOCUS[k]||FOCUS[{brakeF:'hubF',brakeR:'hubR'}[k]];if(!p)return;const sideTh={fork:Math.PI-0.3,brakeF:Math.PI-0.5,brakeR:Math.PI-0.6,hubF:Math.PI-0.4,hubR:Math.PI-0.5,cassette:0.4,crank:0.5,cockpit:1.2,saddle:0.6,seat:0.6}[k]??cam.theta;
   let ph=1.3,r=k==='cockpit'?0.75:k==='fork'?1.0:k==='saddle'?0.62:0.42,th=sideTh;
   if(k==='fork'){ph=1.45;r=1.15}if(k==='brakeR'&&rimBrake(false)){th=-2.3;ph=1.05;r=0.6}if(k==='brakeF'&&rimBrake(true)){th=2.2;ph=1.1;r=0.6}
@@ -2858,6 +2924,7 @@ function focusPart(k){const p=FOCUS[k]||FOCUS[{brakeF:'hubF',brakeR:'hubR'}[k]];
 function setSpin(on){cam.spin=on;const b=document.querySelector('[data-spin]');if(b)b.setAttribute('aria-pressed',on)}
 function loop(){requestAnimationFrame(loop);
   if(needBuild){needBuild=false;build();dirty=true;if(PH.on)photoScene()}
+  if(pendingFocus&&!PH.on){focusPart(pendingFocus);pendingFocus=null}
   if(tween){const k=Math.min(1,(performance.now()-tween.t0)/700),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;const f=tween.from,t=tween.to;
     cam.theta=f.th+(t.th-f.th)*e;cam.phi=f.ph+(t.ph-f.ph)*e;cam.r=f.r+(t.r-f.r)*e;cam.target.lerpVectors(f.tg,t.tg,e);if(k>=1)tween=null;dirty=true}
   if(cam.spin){cam.theta+=0.004;dirty=true}
@@ -2884,8 +2951,8 @@ const up=e=>{const p=ptrs.get(e.pointerId);ptrs.delete(e.pointerId);pinch0=0;mid
   if(p&&e.pointerType!=='mouse'&&moved<6){const now=performance.now();if(now-lastTap<320)pickAt(e.clientX,e.clientY);lastTap=now}};
 canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);
 canvas.addEventListener('dblclick',e=>pickAt(e.clientX,e.clientY));
-canvas.addEventListener('wheel',e=>{e.preventDefault();dirty=true;zoomAt(Math.exp(e.deltaY*0.0012),e.clientX,e.clientY)},{passive:false});
-document.getElementById('views').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;dirty=true;if(b.hasAttribute('data-quality')){setQuality(quality==='high'?'fast':'high');return}if(b.hasAttribute('data-spin')&&PH.on)return;if(b.dataset.view)goView(b.dataset.view);else if(b.dataset.focus)focusPart(b.dataset.focus);else setSpin(!cam.spin)});
+canvas.addEventListener('wheel',e=>{e.preventDefault();lastAuto=null;dirty=true;zoomAt(Math.exp(e.deltaY*0.0012),e.clientX,e.clientY)},{passive:false});
+document.getElementById('views').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-autof')){setAutoF(!autoF);return}lastAuto=null;dirty=true;if(b.hasAttribute('data-quality')){setQuality(quality==='high'?'fast':'high');return}if(b.hasAttribute('data-spin')&&PH.on)return;if(b.dataset.view)goView(b.dataset.view);else if(b.dataset.focus)focusPart(b.dataset.focus);else setSpin(!cam.spin)});
 
 /* ===================== TEKST ===================== */
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -2929,7 +2996,7 @@ function notes(){const n=[],g=st.geo,mounts=g.mounts,G0=computeGeo(),T=st.forkTy
   if(DRIVES[st.drive].road&&!BARS[st.barType].drop)n.push('Landeveis-gir trenger landeveishendler (STI) på dropstyre, eller egne girhendler for flatt styre.');
   if(!DRIVES[st.drive].road&&BARS[st.barType].drop&&DRIVES[st.drive].t==='der')n.push('MTB-gir med landeveishendler: trekkforholdet passer ofte ikke. Velg et landeveis- eller gravel-drivverk, eller en adapter.');
   if(BARS[st.barType].clamp===.0254)n.push('Nitto Albatross har 25,4 mm klemme; stemmen må passe den.');
-  if(['cruiser','bmx','jones'].includes(st.barType)||st.stemAng>20)n.push('Høyt styre: gir- og bremsekabler må som regel byttes til lengre.');
+  if(['cruiser','bmx','jones','mx'].includes(st.barType)||st.stemAng>20)n.push('Høyt styre: gir- og bremsekabler må som regel byttes til lengre.');
   if(['oil','rainbow'].includes(st.p.frame.m))n.push('Oil slick og regnbue er PVD- eller anodiseringsfinish; på hele rammer er det spesialbestilling.');
   return n}
 function listText(){const p=st.p,L=['Sykkelbygg','',
@@ -2937,7 +3004,7 @@ function listText(){const p=st.p,L=['Sykkelbygg','',
  'GAFFEL',`${forkTxt()}${st.forkDelta?` (${st.forkDelta>0?'+':''}${st.forkDelta} mm akse-krone)`:''}: ${finTxt(p.fork)}`,['susp','susp90','dual'].includes(st.forkType)?`Standrør: ${finTxt(p.stanch)}`:'','',
  'COCKPIT',`Styre: ${BARS[st.barType].n} (${BARS[st.barType].s}), ${finTxt(p.bar)}`,`Stem: ${STEMS[st.stemType]} ${st.stemLen} mm, ${st.stemAng}°, ${st.spacers} mm spacere, ${finTxt(p.stem)}`,`Håndtak: ${finTxt(p.grips)}`,`Hendler: ${LEVERS[st.lever]}, ${finTxt(p.blevers)}, girhendler ${finTxt(p.levers).toLowerCase()}`,BARS[st.barType].drop?`Hoods: ${finTxt(p.hoods)}, styrebånd ${finTxt(p.grips).toLowerCase()}`:'','',
  'BREMSER',`Foran: ${BRAKES[st.brakeF].n}`,`Bak: ${BRAKES[st.brakeR].n}`,(st.brakeF==='hyd'||st.brakeF==='mech'||st.brakeR==='hyd'||st.brakeR==='mech')?`Skiver: ${st.rotor} mm, ${finTxt(p.rotors)}`:'',`Kalipere/armer: ${finTxt(p.calipers)}`,`Wirestrømper: ${finTxt(p.housing)}`,(st.brakeF==='hyd'||st.brakeR==='hyd')?`Slanger: ${finTxt(p.hose)}`:'','',
- 'DRIVVERK',`${DRIVES[st.drive].n} (${DRIVES[st.drive].s})`,`Krank: ${CRANKS[st.crank]}, ${String(st.crankLen).replace('.',',')} mm, ${finTxt(p.crank)}`,`Drev: ${finTxt(p.ring)}`,`Kassett/tannhjul: ${finTxt(p.cassette)}`,`Kjede: ${finTxt(p.chain)}`,DRIVES[st.drive].t==='der'?`Girfører: ${finTxt(p.der)}`:'',`Pedaler: ${PEDALS[st.pedals]}, ${finTxt(p.pedals)}`,'',
+ 'DRIVVERK',`${DRIVES[st.drive].n} (${DRIVES[st.drive].s})`,`Krank: ${CRANKS[st.crank]}, ${String(st.crankLen).replace('.',',')} mm, ${finTxt(p.crank)}`,`Drev: ${DRIVES[st.drive].ring.length===1&&st.ringShape==='oval'?'oval, ':''}${finTxt(p.ring)}`,`Kassett/tannhjul: ${finTxt(p.cassette)}`,`Kjede: ${finTxt(p.chain)}`,DRIVES[st.drive].t==='der'?`Girfører: ${finTxt(p.der)}`:'',`Pedaler: ${PEDALS[st.pedals]}, ${finTxt(p.pedals)}`,'',
  'HJUL',`Dekk: ${tireTxt()}, ${SIDEWALLS[st.wall].n.toLowerCase()} sidevegg`,`Felger: ${RIMS[st.rim]} (${rimTxt(RIMDB[st.rim]||RIMDB.mtb)}), ${finTxt(p.rims)}`,`Eiker: ${st.spokesN} stk, ${finTxt(p.spokes)}`,`Nipler: ${finTxt(p.nipples)}`,`Nav: ${finTxt(p.hubs)}`,'',
  'SETE',`${SADDLES[st.saddle].n} (${SADDLES[st.saddle].s}): ${finTxt(p.saddle)}`,`Setepinne: ${finTxt(p.post)}`,`Klemme: ${finTxt(p.clamp)}`,'',
  'SKRUER',`Skruer: ${finTxt(p.bolts)}`,'',
@@ -2965,12 +3032,15 @@ const TABS=[
    {t:'choice',k:'forkLeg',l:'Tykkelse på beina',o:Object.entries(LEGS),when:()=>['rigid','truss','dual','springer'].includes(st.forkType)},
    {t:'range',k:'forkDelta',l:'Akse til krone, endring',u:'mm',min:-90,max:40,step:5,h:'Kortere gaffel gir brattere styrevinkel og lavere front.'},
    {t:'paint',k:'fork'},{t:'paint',k:'stanch',when:()=>['susp','susp90','dual'].includes(st.forkType)}]},
- {id:'cockpit',name:'Cockpit',items:[{t:'cat',k:'barType',l:'Flate og høye styrer',c:BARS,f:b=>!b.drop},{t:'cat',k:'barType',l:'Dropstyrer (landevei og gravel)',c:BARS,f:b=>!!b.drop},{t:'choice',k:'stemType',l:'Stem',o:Object.entries(STEMS)},{t:'range',k:'stemLen',l:'Stemlengde',u:'mm',min:30,max:130,step:5},
+ {id:'cockpit',name:'Cockpit',items:[{t:'cat',k:'barType',l:'Flate og høye styrer',c:BARS,f:b=>!b.drop},{t:'cat',k:'barType',l:'Dropstyrer (landevei og gravel)',c:BARS,f:b=>!!b.drop},{t:'range',k:'mxRise',l:'Rise',u:'mm',min:50,max:130,step:5,when:()=>st.barType==='mx'},{t:'range',k:'mxW',l:'Bredde',u:'mm',min:700,max:820,step:10,when:()=>st.barType==='mx'},
+   {t:'range',k:'mxAng',l:'Vinkel på stigningen',u:'°',min:40,max:85,step:5,h:'Lav vinkel gir slake, skrå sider. Høy vinkel gir bratte, nesten loddrette sider.',when:()=>st.barType==='mx'},
+   {t:'range',k:'mxSweep',l:'Backsweep',u:'°',min:0,max:12,step:1,when:()=>st.barType==='mx'},{t:'choice',k:'mxCross',l:'Tverrstag',o:[['yes','Ja'],['no','Nei']],when:()=>st.barType==='mx'},
+   {t:'choice',k:'stemType',l:'Stem',o:Object.entries(STEMS)},{t:'range',k:'stemLen',l:'Stemlengde',u:'mm',min:30,max:130,step:5},
    {t:'range',k:'stemAng',l:'Stemvinkel',u:'°',min:-17,max:45,step:1},{t:'range',k:'spacers',l:'Spacere',u:'mm',min:0,max:50,step:5},{t:'choice',k:'lever',l:'Hendler',o:Object.entries(LEVERS).filter(([k])=>k!=='road'),when:()=>!BARS[st.barType].drop},{t:'note',h:'Dropstyre bruker landeveishendler (STI) med brems og gir i samme hendel.',when:()=>!!BARS[st.barType].drop},
    {t:'paint',k:'bar'},{t:'paint',k:'stem'},{t:'paint',k:'grips'},{t:'paint',k:'hoods',when:()=>!!BARS[st.barType].drop},{t:'paint',k:'blevers'},{t:'paint',k:'levers',when:()=>{const D=DRIVES[st.drive];return D.t==='der'||D.t==='hub'||!!D.shift}}]},
  {id:'bremser',name:'Bremser',items:[{t:'brakeBoth'},{t:'cat',k:'brakeF',l:'Bare forbrems',c:BRAKES},{t:'cat',k:'brakeR',l:'Bare bakbrems',c:BRAKES},{t:'choice',k:'rotor',l:'Skivestørrelse',o:[[160,'160 mm'],[180,'180 mm'],[203,'203 mm']],when:()=>['hyd','mech'].includes(st.brakeF)||['hyd','mech'].includes(st.brakeR)},
    {t:'paint',k:'blevers'},{t:'paint',k:'calipers'},{t:'paint',k:'rotors'},{t:'paint',k:'housing'},{t:'paint',k:'hose'}]},
- {id:'drivverk',name:'Drivverk',items:[{t:'cat',k:'drive',l:'Drivverk',c:DRIVES},{t:'choice',k:'crank',l:'Krank',o:Object.entries(CRANKS)},{t:'choice',k:'crankLen',l:'Kranklengde',o:[[165,'165 mm'],[170,'170 mm'],[172.5,'172,5 mm'],[175,'175 mm']]},
+ {id:'drivverk',name:'Drivverk',items:[{t:'cat',k:'drive',l:'Drivverk',c:DRIVES},{t:'choice',k:'crank',l:'Krank',o:Object.entries(CRANKS)},{t:'choice',k:'ringShape',l:'Klingeform',o:[['round','Rund'],['oval','Oval']],when:()=>DRIVES[st.drive].ring.length===1},{t:'choice',k:'crankLen',l:'Kranklengde',o:[[165,'165 mm'],[170,'170 mm'],[172.5,'172,5 mm'],[175,'175 mm']]},
    {t:'choice',k:'pedals',l:'Pedaler',o:Object.entries(PEDALS)},
    {t:'paint',k:'crank'},{t:'paint',k:'ring'},{t:'paint',k:'cassette'},{t:'paint',k:'chain'},{t:'paint',k:'der',when:()=>DRIVES[st.drive].t==='der'},{t:'paint',k:'pedals'}]},
  {id:'hjul',name:'Hjul og dekk',items:[{t:'wheel'},{t:'tire'},{t:'rimpicker'},{t:'choice',k:'spokesN',l:'Antall eiker',o:[[28,'28'],[32,'32'],[36,'36']]},
@@ -3109,7 +3179,7 @@ grp.addEventListener('change',e=>{if(e.target.type==='color'){clearTimeout(ct);c
 grp.addEventListener('toggle',e=>{const d=e.target;if(d.dataset&&d.dataset.part){d.open?openParts.add(d.dataset.part):openParts.delete(d.dataset.part)}},true);
 grp.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.disabled)return;
   if(b.dataset.bike){selectBike(b.dataset.bike,b.dataset.finn||null);return}
-  if(b.dataset.bb){const prev=clone(st);st.brakeF=st.brakeR=b.dataset.bb;const msg=brakeRimFix();syncLever();renderGroup();changed();toast(`${BRAKES[b.dataset.bb].n} foran og bak.${msg}`,prev);return}
+  if(b.dataset.bb){const prev=clone(st);st.brakeF=st.brakeR=b.dataset.bb;const msg=brakeRimFix();syncLever();renderGroup();changed();toast(`${BRAKES[b.dataset.bb].n} foran og bak.${msg}`,prev);autoFocus('brakeF');return}
   if(b.dataset.gc){const k=b.dataset.gc;let val=b.dataset.v;if(val==='true')val=true;else if(val==='false')val=false;st.geo[k]=val;st.geoEdited=true;if(k==='wheel')fixTire(st);renderGroup();changed();return}
   if(b.dataset.pk){st.p[b.dataset.pk].m=b.dataset.m;renderGroup();changed();return}
   if(b.dataset.tfilter){tireFilter=!tireFilter;renderGroup();return}
@@ -3120,12 +3190,12 @@ grp.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.dis
   else if(b.dataset.v!==undefined){const raw=b.dataset.v;st[k]=['tireW','rotor','crankLen','spokesN'].includes(k)?+raw:raw;if(k==='tire'||k==='tireW')fixTire(st,st.wall);
     if(k==='brakeF'||k==='brakeR'){const msg=brakeRimFix();if(msg)toast(msg.trim())}
     if(k==='barType'||k==='brakeF'||k==='brakeR')syncLever()}
-  else return;renderGroup();changed()});
+  else return;renderGroup();changed();if(!b.dataset.c)autoFocus(k)});
 let ct;grp.addEventListener('input',e=>{const t=e.target;
   if(t.id==='bike-q')return;
   if(t.dataset.g){st.geo[t.dataset.g]=+t.value;st.geoEdited=true;const lb=t.previousElementSibling.querySelector('b');const u=GEOSL.find(x=>x[0]===t.dataset.g)[2];lb.textContent=u==='mm'?Math.round(t.value*1000)+' mm':(+t.value).toFixed(1).replace('.',',')+'°';changed();return}
   const k=t.dataset.k;if(!k)return;
-  if(t.type==='range'){st[k]=+t.value;const lb=t.previousElementSibling.querySelector('b');const it=TABS.flatMap(x=>x.items).find(x=>x.k===k);lb.textContent=Math.round(st[k]*(it.scale||1))+' '+it.u;changed();return}
+  if(t.type==='range'){st[k]=+t.value;const lb=t.previousElementSibling.querySelector('b');const it=TABS.flatMap(x=>x.items).find(x=>x.k===k);lb.textContent=Math.round(st[k]*(it.scale||1))+' '+it.u;changed();autoFocus(k);return}
   if(t.type==='color'){if(k.startsWith('p:')){const pk=k.slice(2);st.p[pk].c=t.value;if(NOCOLOR.includes(st.p[pk].m))st.p[pk].m='gloss'}else st[k]=t.value;
     t.nextElementSibling.textContent=colName(t.value);
     const det=t.closest('details');if(det){const pk=k.slice(2),sm=det.querySelector('summary small'),dt=det.querySelector('summary .dot');if(sm)sm.textContent=finTxt(st.p[pk]);if(dt){dt.className='dot';dt.style.background=t.value}
@@ -3160,7 +3230,7 @@ document.getElementById('saved').addEventListener('click',e=>{const l=e.target.c
 
 applyStock(st.bike);
 if(location.hash==='#debug')window.__dbg={get camera(){return camera},build:()=>{build()},LOOKS,BIKES,TABS,get tab(){return tab},get M(){return M},get GM(){return GM},get ROOT(){return B},THREE,selectBike,photoStart,photoStop,get PH(){return PH},RQ,setRQ,phFinalize,phExport:()=>phExport().toDataURL(),snap(pt){if(pt){PH.pt.renderSample();return canvas.toDataURL()}const bg=scene.background,gv=ground.visible;scene.background=null;ground.visible=false;ROOT.traverse(o=>{if(o.userData.fx)o.visible=false});renderer.render(scene,camera);const u=canvas.toDataURL();scene.background=bg;ground.visible=gv;ROOT.traverse(o=>{if(o.userData.fx)o.visible=true});return u},get st(){return st},changed,renderGroup,setQuality,get composer(){return !!composer},get scene(){return scene},set ao(v){if(gtao)gtao.enabled=v;dirty=true},set gtaoOut(v){if(gtao)gtao.output=v;dirty=true},cam(th,ph,r,k){const p=FOCUS[k||'fork'];tween=null;setSpin(false);cam.theta=th;cam.phi=ph;cam.r=r;if(p)cam.target.copy(p);dirty=true}};
-renderTabs();renderGroup();renderText();renderSaved();
+renderTabs();renderGroup();renderText();renderSaved();setAutoF(autoF);
 if(prevSession&&JSON.stringify(prevSession)!==JSON.stringify(st))toast(`Startet med ${bikeName()}`,prevSession,'Fortsett forrige');
 try{initThree();if(document.fonts)document.fonts.ready.then(()=>{needBuild=true})}catch(e){document.getElementById('loading').textContent='3D kunne ikke startes: '+e.message}
 
