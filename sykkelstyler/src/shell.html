@@ -63,10 +63,32 @@ h1 span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-
 .views button.f{border-style:dashed}
 .hint-drag .mb{display:none}
 @media (pointer:coarse){.hint-drag .mb{display:inline}.hint-drag .dk{display:none}}
-.hint-drag{position:absolute;top:10px;left:12px;right:300px;font:11px var(--mono);color:var(--mute);pointer-events:none}
+.hint-drag{position:absolute;top:10px;left:12px;right:430px;font:11px var(--mono);color:var(--mute);pointer-events:none}
 .stage[data-bg="lilla"]{background:radial-gradient(ellipse 85% 75% at 50% 38%,#9d74d6,#5c2f94 55%,#1d0c33)}
 .stage[data-bg="svart"]{background:radial-gradient(ellipse 85% 75% at 50% 38%,#45454c,#1c1c20 55%,#050506)}
 .stage[data-bg="hvit"]{background:radial-gradient(ellipse 85% 75% at 50% 38%,#fff,#f1f0f4 55%,#cfced6)}
+.stage[data-bg="betong"]{background:radial-gradient(ellipse 85% 75% at 50% 38%,#e6e4e0,#bdbab4 55%,#77746e)}
+.stage[data-bg="tre"]{background:radial-gradient(ellipse 85% 75% at 50% 38%,#f4ece0,#d9c8ae 55%,#8a7356)}
+.stage[data-bg="betong"] .hint-drag,.stage[data-bg="betong"] .loading,.stage[data-bg="tre"] .hint-drag,.stage[data-bg="tre"] .loading{color:#4f4a44}
+/* bildet: bakgrunn, 3D og bildestil-lagene i én blokk, så filteret virker likt på alt (og likt med bildet som lagres) */
+.shot{position:relative;background:inherit}
+.gv-fx{position:absolute;inset:0;pointer-events:none}
+.gv-fx[hidden]{display:none}
+.gv-tint{mix-blend-mode:soft-light}
+.gv-grain{mix-blend-mode:overlay;background-repeat:repeat}
+.look{position:relative}
+.lookbtn{display:flex;align-items:center;gap:6px;height:34px;padding:0 12px 0 9px;border-radius:20px;border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(6px);color:var(--ink);font:600 11.5px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+.lookbtn svg{width:18px;height:18px;flex:none}
+.lookbtn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+.lookbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.lookp{position:absolute;right:0;top:calc(100% + 6px);z-index:6;width:min(300px,calc(100vw - 48px));display:grid;gap:10px;padding:10px 12px;border-radius:12px;background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.lookp[hidden]{display:none}
+.lk>span{display:block;font:600 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:5px}
+.lkr{display:flex;flex-wrap:wrap;gap:5px}
+.lkr button{font:600 11.5px/1 var(--mono);padding:6px 9px;border-radius:14px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.lkr button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.lkr button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.lk-hint{margin:0;font-size:12px;line-height:1.4;color:var(--mute)}
 .stage[data-bg="lilla"] .hint-drag,.stage[data-bg="svart"] .hint-drag,.stage[data-bg="lilla"] .loading,.stage[data-bg="svart"] .loading{color:rgba(255,255,255,.72)}
 .stage[data-bg="hvit"] .hint-drag,.stage[data-bg="hvit"] .loading{color:#5d5a66}
 .tools{position:absolute;top:8px;right:8px;display:flex;align-items:center;gap:6px}
@@ -106,7 +128,7 @@ body.photo-on .hint-drag,body.photo-on [data-spin],body.photo-on [data-quality]{
   .views button{padding:8px 11px;font-size:11px}
   .photo{position:static;transform:none;width:auto;border-radius:0;border:0;border-top:1px solid var(--line);box-shadow:none;background:var(--panel);backdrop-filter:none;padding:8px 10px}
   .photo.done{box-shadow:inset 0 0 0 2px var(--accent)}
-  .hint-drag{right:160px}
+  .hint-drag{right:400px}
 }
 @media (max-width:700px){
   header{gap:10px}
@@ -116,12 +138,14 @@ body.photo-on .hint-drag,body.photo-on [data-spin],body.photo-on [data-quality]{
   .presets::-webkit-scrollbar{display:none}
   .presets .btn{flex:none;white-space:nowrap;padding:7px 11px;font-size:14px}
   .presets::before{flex:none}
-  .renderbtn{width:38px;height:38px;padding:0;justify-content:center}
+  .renderbtn,.lookbtn{width:38px;height:38px;padding:0;justify-content:center}
+  .lookbtn span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .bgsel button{width:22px!important;height:22px!important}
   .renderbtn span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
   .bgsel{padding:4px 5px}
   .bgsel span{display:none}
   .bgsel button{width:26px;height:26px}
-  .hint-drag{right:150px;font-size:10px}
+  .hint-drag{right:240px;font-size:10px}
   .photo .ph-top b{display:none}
 }
 .spec{display:flex;flex-wrap:wrap;gap:4px 14px;padding:10px 12px;border:1px solid var(--line);border-top:0;border-radius:0 0 6px 6px;font-family:var(--mono);font-size:11.5px;color:var(--mute);background:var(--panel)}
@@ -275,19 +299,25 @@ pre{margin:0;font:12px/1.5 var(--mono);background:var(--bg);border:1px solid var
 
   <div class="stagewrap">
     <div class="stage" id="stage" data-bg="lilla">
-      <canvas id="view" aria-label="3D-modell av sykkelen. Dra for å rotere, høyreklikk eller to fingre for å flytte, dobbeltklikk for å zoome inn på en del."></canvas>
+      <div class="shot" id="shot"><canvas id="view" aria-label="3D-modell av sykkelen. Dra for å rotere, høyreklikk eller to fingre for å flytte, dobbeltklikk for å zoome inn på en del."></canvas><div class="gv-fx gv-tint" hidden></div><div class="gv-fx gv-vig" hidden></div><div class="gv-fx gv-grain" hidden></div></div>
       <div class="loading" id="loading">Laster 3D…</div>
       <div class="hint-drag"><span class="dk">Dra: roter · høyreklikk eller shift: flytt · scroll: zoom · dobbeltklikk: zoom inn på delen</span><span class="mb">1 finger: roter · 2 fingre: flytt og zoom</span></div>
       <div class="tools">
         <button type="button" class="renderbtn" data-photo aria-pressed="false" title="Rendre et fotorealistisk bilde"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2.3l1.4-2h5.6l1.4 2h2.3A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.4" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Rendre bilde</span></button>
-        <div class="bgsel" role="group" aria-label="Bakgrunn i showroomet"><span>Rom</span><button type="button" data-bg="lilla" title="Lilla (GV Sykkel)" aria-label="Lilla bakgrunn (GV Sykkel)" style="background:radial-gradient(circle at 40% 35%,#9d74d6,#3c1a66)"></button><button type="button" data-bg="svart" title="Svart" aria-label="Svart bakgrunn" style="background:radial-gradient(circle at 40% 35%,#55555c,#08080a)"></button><button type="button" data-bg="hvit" title="Hvit" aria-label="Hvit bakgrunn" style="background:radial-gradient(circle at 40% 35%,#fff,#d6d4dc)"></button></div>
+        <div class="look"><button type="button" class="lookbtn" aria-expanded="false" aria-controls="lookp" title="Objektiv og bildestil"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3.5l3.2 5.6M20.5 12l-6.4.1M16.3 19.4l-3.3-5.5M7.7 19.4l3.2-5.6M3.5 12l6.4-.1M7.7 4.6l3.3 5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Foto</span></button>
+          <div class="lookp" id="lookp" hidden>
+            <div class="lk"><span>Objektiv</span><div class="lkr" data-lk="lens"><button type="button" data-v="35">35 mm</button><button type="button" data-v="50">50 mm</button><button type="button" data-v="85">85 mm</button><button type="button" data-v="135">135 mm</button></div></div>
+            <div class="lk"><span>Bildestil</span><div class="lkr" data-lk="grade"><button type="button" data-v="none">Nøytral</button><button type="button" data-v="varm">Varm</button><button type="button" data-v="kald">Kald</button><button type="button" data-v="katalog">Katalog</button><button type="button" data-v="film">Film</button></div></div>
+            <p class="lk-hint">Stilen gjelder også bildet du lagrer. Lengre objektiv gir mindre forvrengning, slik produktbilder tas.</p>
+          </div></div>
+        <div class="bgsel" role="group" aria-label="Bakgrunn i showroomet"><span>Rom</span><button type="button" data-bg="lilla" title="Lilla (GV Sykkel)" aria-label="Lilla bakgrunn (GV Sykkel)" style="background:radial-gradient(circle at 40% 35%,#9d74d6,#3c1a66)"></button><button type="button" data-bg="svart" title="Svart" aria-label="Svart bakgrunn" style="background:radial-gradient(circle at 40% 35%,#55555c,#08080a)"></button><button type="button" data-bg="hvit" title="Hvit" aria-label="Hvit bakgrunn" style="background:radial-gradient(circle at 40% 35%,#fff,#d6d4dc)"></button><button type="button" data-bg="betong" title="Betong" aria-label="Betonggulv" style="background:radial-gradient(circle at 40% 35%,#e4e2de,#8d8a84)"></button><button type="button" data-bg="tre" title="Tregulv" aria-label="Tregulv" style="background:repeating-linear-gradient(0deg,#cfae80 0 4px,#a9855a 4px 5px)"></button></div>
       </div>
       <div class="photo" id="photo" hidden role="status" aria-live="polite">
         <div class="ph-top"><b title="Lyset regnes ut fysisk riktig, og bildet blir skarpere for hver runde. Flytter du kameraet, starter det på nytt.">Rendrer</b><span id="ph-n"></span><button type="button" class="btn primary" id="ph-save" disabled>Lagre bilde</button><button type="button" class="btn" id="ph-close" aria-label="Avslutt rendring">Lukk</button></div>
         <div class="ph-row"><div class="ph-q" role="group" aria-label="Kvalitet"><button type="button" data-rq="rask" aria-pressed="false" title="Rundt 40 sekunder i skjermoppløsning">Rask</button><button type="button" data-rq="beste" aria-pressed="true" title="Rundt 2 minutter, dobbel oppløsning og dybdeskarphet">Beste</button><button type="button" data-rq="ultra" aria-pressed="false" title="Rundt 5 minutter, høyest oppløsning og flest runder">Ultra</button></div><div class="ph-track"><i id="ph-bar"></i></div></div>
       </div>
       <div class="views" id="views">
-        <button data-view="q">3/4</button><button data-view="r">Drivside</button><button data-view="l">Venstre</button><button data-view="f">Forfra</button><button data-view="t">Ovenfra</button><button data-spin aria-pressed="false">Snurr</button><button data-quality aria-pressed="true">Høy kvalitet</button><button data-autof aria-pressed="true" title="Zoom automatisk inn på delen du endrer">Auto-fokus</button>
+        <button data-view="q">3/4</button><button data-view="p">Lav 3/4</button><button data-view="r">Drivside</button><button data-view="l">Venstre</button><button data-view="f">Forfra</button><button data-view="t">Ovenfra</button><button data-spin aria-pressed="false">Snurr</button><button data-quality aria-pressed="true">Høy kvalitet</button><button data-autof aria-pressed="true" title="Zoom automatisk inn på delen du endrer">Auto-fokus</button>
         <i class="sep"></i>
         <button class="f" data-focus="cockpit">Cockpit</button><button class="f" data-focus="fork">Gaffel</button><button class="f" data-focus="brakeF">Forbrems</button><button class="f" data-focus="brakeR">Bakbrems</button><button class="f" data-focus="cassette">Kassett</button><button class="f" data-focus="crank">Krank</button><button class="f" data-focus="saddle">Sete</button><button class="f" data-focus="hubF">Fornav</button>
       </div>
