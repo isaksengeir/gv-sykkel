@@ -1813,13 +1813,13 @@ function rearDer(D,G,Tn,zch,nP2){
 // ---------- tråkk: krankene går rundt, kjedet løper, kassett, bakhjul, bremseskive og trinser følger med ----------
 // ANIM.crank er hvor mye krankene er dreid fra utgangsvinkelen (radianer, minker når man tråkker fremover). Den beholdes når sykkelen bygges på nytt,
 // så krankene står der man stoppet (fint for å velge vinkel til et bilde). Delene samles i grupper ved bygging, og bare rotasjonene endres per bilde.
-const ANIM={on:false,crank:0,t:0,parts:null},CADENCE=50;   // tråkkfrekvens i omdreininger per minutt
+const ANIM={on:false,crank:0,vel:0,t:0,parts:null},CADENCE=50;   // tråkkfrekvens i omdreininger per minutt
 // flytter delene som er lagt til B siden n0 inn i en gruppe som dreier rundt punktet c
 function pivotFrom(n0,c){const kids=B.children.slice(n0),pv=new THREE.Group(),inner=new THREE.Group();pv.position.copy(c);inner.position.copy(c).negate();pv.add(inner);kids.forEach(k=>inner.add(k));B.add(pv);return pv}
 function applyAnim(){const p=ANIM.parts;if(!p)return;const c=ANIM.crank,d=c*p.ringR,w=d/p.cogR;
   p.crank.forEach(g=>g.rotation.z=c);p.pedals.forEach(g=>g.rotation.z=-c);   // pedalene holdes vannrette
   [p.cassette,p.wheel,p.rotor].forEach(g=>{if(g)g.rotation.z=w});p.pulleys.forEach(q=>q.m.rotation.z=d/q.r);if(p.chain)p.chain(d)}
-function setPedal(on){ANIM.on=on;ANIM.t=performance.now();const b=document.querySelector('[data-pedal]');if(b)b.setAttribute('aria-pressed',on);dirty=true}
+function setPedal(on){ANIM.on=on;ANIM.vel=0;ANIM.t=performance.now();const b=document.querySelector('[data-pedal]');if(b)b.setAttribute('aria-pressed',on);dirty=true}
 // avstand mellom tannhjulene i kassetten (m) etter antall gir
 const CS_PITCH={7:0.005,8:0.0048,9:0.00435,10:0.00395,11:0.0037,12:0.0036};
 function drivetrain(){
@@ -2277,6 +2277,7 @@ function loop(){requestAnimationFrame(loop);
   if(cam.spin){cam.theta+=0.004;dirty=true}
   if(PH.on){photoTick();flushStale();return}
   if(ANIM.on){const now=performance.now(),dt=Math.min(0.05,(now-ANIM.t)/1000);ANIM.t=now;ANIM.crank-=dt*CADENCE/60*Math.PI*2;applyAnim();dirty=true}
+  else if(ANIM.vel){const now=performance.now(),dt=Math.min(0.05,(now-ANIM.t)/1000),sg=Math.sign(ANIM.vel);ANIM.t=now;ANIM.crank+=ANIM.vel*dt;const nv=ANIM.vel-sg*(1.2+0.5*Math.abs(ANIM.vel))*dt;ANIM.vel=Math.sign(nv)===sg?nv:0;applyAnim();dirty=true}
   if(!dirty)return;dirty=false;   // tegn bare når noe har endret seg
   setCam();render();flushStale()}
 const ptrs=new Map();let pinch0=0,r0=0,mid0=null,lastTap=0,moved=0;
@@ -2288,14 +2289,32 @@ function zoomAt(f,cx,cy){const rect=canvas.getBoundingClientRect(),nd=new THREE.
 function pickAt(cx,cy){const rect=canvas.getBoundingClientRect(),nd=new THREE.Vector2(((cx-rect.left)/rect.width)*2-1,-((cy-rect.top)/rect.height)*2+1);
   const ray=new THREE.Raycaster();ray.setFromCamera(nd,camera);const hit=ray.intersectObjects(pickables,false)[0];
   if(hit)animTo(cam.theta,cam.phi,Math.min(cam.r,Math.max(0.18,cam.r*0.35)),hit.point)}
+// ---------- dra i pedalen: krankene følger musa eller fingeren, og snurrer videre etter et sveip til friksjonen stopper dem ----------
+let crankDrag=null,hoverPending=false;const _ray=new THREE.Raycaster(),_nd=new THREE.Vector2(),_pl=new THREE.Plane(),_hit=new V3(),_n=new V3(),_bbW=new V3();
+function ndc(e){const r=canvas.getBoundingClientRect();_nd.set(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);_ray.setFromCamera(_nd,camera);return r}
+function crankHit(e){if(PH.on||!ANIM.parts||!camera)return false;ndc(e);return _ray.intersectObjects(ANIM.parts.crank,true).length>0}
+// pekerens vinkel rundt kranklageret i krankens plan. Ser man planet nesten på kant, brukes vinkelen på skjermen (med riktig dreieretning)
+function crankAngleAt(e){const bb=v(GM.BB);B.updateMatrixWorld();_bbW.copy(bb).applyMatrix4(B.matrixWorld);_n.set(0,0,1).transformDirection(B.matrixWorld);const r=ndc(e);
+  if(Math.abs(_ray.ray.direction.dot(_n))>0.2){_pl.setFromNormalAndCoplanarPoint(_n,_bbW);if(_ray.ray.intersectPlane(_pl,_hit)){const l=B.worldToLocal(_hit.clone());return Math.atan2(l.y-bb.y,l.x-bb.x)}}
+  const scr=p=>{const q=p.clone().applyMatrix4(B.matrixWorld).project(camera);return[r.left+(q.x+1)/2*r.width,r.top+(1-q.y)/2*r.height]},c=scr(bb),p0=scr(bb.clone().add(new V3(0.1,0,0))),p1=scr(bb.clone().add(new V3(Math.cos(0.2)*0.1,Math.sin(0.2)*0.1,0)));
+  const ang=p=>Math.atan2(-(p[1]-c[1]),p[0]-c[0]),d=ang(p1)-ang(p0),sg=Math.atan2(Math.sin(d),Math.cos(d))>=0?1:-1;
+  return sg*Math.atan2(-(e.clientY-c[1]),e.clientX-c[0])}
+function crankGrab(e){if(ptrs.size||e.button>0||e.shiftKey||!crankHit(e))return false;try{canvas.setPointerCapture(e.pointerId)}catch(_){}
+  if(ANIM.on)setPedal(false);ANIM.vel=0;tween=null;setSpin(false);crankDrag={id:e.pointerId,a:crankAngleAt(e),hist:[[performance.now(),ANIM.crank]]};canvas.style.cursor='grabbing';return true}
+function crankMove(e){if(!crankDrag||e.pointerId!==crankDrag.id)return false;const a=crankAngleAt(e),d=Math.atan2(Math.sin(a-crankDrag.a),Math.cos(a-crankDrag.a));crankDrag.a=a;
+  ANIM.crank+=d;applyAnim();dirty=true;const now=performance.now(),h=crankDrag.hist;h.push([now,ANIM.crank]);while(h.length>2&&now-h[0][0]>120)h.shift();return true}
+// farten de siste ~0,1 s blir med videre. Holdt man pedalen stille før man slapp, blir krankene stående der
+function crankUp(e){if(!crankDrag||e.pointerId!==crankDrag.id)return false;const now=performance.now(),h=crankDrag.hist,f=h[0],dt=(now-f[0])/1000;
+  ANIM.vel=dt>0.01&&now-h[h.length-1][0]<80?Math.max(-30,Math.min(30,(ANIM.crank-f[1])/dt)):0;ANIM.t=now;crankDrag=null;canvas.style.cursor='';return true}
+function crankHover(e){if(e.pointerType!=='mouse'||hoverPending)return;hoverPending=true;requestAnimationFrame(()=>{hoverPending=false;canvas.style.cursor=crankHit(e)?'pointer':''})}
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
-canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY,b:e.button,sh:e.shiftKey});tween=null;setSpin(false);moved=0;
+canvas.addEventListener('pointerdown',e=>{if(crankGrab(e))return;canvas.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY,b:e.button,sh:e.shiftKey});tween=null;setSpin(false);moved=0;
   if(ptrs.size===2){const [a,b]=[...ptrs.values()];pinch0=Math.hypot(a.x-b.x,a.y-b.y);r0=cam.r;mid0={x:(a.x+b.x)/2,y:(a.y+b.y)/2}}});
-canvas.addEventListener('pointermove',e=>{if(!ptrs.has(e.pointerId))return;dirty=true;const p=ptrs.get(e.pointerId),dx=e.clientX-p.x,dy=e.clientY-p.y;ptrs.set(e.pointerId,{...p,x:e.clientX,y:e.clientY});moved+=Math.abs(dx)+Math.abs(dy);
+canvas.addEventListener('pointermove',e=>{if(crankMove(e))return;if(!ptrs.has(e.pointerId)){crankHover(e);return}dirty=true;const p=ptrs.get(e.pointerId),dx=e.clientX-p.x,dy=e.clientY-p.y;ptrs.set(e.pointerId,{...p,x:e.clientX,y:e.clientY});moved+=Math.abs(dx)+Math.abs(dy);
   if(ptrs.size===1){if(p.b===2||p.sh||e.shiftKey)pan(dx,dy);else{cam.theta-=dx*0.008;cam.phi=Math.max(0.12,Math.min(1.66,cam.phi-dy*0.006))}}
   else if(ptrs.size===2){const [a,b]=[...ptrs.values()];const d=Math.hypot(a.x-b.x,a.y-b.y),m={x:(a.x+b.x)/2,y:(a.y+b.y)/2};
     if(pinch0){cam.r=Math.max(0.06,Math.min(7,r0*pinch0/d))}if(mid0){pan(m.x-mid0.x,m.y-mid0.y);mid0=m}}});
-const up=e=>{const p=ptrs.get(e.pointerId);ptrs.delete(e.pointerId);pinch0=0;mid0=null;
+const up=e=>{if(crankUp(e))return;const p=ptrs.get(e.pointerId);ptrs.delete(e.pointerId);pinch0=0;mid0=null;
   if(p&&e.pointerType!=='mouse'&&moved<6){const now=performance.now();if(now-lastTap<320)pickAt(e.clientX,e.clientY);lastTap=now}};
 canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);
 canvas.addEventListener('dblclick',e=>pickAt(e.clientX,e.clientY));
@@ -2577,7 +2596,7 @@ document.getElementById('saved').addEventListener('click',e=>{const l=e.target.c
   if(d){a.splice(+d.dataset.del,1);setSaved(a);renderSaved()}});
 
 applyStock(st.bike);
-if(location.hash==='#debug')window.__dbg={get camera(){return camera},build:()=>{build()},LOOKS,BIKES,TABS,get tab(){return tab},get M(){return M},get GM(){return GM},get ROOT(){return B},THREE,selectBike,photoStart,photoStop,get PH(){return PH},RQ,setRQ,phFinalize,phExport:()=>phExport().toDataURL(),snap(pt){if(pt){PH.pt.renderSample();return canvas.toDataURL()}const bg=scene.background,gv=ground.visible;scene.background=null;ground.visible=false;ROOT.traverse(o=>{if(o.userData.fx)o.visible=false});renderer.render(scene,camera);const u=canvas.toDataURL();scene.background=bg;ground.visible=gv;ROOT.traverse(o=>{if(o.userData.fx)o.visible=true});return u},get st(){return st},changed,renderGroup,setQuality,get composer(){return !!composer},get scene(){return scene},set ao(v){if(gtao)gtao.enabled=v;dirty=true},set gtaoOut(v){if(gtao)gtao.output=v;dirty=true},cam(th,ph,r,k){const p=FOCUS[k||'fork'];tween=null;setSpin(false);cam.theta=th;cam.phi=ph;cam.r=r;if(p)cam.target.copy(p);dirty=true}};
+if(location.hash==='#debug')window.__dbg={get camera(){return camera},get ANIM(){return ANIM},build:()=>{build()},LOOKS,BIKES,TABS,get tab(){return tab},get M(){return M},get GM(){return GM},get ROOT(){return B},THREE,selectBike,photoStart,photoStop,get PH(){return PH},RQ,setRQ,phFinalize,phExport:()=>phExport().toDataURL(),snap(pt){if(pt){PH.pt.renderSample();return canvas.toDataURL()}const bg=scene.background,gv=ground.visible;scene.background=null;ground.visible=false;ROOT.traverse(o=>{if(o.userData.fx)o.visible=false});renderer.render(scene,camera);const u=canvas.toDataURL();scene.background=bg;ground.visible=gv;ROOT.traverse(o=>{if(o.userData.fx)o.visible=true});return u},get st(){return st},changed,renderGroup,setQuality,get composer(){return !!composer},get scene(){return scene},set ao(v){if(gtao)gtao.enabled=v;dirty=true},set gtaoOut(v){if(gtao)gtao.output=v;dirty=true},cam(th,ph,r,k){const p=FOCUS[k||'fork'];tween=null;setSpin(false);cam.theta=th;cam.phi=ph;cam.r=r;if(p)cam.target.copy(p);dirty=true}};
 renderTabs();renderGroup();renderText();renderSaved();setAutoF(autoF);setLens(lens);applyGradeUI();
 // fotopanel: objektiv og bildestil
 {const lb=document.querySelector('.lookbtn'),lp=phEl('lookp');
