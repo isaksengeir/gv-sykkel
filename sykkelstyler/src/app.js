@@ -120,7 +120,6 @@ const KIT={electra:{look:'Strandcruiser',over:{forkType:'rigid',forkBlade:'curve
  topstone:{look:'Gravel',over:{drive:'grx2x10'},tires:[['gravelking','black']],p:P_S,src:'nanobike.de, Topstone 2 2022: Shimano GRX 400 2×10, GRX hydraulisk, WTB Riddler 37'},
  allez:{look:'Landevei',over:{drive:'tiagra',brakeF:'hyd',brakeR:'hyd',rim:'mtb'},tires:[['gp5000','black']],src:'bikes.de, Allez Sport 2023: Shimano Tiagra 2×10, Tiagra hydraulisk skive, Specialized RoadSport 30'},
  domane:{look:'Landevei',over:{drive:'claris',brakeF:'mech',brakeR:'mech',rim:'mtb'},tires:[['gp5000','black']],src:'bike-magazin.de, Domane AL 2 Gen 3: Shimano Claris 2×8, Tektro mekanisk skive, Bontrager R1 32'}};
-// Finn.no-annonser er fjernet fra appen
 
 const DRIVES={
  '3x8':{n:'3×8 kjedegir',s:'Trippel krank, klassisk MTB',t:'der',ring:[42,34,24],cs:[11,32,8]},
@@ -280,12 +279,12 @@ const FRAMEX={
  checkpoint:{route:'int',axle:'ta',bmount:'flat',ttBoss:true},diverge:{route:'int',axle:'ta',bmount:'flat'},
  grizl:{route:'int',axle:'ta',bmount:'flat',post:'vcls',ttBoss:true},topstone:{route:'int',axle:'ta',bmount:'flat',stays:'dropped',ttBoss:true},
  allez:{route:'int',axle:'ta',bmount:'flat',stays:'dropped',csBridge:true},domane:{route:'int',axle:'ta',bmount:'flat'}};
-const geoOf=k=>{const b=clone(BIKES[k]);for(const x of ['n','y','src','est','g','factory','kit','kitBrakes','tw'])delete b[x];return{...FRAME0,...b,...(FRAMEX[k]||{})}};
+const geoOf=k=>{const b=clone(BIKES[k]);for(const x of ['n','y','src','est','g','kit','tw'])delete b[x];return{...FRAME0,...b,...(FRAMEX[k]||{})}};
 const PAINT0={frame:P_('gloss','#1f3a6b'),accent:P_('gloss','#8cb8d8'),headset:P_('matt'),fork:P_('matt'),stanch:P_('chrome'),stem:P_('matt'),bar:P_('matt'),grips:P_('rubber'),
  levers:P_('alu'),blevers:P_('alu'),hoods:P_('rubber'),calipers:P_('matt'),rotors:P_('alu'),housing:P_('gloss','#f2efe6'),hose:P_('matt'),crank:P_('matt'),ring:P_('matt'),cassette:P_('alu'),chain:P_('alu'),der:P_('matt'),pedals:P_('matt'),
  rims:P_('matt'),spokes:P_('alu'),nipples:P_('alu'),hubs:P_('matt'),saddle:P_('vinyl'),post:P_('matt'),clamp:P_('matt'),decal2:P_('gloss','#e0782f'),fender:P_('matt'),guard:P_('chrome'),kick:P_('alu'),cage:P_('matt'),bottle:P_('gloss','#f2efe6'),bell:P_('chrome'),bolts:P_('alu')};
 const DEFAULT_BIKE='talon29';
-const BASE={bike:DEFAULT_BIKE,finn:null,geo:geoOf(DEFAULT_BIKE),geoEdited:false,forkType:'susp',forkBlade:'curve',forkCrown:'uni',forkLeg:'std',forkDelta:0,barType:'riser',mxRise:90,mxW:780,mxAng:60,mxSweep:6,mxCross:'yes',ringShape:'round',stemType:'ahead',stemLen:60,stemAng:6,spacers:15,lever:'mtb',
+const BASE={bike:DEFAULT_BIKE,geo:geoOf(DEFAULT_BIKE),geoEdited:false,forkType:'susp',forkBlade:'curve',forkCrown:'uni',forkLeg:'std',forkDelta:0,barType:'riser',mxRise:90,mxW:780,mxAng:60,mxSweep:6,mxCross:'yes',ringShape:'round',stemType:'ahead',stemLen:60,stemAng:6,spacers:15,lever:'mtb',
  brakeF:'mech',brakeR:'mech',rotor:160,drive:'3x8',crank:'square',crankLen:170,pedals:'plastic',guard:'no',tire:'hookworm',tireW:2.5,wall:'black',rim:'mtb',spokesN:32,
  saddle:'mtb',saddleH:.15,fender:'none',kick:'none',bottle:'none',bell:'no',decal:'',decalStyle:'none',p:PAINT0};
 // stiler endrer deler og farger, ikke ramme, geometri eller tilbehør
@@ -360,7 +359,7 @@ function migrate(o){const s={...clone(BASE),...clone(o)};s.p={...clone(PAINT0),.
   if(+s.tireW>10&&!TIRES[s.tire]?.mm)s.tireW=2.25;
   const CAT={drive:DRIVES,barType:BARS,saddle:SADDLES,forkType:FORKS,forkBlade:BLADES,forkCrown:CROWNS,forkLeg:LEGS,brakeF:BRAKES,brakeR:BRAKES,lever:LEVERS,stemType:STEMS,crank:CRANKS,pedals:PEDALS,rim:RIMS};
   for(const k in CAT)if(!CAT[k][s[k]])s[k]=BASE[k];
-  if(!BIKES[s.bike])s.bike=null;s.finn=null;
+  if(!BIKES[s.bike])s.bike=null;
   if(!SIDEWALLS[s.wall])s.wall=(s.wall&&String(s.wall).toLowerCase()!=='#141516')?'darktan':'black';
   if(!['none','stripes','panel','pin','factory'].includes(s.decalStyle))s.decalStyle='none';
   fixTire(s);return s}
@@ -464,7 +463,9 @@ function resize(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
 /* ---------- bakgrunn, kvalitet og skygger i kroker (GTAO) ---------- */
 let composer=null,gtao=null,bgTex=null,dirty=true,composerLoading=false,ground=null;
 /* ---------- HDRI: «Studio Small 03» fra Poly Haven (CC0), 1k. Ligger innebygd som base64 så appen er én fil ---------- */
-const HDR_B64='__HDR_B64__',ENV_ROT=0.1,ENV_I=0.62,KEY_AZ=1.45,KEY_EL=0.8;
+// lys (HDRI) og AI-vekter ligger som egne filer i assets/: de caches av nettleseren, og vektene hentes bare når de trengs
+const ASSET=f=>new URL('../assets/'+f,import.meta.url).href,getBin=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(u+': HTTP '+r.status);return r.arrayBuffer()});
+const HDR_URL=ASSET('studio_small_03_1k.hdr'),ENV_ROT=0.1,ENV_I=0.62,KEY_AZ=1.45,KEY_EL=0.8;
 let hdrTex=null,hdrPT=null,envPM=null,LIGHTS=[],hdrReady=Promise.resolve(null);
 // Studioet i HDRI-en har svarte gardiner, så krom speiler nesten bare svart. Som i et ekte produktstudio legges det inn hvite lysflater:
 // en stor flate over sykkelen og tre høye striper rundt. Den svært sterke taklampen dempes litt, så fotomodus får mindre støy.
@@ -504,10 +505,8 @@ function liveEnv(d){const W=d.width,H=d.height,S=d.data,f=THREE.DataUtils.fromHa
   const t=new THREE.DataTexture(D,W,H,THREE.RGBAFormat,THREE.HalfFloatType);t.colorSpace=THREE.LinearSRGBColorSpace;t.minFilter=t.magFilter=THREE.LinearFilter;
   t.generateMipmaps=false;t.flipY=true;t.mapping=THREE.EquirectangularReflectionMapping;t.needsUpdate=true;return t}
 function loadHDR(pm){hdrReady=(async()=>{try{
-    if(HDR_B64.length<100)return null;
-    const {RGBELoader}=await import('three/addons/loaders/RGBELoader.js');
-    const bin=atob(HDR_B64),u8=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u8[i]=bin.charCodeAt(i);
-    const d=new RGBELoader().setDataType(THREE.HalfFloatType).parse(u8.buffer);addCards(d);
+    const [{RGBELoader},buf]=await Promise.all([import('three/addons/loaders/RGBELoader.js'),getBin(HDR_URL)]);
+    const d=new RGBELoader().setDataType(THREE.HalfFloatType).parse(buf);addCards(d);
     const t=new THREE.DataTexture(d.data,d.width,d.height,THREE.RGBAFormat,d.type);
     t.colorSpace=THREE.LinearSRGBColorSpace;t.minFilter=t.magFilter=THREE.LinearFilter;t.generateMipmaps=false;t.flipY=true;t.mapping=THREE.EquirectangularReflectionMapping;t.needsUpdate=true;
     hdrTex=t;try{hdrPT=ptEnv(d)}catch(e){hdrPT=null}const old=envPM;envPM=pm.fromEquirectangular(liveEnv(d)).texture;if(old)old.dispose();
@@ -665,7 +664,8 @@ async function photoStart(){if(PH.on||PH.busy)return;PH.busy=true;setSpin(false)
         m.uniforms.sigma.value=3.4-2.2*f;m.uniforms.kSigma.value=1.6;m.uniforms.threshold.value=0.12-0.07*f;
         const ac=r.autoClear;r.autoClear=false;PH.dq.render(r);r.autoClear=ac}}
     PH.pt.renderScale=phScale();await new Promise(r=>requestAnimationFrame(r));
-    PH.on=true;photoScene()}
+    PH.on=true;photoScene();
+    {const c=renderer.domElement,k=PH.pt.renderScale;if(aiAllowed(c.width*k,c.height*k))tzaGet().catch(()=>{})}}   // AI-vektene lastes ned mens bildet regnes
   catch(e){console.warn('Rendring feilet',e);PH.on=false;PH.busy=false;photoRestore();toast('Rendring fungerer ikke i denne nettleseren. Prøv Chrome, Edge eller Safari på en nyere maskin.');return}
   PH.busy=false;phUI()}
 function photoRestore(){photoClear();if(ROOT)ROOT.visible=true;
@@ -705,11 +705,11 @@ function phExport(){const pt=PH.pt,src=pt.target,w=src.width,h=src.height;
    Når rendringen er ferdig lages to rene hjelpebilder av samme utsnitt: farge uten lys (albedo) og flateretning (normaler).
    Støyfjerneren bruker dem til å skille støy fra ekte detaljer, så eiker, kanter og tekstur holdes skarpe mens kornet forsvinner.
    Biblioteket bruker ikke OIDNs HDR-overføringsfunksjon, så bildet tonemappes og legges på bakgrunnen først, og LDR-modellen (rt_ldr_calb_cnrm, Apache 2.0) brukes.
-   Vektene ligger innebygd, selve biblioteket hentes fra jsDelivr. Feiler noe, brukes den enkle støyfjerneren. */
-const TZA_B64='__TZA_B64__';let DN=null,dnLoad=null;
+   Vektene hentes fra assets/ (lastes ned i bakgrunnen mens bildet regnes), selve biblioteket fra jsDelivr. Feiler noe, brukes den enkle støyfjerneren. */
+let DN=null,dnLoad=null,tzaP=null;
+const tzaGet=()=>tzaP||(tzaP=getBin(ASSET('rt_ldr_calb_cnrm.tza')).catch(e=>{tzaP=null;throw e}));
 function dnGet(){if(dnLoad)return dnLoad;dnLoad=(async()=>{
-    if(TZA_B64.length<100)throw new Error('mangler vekter');
-    const bin=atob(TZA_B64),tza=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)tza[i]=bin.charCodeAt(i);
+    const tza=new Uint8Array(await tzaGet());
     const of=window.fetch;window.fetch=function(u,o){const url=typeof u==='string'?u:u&&u.url||'';if(/\.tza(\?|$)/.test(url))return Promise.resolve(new Response(o&&o.method==='HEAD'?null:tza.slice().buffer,{status:200,headers:{'Content-Type':'application/octet-stream'}}));return of.apply(this,arguments)};
     const {Denoiser}=await import('denoiser');const d=new Denoiser('webgl');d.hdr=false;d.srgb=false;d.quality='balanced';d.outputMode='float32';d.debugging=false;
     d.onProgress(p=>{PH.finP=Math.max(PH.finP,Math.min(0.99,p));phUI()});DN=d;return d})();
@@ -1009,7 +1009,7 @@ function wheel(c2,front){
     if(TIRES[st.tire].tr==='balloon')q.multiply(new THREE.Quaternion().setFromAxisAngle(new V3(1,0,0),ph>0?0.5:-0.5));
     mats.push(mtx(new V3(Math.cos(th)*rr,Math.sin(th)*rr,minor*Math.sin(phi)*lat),q));
     if(T.spikes&&(j===0||j===3)&&i%2===0)sp.push(mtx(new V3(Math.cos(th)*(rr+0.004),Math.sin(th)*(rr+0.004),minor*Math.sin(phi)*lat*1.02),q.clone().multiply(new THREE.Quaternion().setFromAxisAngle(new V3(0,0,1),-Math.PI/2))))});
-  if(T.rows.length&&T.n){if(TIRES[st.tire].tr==='road'){}inst(new THREE.BoxGeometry(...T.b),M.tire,mats,g)}
+  if(T.rows.length&&T.n){inst(new THREE.BoxGeometry(...T.b),M.tire,mats,g)}
   if(TIRES[st.tire].tr==='road'){[-1,1].forEach(k=>lathe(prof(k>0?28:-34,k>0?34:-28,4).map(([r,z])=>[r+0.0002,z]),M.reflex,160,g))}
   if(sp.length)inst(new THREE.CylinderGeometry(0.0022,0.0028,0.006,8),M.steel,sp,g);
   // felg
@@ -1191,12 +1191,8 @@ function gaiter(a,b,r){const d=new V3().subVectors(b,a),L=d.length(),n=Math.max(
   for(let i=0;i<=n*2;i++)pts.push(new THREE.Vector2(i%2?r*1.28:r,i/(n*2)*L));
   const g=new THREE.LatheGeometry(pts,28);const me=put(new THREE.Mesh(g,M.boot));me.position.copy(a);me.quaternion.copy(qFrom(new V3(0,1,0),d));return me}
 function crownPlate(a,f0,f1,width,thick,m){const me=rbox(f1-f0,thick,width,Math.min(0.01,thick/2.2),m);me.position.copy(FP(a,(f0+f1)/2,0));me.rotation.z=Math.atan2(GM.n.y,GM.n.x);return me}
-function discTab(){return;const FA=GM.FA,up=GM.up,n=GM.n;
-  const t=rbox(0.05,0.02,0.007,0.006,M.fork);t.position.copy(v(A(A(FA,K(up,0.05)),K(n,-0.018)),0.058));t.rotation.z=Math.atan2(up.y,up.x)+0.25}
 // retning langs gaffelbeinet foran: rett gaffel med offset i kronen følger styreaksen
 function frontLeg(){return ['susp','susp90','dual'].includes(st.forkType)?GM.up:U2(Sb(GM.CR,GM.FA))}
-function rimBosses(){return;/* soklene tegnes nå av bremsen selv */const wd=wheelDims(),leg=U2(Sb(GM.CR,GM.FA)),piv=A(GM.FA,K(leg,wd.bead-0.037));
-  [-1,1].forEach(s=>cyl(v(piv,s*(zl-0.004)),v(piv,s*(zl+0.004)),0.0075,M.fork,16))}
 const FORK_ZS={susp:0.062,susp90:0.058};
 const suspZS=T=>Math.max(FORK_ZS[T]||0.062,wheelDims().w/2+0.002+(T==='susp90'?0.0185:0.0205)+0.006);
 function fork(){
@@ -1322,7 +1318,6 @@ function fork(){
         bolt(FP(a2c-0.008,off+0.018,s*(zB+0.008)),new V3(0,0,s),0.0035,M.bolts)});
       crownPlate(-0.014,0.0,0.04,0.09,0.012,fm);
     }
-    discTab();rimBosses(zB-0.002);
   }else if(T==='dual'){
     const aU=-(st.geo.ht+0.012)-0.018,rU=0.0165*lf,rL=0.0185*lf,zs=0.062;
     crownPlate(0.012,-0.026,off+0.026,zs*2+0.05,0.026,fm);crownPlate(aU,-0.026,off+0.026,zs*2+0.05,0.022,fm);
@@ -1334,7 +1329,6 @@ function fork(){
       [aU,0.012].forEach(a=>{bolt(FP(a,off+0.026,s*zs),v(n),0.004,M.bolts)});
     });
     bolt(FP(aU,-0.026,0),v(K(n,-1)),0.0045,M.bolts);
-    discTab();rimBosses(zs-0.006);
   }else{
     const b0=A(A(FA,K(up,0.045)),K(n,-0.042)),fr=A(A(CR,K(n,0.05)),K(up,-0.085)),top=A(CR,K(n,0.05));
     const kz=Math.max(1,(wheelDims().w/2+0.002+0.013*lf+0.005)/0.046);   // bredere springergaffel til ballongdekk
@@ -2414,7 +2408,7 @@ function pkOpen(pk,on,scroll){const P=PK[pk];P.open=on;const ul=pkEl(pk,'.combo-
     else if(!narrow()){const a=ul.querySelector('.act');if(a)ul.scrollTop=Math.max(0,a.offsetTop-ul.clientHeight/2)}}}
 function pkSet(pk,v){const P=PK[pk];if(v===P.q&&P.open)return;P.q=v;P.act=0;if(!P.open)pkOpen(pk,true);else pkRefresh(pk)}
 function pkClose(pk){PK[pk].open=false;PK[pk].q='';document.body.classList.toggle('picking',Object.values(PK).some(x=>x.open)&&narrow())}
-function selectBike(k){const prev=clone(st);st.bike=k;st.finn=null;st.geo=geoOf(k);st.geoEdited=false;applyStock(k);
+function selectBike(k){const prev=clone(st);st.bike=k;st.geo=geoOf(k);st.geoEdited=false;applyStock(k);
   pkClose('bike');renderGroup();changed();const f=FACTORY[k];toast(`${bikeName()} i ${f?f.name:'standardfarge'}`,prev)}
 function selectRim(k){const prev=clone(st),r=RIMDB[k];st.rim=k;
   if(!r.gen)st.p.rims=r.mat==='carbon'?P_('matt','#141516'):r.g==='Klassisk og retro'?P_('alu'):P_('matt','#141516');
@@ -2444,7 +2438,7 @@ document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.cl
 grp.addEventListener('change',e=>{if(e.target.type==='color'){clearTimeout(ct);ct=setTimeout(renderGroup,50)}});
 grp.addEventListener('toggle',e=>{const d=e.target;if(d.dataset&&d.dataset.part){d.open?openParts.add(d.dataset.part):openParts.delete(d.dataset.part)}},true);
 grp.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.disabled)return;
-  if(b.dataset.bike){selectBike(b.dataset.bike,b.dataset.finn||null);return}
+  if(b.dataset.bike){selectBike(b.dataset.bike);return}
   if(b.dataset.bb){const prev=clone(st);st.brakeF=st.brakeR=b.dataset.bb;const msg=brakeRimFix();syncLever();renderGroup();changed();toast(`${BRAKES[b.dataset.bb].n} foran og bak.${msg}`,prev);autoFocus('brakeF');return}
   if(b.dataset.gc){const k=b.dataset.gc;let val=b.dataset.v;if(val==='true')val=true;else if(val==='false')val=false;st.geo[k]=val;st.geoEdited=true;if(k==='wheel')fixTire(st);renderGroup();changed();return}
   if(b.dataset.pk){st.p[b.dataset.pk].m=b.dataset.m;renderGroup();changed();return}

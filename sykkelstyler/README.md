@@ -1,20 +1,18 @@
 # Sykkelstyler (GV Sykkel)
 
-index.html er hele appen i én fil (HDRI-lyset ligger innebygd). Den kan åpnes direkte eller legges på en nettside.
+Appen har ikke noe byggesteg: endringer i index.html og src/ gjelder med en gang. Den må kjøres fra en webserver (nettsiden eller Live Server), ikke ved å dobbeltklikke på fila, fordi lyset og AI-vektene hentes som egne filer.
 
 ## Struktur
-- index.html: ferdig bygget app
+- index.html: HTML og CSS, laster src/i18n.js og src/app.js
 - src/app.js: all logikk, 3D-modellering, lys og rendring
-- src/shell.html: HTML og CSS, med plassholderne /*I18N*/ og /*APP*/ der i18n.js og app.js settes inn
 - src/i18n.js: språkbytte NO/EN. Ny tekst i appen må legges inn her (EN = eksakt tekst, RULES = tekst med tall/navn)
-- assets/studio_small_03_1k.hdr: studiolys (HDRI), bygges inn i index.html som base64
-- build.py: bygger index.html på nytt etter endringer i src eller assets
+- assets/studio_small_03_1k.hdr: studiolys (HDRI), hentes ved oppstart (forhåndslastes fra index.html)
+- assets/rt_ldr_calb_cnrm.tza: vekter til AI-støyfjerningen, hentes bare når et bilde rendres på PC
 
 ## Jobbe i VS Code
 1. Åpne mappen i VS Code.
-2. Rediger src/app.js eller src/shell.html.
-3. Kjør `python build.py` i terminalen.
-4. Åpne index.html med utvidelsen Live Server (høyreklikk, "Open with Live Server").
+2. Rediger src/app.js, src/i18n.js eller index.html.
+3. Åpne index.html med utvidelsen Live Server (høyreklikk, "Open with Live Server"). Ingen bygging trengs.
 
 ## Biblioteker (hentes fra cdn.jsdelivr.net, krever internett)
 - three.js 0.165.0 (MIT)
@@ -37,12 +35,12 @@ Kameraknappen «Rendre bilde» oppe til høyre i 3D-visningen regner bildet med 
   - Ultra: rundt 5 minutter (4 på mobil), 2,5 ganger oppløsning på PC og 2 ganger på mobil.
 - Antall runder tilpasses maskinen etter noen sekunder.
 - Når rendringen er ferdig, fjernes kornet. På PC (opptil ca. 2,4 megapiksler) brukes AI (Intel Open Image Denoise via biblioteket «denoiser» 0.0.11 og TensorFlow.js), med 60 s tidsgrense. På mobil, og hvis AI har krasjet siden én gang på maskinen (merket styler-ai-run i localStorage), brukes rask støyfjerning i skyggeleggeren (phExport). localStorage-nøkkelen styler-ai-off=1 slår AI av.
-  To rene hjelpebilder (albedo og normaler) lages av samme utsnitt, så detaljer holdes skarpe. Vektene ligger i assets/rt_ldr_calb_cnrm.tza (Apache 2.0, se OIDN-weights-LICENSE.txt) og bygges inn i index.html.
+  To rene hjelpebilder (albedo og normaler) lages av samme utsnitt, så detaljer holdes skarpe. Vektene ligger i assets/rt_ldr_calb_cnrm.tza (Apache 2.0, se OIDN-weights-LICENSE.txt) og lastes ned i bakgrunnen når en rendring starter.
   Biblioteket hentes fra cdn.jsdelivr.net. Feiler det, brukes en enklere støyfjerner (phExport).
 - Rendringen har eget lysoppsett (ptEnv): taklampen i HDRI-en dempes, og hovedlyset legges inn som en softboks i samme retning som i visningen (KEY_AZ, KEY_EL).
 - PT_GAIN styrer lysstyrken i rendringen, FILL og KEY forholdet mellom fyll- og hovedlys.
 
 ## På gvsykkel.no
-- Last opp index.html (f.eks. som /sykkelstyler/index.html) og lenk til den, eller
-- bygg den inn på en side: <iframe src="/sykkelstyler/" style="width:100%;height:1400px;border:0"></iframe>
+- Hele mappen (index.html, src/ og assets/) publiseres sammen med resten av nettsiden, og appen ligger på /sykkelstyler/. Den kan også bygges inn på en side:
+  <iframe src="/sykkelstyler/" style="width:100%;height:1400px;border:0"></iframe>
 Lagrede bygg og valg ligger i nettleserens localStorage hos hver bruker.
