@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /markedsforing/
+
+Sitemap: https://gvsykkel.no/sitemap.xml

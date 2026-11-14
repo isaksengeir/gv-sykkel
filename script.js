@@ -127,6 +127,46 @@
     var o=sel.querySelector('option[data-key="'+m[1]+'"]');if(o)sel.value=o.value;
   })();
 
+  // ── Kontaktskjema: sjekk navn, e-post, telefon og melding før sending ──
+  // Telefon er valgfritt, men må være et gyldig nummer hvis det fylles inn.
+  (function(){
+    var form=document.querySelector('form.form');if(!form)return;
+    var MSG={
+      req:{no:'Fyll inn dette feltet.',en:'Please fill in this field.'},
+      email:{no:'Skriv en gyldig e-postadresse, f.eks. ola@example.no.',en:'Enter a valid email address, e.g. john@example.com.'},
+      tel:{no:'Skriv et gyldig telefonnummer, f.eks. 412 34 567.',en:'Enter a valid phone number, e.g. +47 412 34 567.'}
+    };
+    var EMAIL=/^[^\s@]+@([^\s@.]+\.)+[^\s@.]{2,}$/;
+    // norsk: 8 siffer (evt. +47/0047 foran), utenlandsk: +/00 og 7–15 siffer
+    function telOk(v){var d=v.replace(/[\s().\-]/g,'');return /^(\+47|0047)?[2-9]\d{7}$/.test(d)||/^(\+|00)[1-9]\d{6,14}$/.test(d);}
+    function check(el){
+      var v=el.value.trim(),k='';
+      if(el.required&&!v)k='req';
+      else if(v&&el.type==='email'&&!EMAIL.test(v))k='email';
+      else if(v&&el.type==='tel'&&!telOk(v))k='tel';
+      var err=document.getElementById(el.id+'-err');
+      if(k){
+        if(!err){err=document.createElement('p');err.id=el.id+'-err';err.className='f-error';el.insertAdjacentElement('afterend',err);el.setAttribute('aria-describedby',err.id);}
+        // data-no/data-en lar språkknappen oversette meldingen som vises
+        err.setAttribute('data-no',MSG[k].no);err.setAttribute('data-en',MSG[k].en);
+        err.textContent=MSG[k][document.documentElement.lang==='en'?'en':'no'];
+        el.setAttribute('aria-invalid','true');
+      }else if(err){err.remove();el.removeAttribute('aria-invalid');el.removeAttribute('aria-describedby');}
+      return !k;
+    }
+    var fields=form.querySelectorAll('[required],input[type=email],input[type=tel]'),tried=false;
+    form.addEventListener('submit',function(e){
+      tried=true;var first=null;
+      fields.forEach(function(el){if(!check(el)&&!first)first=el;});
+      if(first){e.preventDefault();first.focus();}
+    });
+    fields.forEach(function(el){
+      // før første sendeforsøk: bare sjekk felt som er fylt inn (ikke mas om tomme felt)
+      el.addEventListener('blur',function(){if(tried||el.value.trim())check(el);});
+      el.addEventListener('input',function(){if(el.hasAttribute('aria-invalid'))check(el);});
+    });
+  })();
+
   // ── Scroll reveal ──
   const io=new IntersectionObserver(entries=>entries.forEach((e,i)=>{
     if(e.isIntersecting)setTimeout(()=>e.target.classList.add('in'),i*65);

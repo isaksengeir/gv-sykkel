@@ -559,6 +559,8 @@ a.info-item-link:hover .info-val{color:var(--white)}
 .f-input:focus,.f-area:focus{border-color:var(--purple);background:rgba(123,47,190,.09)}
 .f-input::placeholder,.f-area::placeholder{color:var(--muted);opacity:1}
 .f-area{resize:vertical;min-height:105px}
+.f-input[aria-invalid="true"],.f-area[aria-invalid="true"]{border-color:#ff8a9a;background:rgba(255,90,120,.06)}
+.f-error{margin:.15rem 0 0;font-size:.88rem;line-height:1.35;color:#ff8a9a}
 .f-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
 .f-submit{
   background:var(--purple);color:#fff;border:none;
