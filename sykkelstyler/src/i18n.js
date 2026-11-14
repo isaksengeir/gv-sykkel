@@ -86,7 +86,7 @@
     'S-Works Power med Mirror': 'S-Works Power with Mirror', 'Bananasete med sissybar': 'Banana seat with sissy bar', '70-talls stil': '70s style',
     // sidevegger og dekk
     'Mørk tan (tanwall)': 'Dark tan (tanwall)', 'Skinwall / lys tan': 'Skinwall / light tan', 'Creme': 'Cream',
-    'Brun med hvit stripe': 'Brown with white stripe', 'Kaffe': 'Coffee', 'Cruiserdekk (generisk)': 'Cruiser tyre (generic)',
+    'Brun med hvit stripe': 'Brown with white stripe', 'Kaffe': 'Coffee', 'Cruiserdekk (generisk)': 'Cruiser tyre (generic)', 'Landeveisslick (generisk)': 'Road slick (generic)',
     // gafler
     'Karbongaffel': 'Carbon fork', 'Landevei og gravel, konisk': 'Road and gravel, tapered', 'Dempegaffel': 'Suspension fork',
     'Moderne, 32 mm standrør': 'Modern, 32 mm stanchions', '90-talls dempegaffel': '90s suspension fork',
@@ -153,6 +153,7 @@
     'Farger og striper, uten produsentlogoer.': 'Colours and stripes, without brand logos.',
     'Bare dekk med farget sidevegg': 'Only tyres with coloured sidewalls', 'Bredde': 'Width', 'Sidevegg': 'Sidewall',
     'Generisk cruiserdekk: finnes fra flere produsenter i disse fargene.': 'Generic cruiser tyre: available from several makers in these colours.',
+    'Generisk landeveisslick: finnes fra flere produsenter i disse størrelsene.': 'Generic road slick: available from several makers in these sizes.',
     'Denne bredden selges bare med sort sidevegg.': 'This width is only sold with a black sidewall.',
     'Prøv en annen bredde eller et annet dekk for tanwall.': 'Try another width or another tyre for tanwall.',
     'Størrelser og sidevegger slik de selges.': 'Sizes and sidewalls as sold.',
@@ -271,6 +272,7 @@
     [/^(\d+) felger i (.+)$/, (a, b) => `${a} rims in ${b}`],
     [/^Rammen er laget for (.+)$/, a => `Frame is made for ${a}`],
     [/^Dekk for (.+) hjul$/, a => `Tyres for ${a} wheels`],
+    [/^(\S+ \(generisk\)) (\S+(?: mm)?)$/, (a, b) => `${T(a)} ${b.replace(/(\d),(\d)/g, '$1.$2')}`],
     [/^Produsentens farger: (.+)\.$/, a => `Manufacturer colours: ${T(a)}.`],
     [/^(.+) har egen farge\. Trykk en fargeprøve for å gå over til lakk\.$/, a => `${T(a)} has its own colour. Tap a swatch to switch to paint.`],
     [/^Bruk (.+)$/, a => `Use ${T(a)}`],

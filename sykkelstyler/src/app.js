@@ -215,6 +215,7 @@ const TIRES={
  johnnywatts:{n:'Schwalbe Johnny Watts',tr:'knobby2',reflex:true,v:{'27.5':{2.6:['black']}}},
  iceSpiker:{n:'Schwalbe Ice Spiker Pro',tr:'spike',v:{'27.5':{2.25:['black']},'29':{2.25:['black'],2.6:['black']}}},
  gp5000:{n:'Continental GP5000 S TR',tr:'road',mm:true,v:{'29':{25:['black','skin'],28:['black'],30:['black'],32:['black']}}},
+ roadslick:{n:'Landeveisslick (generisk)',tr:'road',mm:true,gen:true,v:{'26':{28:['black'],30:['black'],32:['black'],35:['black']},'27.5':{28:['black'],30:['black'],32:['black'],35:['black']}}},
  gravelking:{n:'Panaracer GravelKing SK',tr:'gravel',mm:true,v:{'29':{35:['black'],38:['black'],40:['black','darktan'],43:['black','darktan'],45:['black','darktan']}}},
  riddler:{n:'WTB Riddler',tr:'gravel',mm:true,v:{'29':{37:['tan'],45:['tan']}}},
  cruiser:{n:'Cruiserdekk (generisk)',tr:'balloon',gen:true,v:{'26':{2.125:['black','white','creme','darktan','brownwhite'],2.35:['black','white','creme','darktan'],3.0:['black','white','creme','darktan']}}}};
@@ -328,7 +329,7 @@ const LOOKS={
    tires:[['smx','black'],['bigapple','black'],['fatfrank','black']],rim:'box',spokesN:32,saddle:'mtb',saddleH:.16,decal:'',decalStyle:'stripes'},
   {fork:P_('gloss','#141516'),stem:P_('alu'),bar:P_('alu'),grips:P_('rubber'),levers:P_('alu'),calipers:P_('alu'),crank:P_('alu'),ring:P_('alu'),cassette:P_('chrome'),chain:P_('chrome'),der:P_('alu'),pedals:P_('matt'),rims:P_('alu'),spokes:P_('chrome'),hubs:P_('alu'),saddle:P_('vinyl'),post:P_('alu'),clamp:P_('alu')}),
  'Landevei':look({forkType:'carbon',forkDelta:0,barType:'roadcompact',stemType:'ahead',stemLen:100,stemAng:-6,spacers:20,lever:'road',brakeF:'hyd',brakeR:'hyd',rotor:160,drive:'r7100',crank:'modern',crankLen:172.5,pedals:'road',
-   tires:[['gp5000','black']],rim:'aero',spokesN:24,saddle:'power',saddleH:.2,decal:'',decalStyle:'none'},
+   tires:[['gp5000','black',30],['roadslick','black',30]],rim:'aero',spokesN:24,saddle:'power',saddleH:.2,decal:'',decalStyle:'none'},
   {fork:P_('gloss','#141516'),stem:P_('matt'),bar:P_('matt'),grips:P_('rubber','#141516'),levers:P_('matt'),housing:P_('gloss','#141516'),hoods:P_('rubber'),calipers:P_('matt'),crank:P_('matt'),ring:P_('matt'),cassette:P_('alu'),chain:P_('alu'),der:P_('matt'),pedals:P_('matt'),rims:P_('matt'),spokes:P_('matt'),hubs:P_('matt'),saddle:P_('vinyl'),post:P_('matt'),clamp:P_('matt')}),
  'Gravel':look({forkType:'carbon',forkDelta:0,barType:'gravel12',stemType:'ahead',stemLen:90,stemAng:-6,spacers:20,lever:'road',brakeF:'hyd',brakeR:'hyd',rotor:160,drive:'grx820',crank:'modern',crankLen:172.5,pedals:'spd',
    tires:[['gravelking','darktan'],['riddler','tan']],rim:'mtb',spokesN:28,saddle:'power',saddleH:.18,decal:'',decalStyle:'none'},
@@ -347,7 +348,7 @@ const inchesOf=w=>w>10?w/25.4:w;
 const tireSizes=(t,w)=>TIRES[t]&&TIRES[t].v[w]?Object.keys(TIRES[t].v[w]).map(Number).sort((a,b)=>a-b):[];
 const tireWalls=(t,w,x)=>(TIRES[t]&&TIRES[t].v[w]&&TIRES[t].v[w][x])||[];
 function fixTire(s,prefWall){const w=s.geo.wheel;
-  if(RIMDB[s.rim]&&!rimFits(RIMDB[s.rim],w))s.rim=RIMDB[s.rim].prof==='aero'&&w!=='26'?'aero':RIMDB[s.rim].prof==='v'?'deepv':'mtb';
+  if(RIMDB[s.rim]&&!rimFits(RIMDB[s.rim],w))s.rim=RIMDB[s.rim].prof==='aero'?(w!=='26'?'aero':'deepv'):RIMDB[s.rim].prof==='v'?'deepv':'mtb';
   if(!tireSizes(s.tire,w).length)s.tire=Object.keys(TIRES).find(k=>tireSizes(k,w).length);
   const ws=tireSizes(s.tire,w),cur=inchesOf(+s.tireW);if(!ws.includes(+s.tireW))s.tireW=ws.reduce((a,b)=>Math.abs(inchesOf(b)-cur)<Math.abs(inchesOf(a)-cur)?b:a,ws[ws.length-1]);
   const walls=tireWalls(s.tire,w,s.tireW);
@@ -385,7 +386,7 @@ function applyLook(name){const L=clone(LOOKS[name]);const tires=L.tires||[];dele
   // dekkene holdes innenfor det rammen er laget for (gravelramme får ikke 2,4" MTB-dekk). Passer ingen av stilens dekk, beholdes dekket som er på
   const w=s.geo.wheel,mx=!st.geoEdited&&maxTire(st.bike),fit=t=>tireSizes(t,w).filter(x=>!mx||inchesOf(x)<=mx.in+0.01);
   const pick=tires.find(([t,wl])=>fit(t).some(x=>tireWalls(t,w,x).includes(wl)))||tires.find(([t])=>fit(t).length);
-  if(pick){s.tire=pick[0];const xs=fit(pick[0]).filter(x=>tireWalls(pick[0],w,x).includes(pick[1]));s.tireW=(xs.length?xs:fit(pick[0])).slice(-1)[0];s.wall=tireWalls(pick[0],w,s.tireW).includes(pick[1])?pick[1]:st.wall}
+  if(pick){s.tire=pick[0];const xs=fit(pick[0]).filter(x=>tireWalls(pick[0],w,x).includes(pick[1]));const cand=xs.length?xs:fit(pick[0]);s.tireW=pick[2]?cand.reduce((p,c)=>Math.abs(c-pick[2])<Math.abs(p-pick[2])?c:p):cand.slice(-1)[0];s.wall=tireWalls(pick[0],w,s.tireW).includes(pick[1])?pick[1]:st.wall}
   else{s.tire=st.tire;s.tireW=st.tireW;s.wall=st.wall}
   st=migrate(s);fixTire(st,pick&&pick[1]);syncLever()}
 // appen starter alltid med standardsykkelen; forrige økt kan hentes fra snackbaren
@@ -2224,7 +2225,7 @@ const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 function colName(c){const m=CLASSIC.find(x=>x[0].toLowerCase()===String(c).toLowerCase());return m?m[1]:c}
 function finTxt(f){if(NOCOLOR.includes(f.m))return FINL[f.m];const n=colName(f.c);return `${FINL[f.m]}, ${n}${n!==f.c?' ('+f.c+')':''}${f.m==='fade'?' mot dekorfargen':''}`}
 const fmtW=w=>{let t=String(Math.round(w*1000)/1000);if(!t.includes('.'))t+='.0';if(t.split('.')[1].length<2)t+='0';return t.replace('.',',')},wTxt=w=>w.replace('.',',');
-function tireSizeTxt(t,w,x){const T=TIRES[t];return T.mm?`${w==='29'?'700':w==='27.5'?'650B':'559'}×${x}C`:`${(T.m&&T.m[w])||wTxt(w)}×${fmtW(x)}`}
+function tireSizeTxt(t,w,x){const T=TIRES[t];return T.mm?(w==='29'?`700×${x}C`:w==='27.5'?`650B×${x}`:`26×${x} mm`):`${(T.m&&T.m[w])||wTxt(w)}×${fmtW(x)}`}
 function tireTxt(){return `${TIRES[st.tire].n} ${tireSizeTxt(st.tire,st.geo.wheel,st.tireW)}`}
 function forkTxt(){const T=st.forkType;let t=FORKS[T].n;if(T==='rigid')t+=`, ${BLADES[st.forkBlade].toLowerCase()}, ${CROWNS[st.forkCrown].toLowerCase()}`;if(['rigid','truss','dual','springer'].includes(T)&&st.forkLeg!=='std')t+=`, ${LEGS[st.forkLeg].toLowerCase()} bein`;return t}
 function bikeName(){return BIKES[st.bike]?BIKES[st.bike].n+(st.geoEdited?' (justert)':''):'Egen geometri'}
@@ -2341,10 +2342,10 @@ function renderItem(it){
     const cur=TIRES[st.tire],xs=tireSizes(st.tire,w),ws=tireWalls(st.tire,w,st.tireW);
     return `<div class="item"><div class="lab">Dekk for ${wTxt(w)}" hjul<b>${esc(tireTxt())}</b></div>
     <div class="chips"><button class="chip sm" data-tfilter="1" aria-pressed="${tireFilter}">Bare dekk med farget sidevegg</button></div>
-    <div class="picks">${list.map(t=>{const sz=tireSizes(t,w),wl=walls(t);return `<button class="chip pick" data-k="tire" data-v="${t}" aria-pressed="${st.tire===t}" ${sz.length?'':'disabled'}><b>${esc(TIRES[t].n)}</b><small>${sz.length?sz.map(x=>mk(t)+'×'+fmtW(x)).join(', '):'Ikke i '+wTxt(w)+'"'}</small>${sz.length?`<span class="wl">${wl.map(x=>`<i class="dot" title="${SIDEWALLS[x].n}" style="background:${SIDEWALLS[x].c}${SIDEWALLS[x].stripe?`;box-shadow:inset 0 0 0 3px ${SIDEWALLS[x].stripe}`:''}"></i>`).join('')}</span>`:''}</button>`}).join('')}</div>
-    <div class="lab">Bredde</div><div class="chips">${xs.map(x=>`<button class="chip sm" data-k="tireW" data-v="${x}" aria-pressed="${+st.tireW===x}">${mk(st.tire)}×${fmtW(x)}"</button>`).join('')}</div>
+    <div class="picks">${list.map(t=>{const sz=tireSizes(t,w),wl=walls(t);return `<button class="chip pick" data-k="tire" data-v="${t}" aria-pressed="${st.tire===t}" ${sz.length?'':'disabled'}><b>${esc(TIRES[t].n)}</b><small>${sz.length?sz.map(x=>TIRES[t].mm?tireSizeTxt(t,w,x):mk(t)+'×'+fmtW(x)).join(', '):'Ikke i '+wTxt(w)+'"'}</small>${sz.length?`<span class="wl">${wl.map(x=>`<i class="dot" title="${SIDEWALLS[x].n}" style="background:${SIDEWALLS[x].c}${SIDEWALLS[x].stripe?`;box-shadow:inset 0 0 0 3px ${SIDEWALLS[x].stripe}`:''}"></i>`).join('')}</span>`:''}</button>`}).join('')}</div>
+    <div class="lab">Bredde</div><div class="chips">${xs.map(x=>`<button class="chip sm" data-k="tireW" data-v="${x}" aria-pressed="${+st.tireW===x}">${cur.mm?tireSizeTxt(st.tire,w,x):mk(st.tire)+'×'+fmtW(x)+'"'}</button>`).join('')}</div>
     <div class="lab">Sidevegg<b>${esc(SIDEWALLS[st.wall].n)}</b></div><div class="chips">${ws.map(x=>`<button class="chip sm wallc" data-k="wall" data-v="${x}" aria-pressed="${st.wall===x}"><i class="dot" style="background:${SIDEWALLS[x].c}${SIDEWALLS[x].stripe?`;box-shadow:inset 0 0 0 3px ${SIDEWALLS[x].stripe}`:''}"></i>${SIDEWALLS[x].n}</button>`).join('')}</div>
-    <div class="hint">${cur.gen?'Generisk cruiserdekk: finnes fra flere produsenter i disse fargene.':ws.length===1&&ws[0]==='black'?'Denne bredden selges bare med sort sidevegg. Prøv en annen bredde eller et annet dekk for tanwall.':'Størrelser og sidevegger slik de selges.'}${cur.reflex?' Schwalbe-dekkene har refleksstripe.':''}</div></div>`}
+    <div class="hint">${cur.gen?(cur.tr==='road'?'Generisk landeveisslick: finnes fra flere produsenter i disse størrelsene.':'Generisk cruiserdekk: finnes fra flere produsenter i disse fargene.'):ws.length===1&&ws[0]==='black'?'Denne bredden selges bare med sort sidevegg. Prøv en annen bredde eller et annet dekk for tanwall.':'Størrelser og sidevegger slik de selges.'}${cur.reflex?' Schwalbe-dekkene har refleksstripe.':''}</div></div>`}
   if(it.t==='picker'){const b=BIKES[st.bike],f=FACTORY[st.bike],kit=KIT[st.bike];
     const status=st.geoEdited?'Egen geometri, justert fra '+(b?b.n:'ukjent'):b?`Geometri: ${b.src}${b.est?'. Formen er anslått.':''}`:'';
     return `<div class="item"><label class="lab" for="bike-q">Velg sykkel<b>${Object.keys(BIKES).length} modeller og typer</b></label>
