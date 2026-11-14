@@ -221,7 +221,7 @@
     'Kvalitet': 'Quality', 'Rundt 40 sekunder i skjermoppløsning': 'About 40 seconds at screen resolution', 'Rask': 'Fast',
     'Rundt 2 minutter, dobbel oppløsning og dybdeskarphet': 'About 2 minutes, double resolution and depth of field',
     'Beste': 'Best', 'Rundt 5 minutter, høyest oppløsning og flest runder': 'About 5 minutes, highest resolution and most passes',
-    'Drivside': 'Drive side', 'Venstre': 'Left', 'Forfra': 'Front', 'Ovenfra': 'Top', 'Snurr': 'Spin',
+    'Drivside': 'Drive side', 'Venstre': 'Left', 'Forfra': 'Front', 'Ovenfra': 'Top', 'Snurr': 'Spin', 'Tråkk': 'Pedal', 'Krankene går rundt. Stopp der du vil ha dem til bildet.': 'The cranks turn. Stop where you want them for the picture.',
     'Høy kvalitet': 'High quality', 'Høy kvalitet …': 'High quality …', 'Rask visning': 'Fast view',
     'Foto': 'Photo', 'Objektiv og bildestil': 'Lens and image style', 'Objektiv': 'Lens', 'Bildestil': 'Image style', 'Nøytral': 'Neutral',
     'Varm': 'Warm', 'Kald': 'Cool', 'Katalog': 'Catalogue', 'Lav 3/4': 'Low 3/4', 'Betong': 'Concrete', 'Betonggulv': 'Concrete floor', 'Tregulv': 'Wood floor',

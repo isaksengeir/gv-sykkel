@@ -946,7 +946,7 @@ function disposeGroup(g){const ms=new Set();g.traverse(o=>{if(o.geometry)o.geome
 function flushStale(){if(!stale.length)return;const s=stale;stale=[];s.forEach(disposeMat)}
 function build(){
   if(ROOT){scene.remove(ROOT);disposeGroup(ROOT)}
-  GM=computeGeo();ANCH={};FOCUS={};
+  GM=computeGeo();ANCH={};FOCUS={};ANIM.wheelR=ANIM.rotorR=ANIM.parts=null;
   M={};for(const k in st.p)M[k]=mat(st.p[k],{side:['fender','guard','rims'].includes(k)?THREE.DoubleSide:THREE.FrontSide});
   Object.assign(M,{tire:mat({m:'rubber',c:'#111213'},{side:THREE.DoubleSide}),wall:mat({m:'rubber',c:SIDEWALLS[st.wall].c},{side:THREE.DoubleSide}),stripe:mat({m:'rubber',c:SIDEWALLS[st.wall].stripe||'#efe9dc'},{side:THREE.DoubleSide}),reflex:new THREE.MeshStandardMaterial({color:0xb8bcc0,metalness:0.6,roughness:0.35,side:THREE.DoubleSide}),
     steel:new THREE.MeshStandardMaterial({color:0xc8ccd0,metalness:1,roughness:0.22}),dark:new THREE.MeshStandardMaterial({color:0x26292b,metalness:0.7,roughness:0.42}),
@@ -1021,19 +1021,19 @@ function wheel(c2,front){
   if(rimBrake(front)&&RD.b!=='disc'){[-1,1].forEach(s=>lathe([[rim-0.011,s*(rw+0.0004)],[rim-0.001,s*(rw+0.0004)]],M.track,128,g))}
   // nav
   const D=DRIVES[st.drive],isHub=!front&&(D.t==='hub'||D.t==='coaster');
-  const hl=front?0.1:0.135,fl=front?0.029:(isHub?0.04:0.033);
+  const hl=front?0.1:0.135,fl=front?0.029:(isHub?0.04:0.033),flD=!front&&D.t==='der'?0.02:fl;   // flD: flensen på drivsiden (skjevt nav med kassett)
   const hm=M.hubs;
   if(((front&&st.brakeF==='drum')||(!front&&st.brakeR==='drum'))&&!isHub){lathe([[0.016,-0.035],[0.05,-0.03],[0.052,0.035],[0.045,0.045],[0.016,0.045]],hm,48,g);cyl(new V3(0,0,0.035),new V3(0,0,0.047),0.046,M.dark,40,0.046,g)}
   else if(isHub){const hr=D.hub;lathe([[0.016,-0.05],[hr*1.08,-0.05],[hr*1.08,-0.044],[hr,-0.04],[hr,0.04],[hr*1.08,0.044],[hr*1.08,0.05],[0.016,0.05]],hm,48,g)}
-  else lathe([[0.012,-hl/2+0.008],[0.017,-hl/2+0.01],[0.017,-fl],[0.014,-fl*0.5],[0.0135,0],[0.014,fl*0.5],[0.017,fl],[0.017,hl/2-0.01],[0.012,hl/2-0.008]],hm,40,g);
+  else lathe([[0.012,-hl/2+0.008],[0.017,-hl/2+0.01],[0.017,-flD],[0.014,-flD*0.5],[0.0135,0],[0.014,fl*0.5],[0.017,fl],[0.017,hl/2-0.01],[0.012,hl/2-0.008]],hm,40,g);
   const fr=isHub?D.hub+0.01:0.029;
-  [-1,1].forEach(s=>cyl(new V3(0,0,s*fl-0.0018),new V3(0,0,s*fl+0.0018),fr,hm,40,fr,g));
+  [-1,1].forEach(s=>{const f=s<0?flD:fl;cyl(new V3(0,0,s*f-0.0018),new V3(0,0,s*f+0.0018),fr,hm,40,fr,g)});
   cyl(new V3(0,0,-hl/2-0.012),new V3(0,0,hl/2+0.012),0.0048,M.steel,16,0.0048,g);
-  if(!front){const dr=new V3().copy(v(U2(Sb(GM.SST,GM.RA))));[-1,1].forEach(s=>axleEnd(new V3(0,0,0),Math.max(TZ+0.003,hl/2+0.002),s,st.geo.axle||'qr',dr,mtbAxle(),g))}
+  if(!front){const dr=new V3().copy(v(U2(Sb(GM.SST,GM.RA))));const ga=new THREE.Group();ga.position.copy(g.position);B.add(ga);ANIM.wheelR=g;[-1,1].forEach(s=>axleEnd(new V3(0,0,0),Math.max(TZ+0.003,hl/2+0.002),s,st.geo.axle||'qr',dr,mtbAxle(),ga))}
   // eiker og nipler (instansiert)
   const N=st.spokesN,hr0=fr-0.004,cross=(front&&st.spokesN<=28)?0:(isHub?0.45:(N>=36?0.52:0.62)),rimIn=rim-dep+0.002,sm=[],nm=[];
   for(let i=0;i<N;i++){const a=i/N*Math.PI*2,side=i%2?1:-1,cr=(Math.floor(i/2)%2?1:-1)*cross;
-    const h=new V3(Math.cos(a+cr)*hr0,Math.sin(a+cr)*hr0,side*fl),r=new V3(Math.cos(a)*rimIn,Math.sin(a)*rimIn,side*0.002),dir=new V3().subVectors(r,h);
+    const h=new V3(Math.cos(a+cr)*hr0,Math.sin(a+cr)*hr0,side*(side<0?flD:fl)),r=new V3(Math.cos(a)*rimIn,Math.sin(a)*rimIn,side*0.002),dir=new V3().subVectors(r,h);
     sm.push(mtx(h.clone().addScaledVector(dir,.5),qFrom(new V3(0,1,0),dir),new V3(1,dir.length(),1)));
     nm.push(mtx(new V3(Math.cos(a)*(rimIn+0.004),Math.sin(a)*(rimIn+0.004),side*0.002),qFrom(new V3(0,1,0),new V3(Math.cos(a),Math.sin(a),0))))}
   inst(new THREE.CylinderGeometry(0.001,0.001,1,6),M.spokes,sm,g);inst(new THREE.CylinderGeometry(0.0022,0.0022,0.012,8),M.nipples,nm,g);
@@ -1594,7 +1594,7 @@ function unit(front,type){
   const leg=front?frontLeg():U2(Sb(GM.SST,GM.RA));
   const key=front?'brakeF':'brakeR';
   if(type==='hyd'||type==='mech'){
-    const rr=st.rotor/2000,z=front?(st.geo.axle==='ta'&&mtbAxle()?0.04:0.036):0.053,g=new THREE.Group();g.position.copy(v(C));B.add(g);
+    const rr=st.rotor/2000,z=front?(st.geo.axle==='ta'&&mtbAxle()?0.04:0.036):0.053,g=new THREE.Group();g.position.copy(v(C));B.add(g);if(!front)ANIM.rotorR=g;
     const s=new THREE.Shape();s.absarc(0,0,rr,0,Math.PI*2,false);const h=new THREE.Path();h.absarc(0,0,rr-0.02,0,Math.PI*2,true);s.holes.push(h);
     for(let i=0;i<18;i++){const a=i/18*Math.PI*2,hh=new THREE.Path();hh.absarc(Math.cos(a)*(rr-0.011),Math.sin(a)*(rr-0.011),0.0032,0,Math.PI*2,true);s.holes.push(hh)}
     const rg=new THREE.ExtrudeGeometry(s,{depth:0.0018,bevelEnabled:false,curveSegments:40});rg.translate(0,0,z-0.0009);put(new THREE.Mesh(rg,M.rotors),g);
@@ -1707,9 +1707,125 @@ function unit(front,type){
 }
 
 /* ---------- drivverk ---------- */
+/* ---------- bakgir ----------
+   Fire typer, valgt ut fra drivverket:
+   shadow:  Shimano Shadow / Shadow RD+ og microSHIFT Advent. Lav profil, wirestrømpen går rett inn på toppen fra kjedestaget, clutchbryter på burakselen (RD+).
+   classic: tradisjonelt bakgir (Tourney, Altus, Claris, Tiagra, SunRace m.fl.). Justeringsskrue bakerst, wiresløyfe bak bakgiret og synlig returfjær.
+   xh:      SRAM X-Horizon (Eagle, Apex XPLR). Kraftig kropp, wiresløyfe bak, cage lock-knapp og stor avstand fra buraksel til øvre trinse.
+   tt:      SRAM Transmission (T-Type). Festet rett i bakakselen uten girhenger, kraftig kropp med batteri på toppen.
+   Kroppen er et ledd: festebolten (H), B-knoken til øvre parallellogramledd (Bp), parallellogrammet til burakselen (P). P følger øvre trinse (G),
+   og B-knoken dreier rundt festebolten til parallellogrammet når P, slik B-fjæren gjør på et ekte bakgir. */
+const RD_FAM={'3x8':'classic','3x9':'classic','2x8':'classic',road2x8:'classic',claris:'classic',tiagra:'classic',xxsl:'tt'};
+// lb/lp: lengde B-knoke og parallellogram sett fra siden, po: burakselen i forhold til øvre trinse, w: halv bredde ytre ledd, rP: radius burakselhus,
+// cw: halv bredde ytre burplate ved buraksel, øvre trinse, midje og nedre trinse
+const RD_DIM={shadow:{lb:0.024,lp:0.036,po:[-0.016,0.012],w:0.0088,rP:0.0122,bw:0.0092,cw:[0.0125,0.0116,0.0078,0.0128]},
+ classic:{lb:0.02,lp:0.036,po:[-0.019,0.015],w:0.0074,rP:0.0108,bw:0.0082,cw:[0.0112,0.011,0.0074,0.0118]},
+ xh:{lb:0.026,lp:0.038,po:[-0.027,0.019],w:0.0098,rP:0.0138,bw:0.0098,cw:[0.0132,0.0118,0.0084,0.0138]},
+ tt:{lb:0.034,lp:0.034,po:[-0.026,0.02],w:0.0118,rP:0.0155,bw:0.015,cw:[0.0158,0.0132,0.0098,0.0152]}};
+const rdFam=(k,D)=>RD_FAM[k]||(/^SRAM/.test(D.n)?'xh':'shadow');
+// flat profil langs en ryggrad (2D-punkter) med halv bredde w (funksjon av u, eller én verdi per punkt) og runde ender
+function spineShape(pts,w,holes){const cv=new THREE.SplineCurve(pts.map(p=>new THREE.Vector2(p.x,p.y))),N=pts.length>2?28:16,Lf=[],Rt=[];
+  const cl=[0];for(let i=1;i<pts.length;i++)cl.push(cl[i-1]+L2(Sb(pts[i],pts[i-1])));const tot=cl[cl.length-1];
+  const wf=typeof w==='number'?()=>w:Array.isArray(w)?(u=>{const d=u*tot;let i=0;while(i<cl.length-2&&d>cl[i+1])i++;const t=(d-cl[i])/Math.max(1e-9,cl[i+1]-cl[i]),s=t*t*(3-2*t);return w[i]+(w[i+1]-w[i])*s}):w;
+  for(let i=0;i<=N;i++){const u=i/N,p=cv.getPointAt(u),t=cv.getTangentAt(u),ww=wf(u);Lf.push(new THREE.Vector2(p.x-t.y*ww,p.y+t.x*ww));Rt.push(new THREE.Vector2(p.x+t.y*ww,p.y-t.x*ww))}
+  const cap=(c,t,ww,a0)=>{const out=[];for(let k=1;k<10;k++){const a=a0-k/10*Math.PI;out.push(new THREE.Vector2(c.x+Math.cos(a)*ww,c.y+Math.sin(a)*ww))}return out};
+  const p0=cv.getPointAt(0),p1=cv.getPointAt(1),t0=cv.getTangentAt(0),t1=cv.getTangentAt(1);
+  const s=new THREE.Shape([...Lf,...cap(p1,t1,wf(1),Math.atan2(t1.y,t1.x)+Math.PI/2),...Rt.reverse(),...cap(p0,t0,wf(0),Math.atan2(t0.y,t0.x)-Math.PI/2)]);
+  if(holes)s.holes.push(...holes);return s}
+// avlangt hull (for utsparinger i burplater)
+function slotPath(a,b,r){const d=U2(Sb(b,a)),g=Math.atan2(d.y,d.x),h=new THREE.Path();h.absarc(b.x,b.y,r,g-Math.PI/2,g+Math.PI/2,false);h.absarc(a.x,a.y,r,g+Math.PI/2,g+Math.PI*1.5,false);h.closePath();return h}
+// profilen ekstrudert langs z med avfaset kant. tilt=[a,b,dz]: platen heller dz i z fra a til b (parallellogrammet går innover mot hjulet)
+function rdPlate(shape,z,depth,m,bev=0.0006,tilt){const g=new THREE.ExtrudeGeometry(shape,{depth,bevelEnabled:true,bevelThickness:bev,bevelSize:bev,bevelSegments:2,curveSegments:10});
+  g.translate(0,0,z-depth/2);
+  if(tilt){const [a,b,dz]=tilt,d=Sb(b,a),q=d.x*d.x+d.y*d.y,kx=dz*d.x/q,ky=dz*d.y/q;g.applyMatrix4(new THREE.Matrix4().set(1,0,0,0,0,1,0,0,kx,ky,1,-(kx*a.x+ky*a.y),0,0,0,1));g.computeVertexNormals()}
+  return put(new THREE.Mesh(g,m))}
+// trinse: smale tenner, vinduer i skiven, lagerdeksel og aksling gjennom burplatene
+function rdPulley(c,nT,zch,zOut,zIn,hub){const j=v(c,zch),r=pitchR(nT)+0.0024,s=new THREE.Shape(),k4=nT*4;
+  for(let i=0;i<=k4;i++){const a=i/k4*Math.PI*2,k=i%4,rr=(k===1||k===2)?r:r-0.0036;i?s.lineTo(Math.cos(a)*rr,Math.sin(a)*rr):s.moveTo(Math.cos(a)*rr,Math.sin(a)*rr)}
+  const nw=nT>12?6:5,ri=0.0082,ro=r-0.0072;
+  for(let i=0;i<nw;i++){const a0=i/nw*Math.PI*2+0.16,a1=(i+1)/nw*Math.PI*2-0.16,h=new THREE.Path();h.absarc(0,0,ro,a1,a0,true);h.absarc(0,0,ri,a0+0.12,a1-0.12,false);h.closePath();s.holes.push(h)}
+  const th=0.0032,g=new THREE.ExtrudeGeometry(s,{depth:th,bevelEnabled:true,bevelThickness:0.0004,bevelSize:0.0003,bevelSegments:1,curveSegments:6});g.translate(0,0,-th/2);
+  const pm=put(new THREE.Mesh(g,M.black));pm.position.copy(j);
+  cyl(j.clone().setZ(zch-0.0031),j.clone().setZ(zch+0.0031),0.0068,hub,28);
+  cyl(j.clone().setZ(zOut+0.0008),j.clone().setZ(zIn-0.0006),0.0045,M.dark,16);
+  bolt(j.clone().setZ(zOut-0.0008),new V3(0,0,-1),0.0036,M.bolts);return pm}
+function rearDer(D,G,Tn,zch,nP2){
+  const f=rdFam(st.drive,D),R=RD_DIM[f],E=D.e,tt=f==='tt',dm=M.der,dk=M.black,gr=M.dark,xt=st.drive==='xt12';
+  const clutch=f==='shadow'&&/^Shimano/.test(D.n)&&st.drive!=='r7100';
+  const zOut=zch-0.0088,zIn=zch+0.0084;
+  // festebolt i girhengeren (litt under og bak akselen), eller rett i akselen for Transmission
+  const H=tt?p2(GM.RA.x,GM.RA.y):A(GM.RA,p2(-0.003,-0.027)),P=A(G,p2(R.po[0],R.po[1]));
+  // B-knoken dreier rundt H til parallellogrammet når P: skjæringen mellom to sirkler, den bakerste
+  const dHP=L2(Sb(P,H)),lb=R.lb,lp=Math.max(R.lp,dHP-lb+0.0005),ex=U2(Sb(P,H)),ey=Rot(ex,Math.PI/2);
+  const a=(lb*lb-lp*lp+dHP*dHP)/(2*dHP),hh=Math.sqrt(Math.max(0,lb*lb-a*a)),c1=A(A(H,K(ex,a)),K(ey,hh)),c2=A(A(H,K(ex,a)),K(ey,-hh)),Bp=c1.x<c2.x?c1:c2;
+  const zH0=tt?-(TZ+0.003):-(TZ+0.007),zH1=zH0-0.0165,zHc=(zH0+zH1)/2;          // B-knoken: fra utsiden av girhengeren og utover
+  const zP0=zOut-0.0012,zP1=zOut-(f==='classic'?0.015:0.0185),zPc=(zP0+zP1)/2;   // burakselhuset: utenfor ytre burplate
+  const bd=U2(Sb(Bp,H)),bn=Rot(bd,Math.PI/2),upB=bn.y>0?bn:K(bn,-1),bw=R.bw;
+  const pd=U2(Sb(P,Bp)),pn=Rot(pd,Math.PI/2),upP=pn.y>0?pn:K(pn,-1),w=R.w,zL=u=>zH1+0.0016+(zP1-zH1)*u,tilt=[Bp,P,zP1-zH1];
+  // ---- B-knoke ----
+  if(tt){// Transmission: rund festeplate rundt akselen og en kraftig arm ned til parallellogrammet
+    cyl(v(H,zH0),v(H,zH1),0.019,dm,48);cyl(v(H,zH1),v(H,zH1-0.0012),0.0165,dk,48);bolt(v(H,zH1-0.0012),new V3(0,0,-1),0.0085,M.bolts);
+    rdPlate(spineShape([H,M2(H,Bp,0.55),Bp],[0.0165,0.0128,0.0118]),zHc,0.0105,dm,0.0028)}
+  else{rdPlate(spineShape([A(H,K(bd,-0.0025)),M2(H,Bp,0.5),Bp],[bw*1.18,bw*1.0,bw*0.9]),zHc,0.0115,dm,0.0025);
+    cyl(v(H,zH1+0.001),v(H,zH1-0.0006),0.0074,dk,28);bolt(v(H,zH1-0.0006),new V3(0,0,-1),0.0056,M.bolts);
+    // B-skrue mot girhengeren og to endestoppskruer (H/L) bak på knoken
+    const bs=A(A(H,K(bd,0.007)),K(upB,bw+0.0006));bolt(v(bs,zHc+0.002),new V3(upB.x,upB.y,0),0.0019,M.bolts);
+    const ld=U2(A(upB,K(bd,0.7))),lsp=A(A(Bp,K(bd,0.002)),K(upB,bw*0.55));[zHc-0.0036,zHc+0.0036].forEach(z=>bolt(v(A(lsp,K(ld,0.004)),z),new V3(ld.x,ld.y,0),0.0016,M.bolts))}
+  // ---- parallellogram: ytre ledd (med logofelt), indre ledd, leddpinner, og returfjær eller kjerne mellom leddene ----
+  rdPlate(spineShape([A(Bp,K(pd,-0.003)),A(P,K(pd,0.001))],u=>w*(1-0.14*Math.sin(Math.PI*u))),zH1+0.0016,0.0024,dm,0.0008,tilt);
+  if(f!=='classic')rdPlate(spineShape([M2(Bp,P,0.26),M2(Bp,P,0.74)],w*0.36),zH1-0.0008,0.0004,xt?M.track:dk,0.0002,tilt);
+  const iO=K(upP,0.0035);
+  rdPlate(spineShape([A(A(Bp,K(pd,-0.002)),iO),A(A(P,K(pd,0.001)),iO)],w*0.62),zH1+0.0118,0.002,f==='classic'?dm:gr,0.0006,tilt);
+  if(f==='classic')helix(v(A(Bp,K(pd,0.005)),zL(0.1)+0.0062),v(A(P,K(pd,-0.006)),zL(0.9)+0.0062),0.0024,8,0.00055,M.steel);
+  else sweep([v(Bp,zL(0)+0.0062),v(M2(Bp,P,0.5),zL(0.5)+0.0062),v(P,zL(1)+0.0062)],()=>({w:w*0.66,h:0.0042,n:3}),dm,null,{up:new V3(0,0,1),n:10,r:16});
+  [[0.1,0,0],[0.9,0,0],[0.12,1,0.0102],[0.88,1,0.0102]].forEach(([u,inn,dz])=>{const c=A(M2(Bp,P,u),inn?iO:p2(0,0)),ww=(inn?w*0.62:w*(1-0.14*Math.sin(Math.PI*u)))+0.0013,z=zL(u)+dz;
+    cyl(v(A(c,K(pn,-ww)),z),v(A(c,K(pn,ww)),z),0.0016,M.steel,12)});
+  // ---- burakselhus (P-knoke) med deksel. Shimano RD+: clutchbryter. SRAM: cage lock-knapp på buret ----
+  cyl(v(P,zP0),v(P,zP1),R.rP,dm,40);cyl(v(P,zP1+0.0002),v(P,zP1-0.0005),R.rP+0.0001,dk,40);cyl(v(P,zP1-0.0005),v(P,zP1-0.0022),R.rP-0.0011,dm,40);   // deksel med fuge
+  if(clutch){const lp0=A(P,p2(-0.004,R.rP*0.58)),lv=rbox(0.015,0.0058,0.0016,0.0024,xt?M.steel:gr);orient(lv,v(A(lp0,p2(0.0062,0.0012)),zP1-0.0031),0.18);cyl(v(lp0,zP1-0.0022),v(lp0,zP1-0.0042),0.0026,xt?M.steel:gr,16)}   // clutchbryter (ON/OFF)
+  if(tt){// batteri på toppen av parallellogrammet, med knapp og lys
+    const tp=A(M2(Bp,P,0.45),K(upP,w+0.0072)),zm=zL(0.45)+0.004,bat=rbox(0.036,0.0135,0.022,0.004,M.black);orient(bat,v(tp,zm),Math.atan2(pd.y,pd.x));
+    const btn=A(tp,K(upP,0.007));cyl(v(btn,zm-0.006),v(btn,zm-0.006).add(v(K(upP,0.0016))),0.0028,M.steel,16);
+    sph(v(A(btn,K(pd,-0.009)),zm-0.006).add(v(K(upP,0.0005))),0.0011,new THREE.MeshStandardMaterial({color:0x2fd06a,emissive:0x2fd06a,emissiveIntensity:0.8}))}
+  // ---- bur: ytre plate rundt buraksel og begge trinser (med midje), indre plate rundt trinsene ----
+  const gt=U2(Sb(Tn,G)),mid=M2(G,Tn,0.5),holes=f==='classic'||st.drive==='advent'?[slotPath(M2(G,Tn,0.34),M2(G,Tn,0.66),0.0032)]:null;
+  rdPlate(spineShape([A(P,K(U2(Sb(G,P)),-0.002)),G,mid,Tn],R.cw,holes),zOut,0.0016,dm,0.0006);
+  rdPlate(spineShape([A(G,K(gt,0.004)),mid,Tn],[R.cw[1]*0.82,R.cw[2]*0.92,R.cw[3]*0.86]),zIn,0.0013,gr,0.0005);
+  if(f==='xh'||tt){const cb=A(M2(P,G,0.56),K(Rot(U2(Sb(G,P)),Math.PI/2),0.002));cyl(v(cb,zOut-0.0012),v(cb,zOut-0.0034),0.0034,gr,20);cyl(v(cb,zOut-0.0034),v(cb,zOut-0.0042),0.0022,M.steel,16)}
+  if(tt)rdPlate(spineShape([A(Tn,K(gt,-0.004)),A(Tn,K(gt,0.012))],0.006),zOut-0.0016,0.0012,dk,0.0005);   // slitesko under nedre trinse
+  const pulleys=[{m:rdPulley(G,12,zch,zOut,zIn,gr),r:-pitchR(12)},{m:rdPulley(Tn,nP2,zch,zOut,zIn,gr),r:pitchR(nP2)}];
+  // ---- wire ----
+  const pinch=u=>{const c=v(A(M2(Bp,P,u),K(upP,w*0.35)),zL(u)-0.0026);bolt(c,new V3(0,0,-1),0.0026,M.bolts);return c};
+  if(!E&&f==='shadow'){// wirestrømpen går rett inn på toppen av B-knoken, rettet forover mot kjedestaget
+    const ce=A(A(H,K(bd,0.003)),K(upB,bw+0.001)),dir=U2(p2(0.85,0.5)),e=A(ce,K(dir,0.009));
+    cyl(v(ce,zHc),v(e,zHc),0.0036,dm,16);cyl(v(A(ce,K(dir,0.0065)),zHc),v(A(e,K(dir,0.0006)),zHc),0.0029,M.steel,14);
+    cyl(v(ce,zHc),pinch(0.72),0.0007,M.inner,6);ANCH.der=v(e,zHc);ANCH.derPath=[v(A(e,K(dir,0.045)),zHc+0.002)]}
+  else if(!E){// wiresløyfe bak: justeringsskrue (tradisjonelt) eller wirestopp (SRAM) bak på B-knoken, åpning bakover og opp
+    const ce=A(A(Bp,K(bd,-0.002)),K(upB,bw+0.001)),dir=U2(f==='classic'?p2(-0.55,0.84):p2(-0.72,0.69)),Lb=f==='classic'?0.012:0.006,e=A(ce,K(dir,Lb));
+    cyl(v(ce,zHc),v(A(ce,K(dir,0.003)),zHc),0.0038,dm,16);
+    if(f==='classic'){cyl(v(A(ce,K(dir,0.003)),zHc),v(e,zHc),0.0043,M.steel,12);cyl(v(A(e,K(dir,-0.0015)),zHc),v(A(e,K(dir,0.0004)),zHc),0.0034,gr,12)}
+    else cyl(v(A(ce,K(dir,0.003)),zHc),v(e,zHc),0.0034,gr,14);
+    cyl(v(ce,zHc),pinch(f==='classic'?0.5:0.74),0.0007,M.inner,6);ANCH.der=v(e,zHc);
+    ANCH.derPath=[v(A(GM.RA,p2(0.03,0.004)),zHc-0.006),v(A(GM.RA,p2(-0.032,-0.002)),zHc-0.008),v(A(e,K(dir,0.035)),zHc-0.004)]}
+  else if(E==='di2'){const ce=A(A(H,K(bd,0.003)),K(upB,bw+0.001)),dir=U2(p2(0.85,0.5)),e=A(ce,K(dir,0.007));
+    cyl(v(ce,zHc),v(e,zHc),0.0028,M.black,12);ANCH.der=v(e,zHc);ANCH.derPath=[v(A(e,K(dir,0.04)),zHc+0.002)]}
+  return {P,pulleys}}
+// ---------- tråkk: krankene går rundt, kjedet løper, kassett, bakhjul, bremseskive og trinser følger med ----------
+// ANIM.crank er hvor mye krankene er dreid fra utgangsvinkelen (radianer, minker når man tråkker fremover). Den beholdes når sykkelen bygges på nytt,
+// så krankene står der man stoppet (fint for å velge vinkel til et bilde). Delene samles i grupper ved bygging, og bare rotasjonene endres per bilde.
+const ANIM={on:false,crank:0,t:0,parts:null},CADENCE=50;   // tråkkfrekvens i omdreininger per minutt
+// flytter delene som er lagt til B siden n0 inn i en gruppe som dreier rundt punktet c
+function pivotFrom(n0,c){const kids=B.children.slice(n0),pv=new THREE.Group(),inner=new THREE.Group();pv.position.copy(c);inner.position.copy(c).negate();pv.add(inner);kids.forEach(k=>inner.add(k));B.add(pv);return pv}
+function applyAnim(){const p=ANIM.parts;if(!p)return;const c=ANIM.crank,d=c*p.ringR,w=d/p.cogR;
+  p.crank.forEach(g=>g.rotation.z=c);p.pedals.forEach(g=>g.rotation.z=-c);   // pedalene holdes vannrette
+  [p.cassette,p.wheel,p.rotor].forEach(g=>{if(g)g.rotation.z=w});p.pulleys.forEach(q=>q.m.rotation.z=d/q.r);if(p.chain)p.chain(d)}
+function setPedal(on){ANIM.on=on;ANIM.t=performance.now();const b=document.querySelector('[data-pedal]');if(b)b.setAttribute('aria-pressed',on);dirty=true}
+// avstand mellom tannhjulene i kassetten (m) etter antall gir
+const CS_PITCH={7:0.005,8:0.0048,9:0.00435,10:0.00395,11:0.0037,12:0.0036};
 function drivetrain(){
   const D=DRIVES[st.drive],zc=-0.05,cm=M.crank,bb=v(GM.BB),ra=v(GM.RA),rings=D.ring,ringR=pitchR(rings[0]);
   const cncK=st.crank==='cnc'&&rings.length===1,armA=-55*D2R,oval=rings.length===1&&st.ringShape==='oval';
+  const AP={crank:[],pedals:[],pulleys:[],ringR,cogR:1,cassette:null,wheel:ANIM.wheelR||null,rotor:ANIM.rotorR||null,chain:null},nRing=B.children.length;
   rings.forEach((n,i)=>{const gm=gear(n,pitchR(n)-(cncK?0.02:0.016),0.0028,M.ring,null,rings.length>1?0:cncK?4:5);gm.position.copy(bb).setZ(rings.length>1?-0.059+i*0.0068:zc);
     if(cncK)gm.rotation.z=armA+Math.PI/4;
     // oval klinge: lang akse omtrent på tvers av kranken, slik ovale klinger monteres
@@ -1718,12 +1834,16 @@ function drivetrain(){
       box(bb.clone().setZ(-0.06),bb.clone().add(new V3(Math.cos(a)*rb,Math.sin(a)*rb,0)).setZ(-0.06),0.012,0.009,M.crank)}
     cyl(bb.clone().setZ(-0.066),bb.clone().setZ(-0.052),0.022,M.crank,40)}
   else for(let i=0;i<5;i++){const a=i/5*Math.PI*2+0.4;bolt(bb.clone().add(new V3(Math.cos(a)*(ringR-0.013),Math.sin(a)*(ringR-0.013),0)).setZ(zc-0.004),new V3(0,0,-1),0.0035,M.bolts)}
-  let cogR;
-  if(D.t==='der'){const [mn,mx,cnt]=D.cs,spc=cnt>=11?0.0039:0.0044;
-    for(let i=0;i<cnt;i++){const n=Math.round(mx*Math.pow(mn/mx,i/(cnt-1)));const gm=gear(n,0.012,0.0018,M.cassette,null,n>28?5:0);gm.position.copy(ra).setZ(-0.026-i*spc)}
-    cyl(ra.clone().setZ(-0.026-cnt*spc),ra.clone().setZ(-0.024),0.016,M.dark,24);
-    cogR=pitchR(Math.round(mx*Math.pow(mn/mx,rings.length>1?0.6:0.55)))}
+  AP.crank.push(pivotFrom(nRing,bb));
+  let cogR,zCog=null;const nCas=B.children.length;
+  // kassett: minste tannhjul 4 mm innenfor droppouten, de større innover mot eikene, med avstanden mellom tannhjulene slik den er for antall gir
+  if(D.t==='der'){const [mn,mx,cnt]=D.cs,spc=CS_PITCH[cnt]||0.0044,z0=-(TZ-0.004);
+    for(let i=0;i<cnt;i++){const n=Math.round(mx*Math.pow(mn/mx,i/(cnt-1)));const gm=gear(n,0.012,0.0018,M.cassette,null,n>28?5:0);gm.position.copy(ra).setZ(z0+(cnt-1-i)*spc)}
+    cyl(ra.clone().setZ(z0-0.0025),ra.clone().setZ(z0+(cnt-1)*spc+0.002),0.016,M.dark,24);
+    // kjedet ligger på et tannhjul litt over midten av kassetten
+    const iC=Math.round((rings.length>1?0.6:0.55)*(cnt-1));cogR=pitchR(Math.round(mx*Math.pow(mn/mx,iC/(cnt-1))));zCog=z0+(cnt-1-iC)*spc}
   else{const gm=gear(D.cog,0.012,0.003,M.cassette);gm.position.copy(ra).setZ(zc);cogR=pitchR(D.cog)}
+  AP.cassette=pivotFrom(nCas,ra);AP.cogR=cogR;
   FOCUS.cassette=ra.clone().setZ(-0.05);FOCUS.chainTop=ra.clone().add(new V3(0,cogR*0.95,-0.05));
   if(D.t==='coaster'){const e=v(A(GM.RA,K(U2(Sb(GM.BB,GM.RA)),0.12)),0.06);box(ra.clone().setZ(0.06),e,0.016,0.006,M.hubs);const cl=rbox(0.022,0.022,0.03,0.005,M.dark);cl.position.copy(e).setZ(0.045)}
   if(D.t==='hub'||D.shift)ANCH.hubShift=ra.clone().add(new V3(0.03,0,-0.065));
@@ -1743,60 +1863,25 @@ function drivetrain(){
     if(r>0){while(a1<a0)a1+=Math.PI*2}else{while(a1>a0)a1-=Math.PI*2}
     const R=Math.abs(r),nA=Math.max(3,Math.ceil(Math.abs(a1-a0)/0.1));for(let k=0;k<=nA;k++){const a=a0+(a1-a0)*k/nA;path.push(p2(c.x+R*Math.cos(a),c.y+R*Math.sin(a)))}});
   path.push(path[0]);
-  const zch=rings.length>1?-0.052:zc,P3=path.map(p=>v(p,zch));let total=0;const seg=[];for(let i=1;i<P3.length;i++){const l=P3[i].distanceTo(P3[i-1]);seg.push(l);total+=l}
+  // kjedet går fra klingens plan (zch) svakt på skrå til tannhjulet det ligger på bak (zR), slik et ekte kjede gjør
+  const zch=rings.length>1?-0.052:zc,zR=zCog??zch,cd2=Sb(GM.RA,GM.BB),cl2=cd2.x*cd2.x+cd2.y*cd2.y,
+    zAt=p=>{const t=((p.x-GM.BB.x)*cd2.x+(p.y-GM.BB.y)*cd2.y)/cl2,u=Math.min(1,Math.max(0,(t-0.15)/0.6));return zch+(zR-zch)*u*u*(3-2*u)},P3=path.map(p=>v(p,zAt(p)));let total=0;const seg=[];for(let i=1;i<P3.length;i++){const l=P3[i].distanceTo(P3[i-1]);seg.push(l);total+=l}
   // et helt antall ledd (partall, innerledd og ytterledd annenhver gang) rundt hele kjedebanen, så kjedet er lukket uten hull
-  const cnt=Math.max(2,2*Math.round(total/0.0127/2)),pitch=total/cnt,mi=[],mo=[],mr=[];
-  for(let k=0;k<cnt;k++){let d=k*pitch+pitch/2,i=0;while(i<seg.length-1&&d>seg[i]){d-=seg[i];i++}
-    const a=P3[i],b=P3[i+1],t=Math.min(1,d/seg[i]);const p=a.clone().lerp(b,t);const q=new THREE.Quaternion().setFromAxisAngle(new V3(0,0,1),Math.atan2(b.y-a.y,b.x-a.x));
-    (k%2?mo:mi).push(mtx(p,q));const pr=p.clone().add(new V3((b.x-a.x),(b.y-a.y),0).normalize().multiplyScalar(pitch/2));mr.push(mtx(pr,new THREE.Quaternion().setFromAxisAngle(new V3(1,0,0),Math.PI/2)))}
-  const plate=new THREE.ExtrudeGeometry(rrect(pitch*1.2,0.0072,0.0034),{depth:0.0011,bevelEnabled:false});
-  const pl2=plate.clone();
-  const zI=new THREE.Matrix4().makeTranslation(0,0,0.0028),zO=new THREE.Matrix4().makeTranslation(0,0,-0.0028-0.0011);
-  const mk=(arr,off)=>arr.map(m=>m.clone().multiply(off));
-  inst(plate,M.chain,mk(mi,zI).concat(mk(mi,zO)));inst(pl2,M.chain,mk(mo,new THREE.Matrix4().makeTranslation(0,0,0.0042)).concat(mk(mo,new THREE.Matrix4().makeTranslation(0,0,-0.0042-0.0011))));
-  inst(new THREE.CylinderGeometry(0.0018,0.0018,0.0098,8),M.dark,mr);
+  const cnt=Math.max(2,2*Math.round(total/0.0127/2)),pitch=total/cnt,nH=cnt/2,cum=[0];for(const l of seg)cum.push(cum[cum.length-1]+l);
+  const plate=new THREE.ExtrudeGeometry(rrect(pitch*1.2,0.0072,0.0034),{depth:0.0011,bevelEnabled:false}),pl2=plate.clone(),I4=new THREE.Matrix4();
+  const zI=new THREE.Matrix4().makeTranslation(0,0,0.0028),zO=new THREE.Matrix4().makeTranslation(0,0,-0.0028-0.0011),zI2=new THREE.Matrix4().makeTranslation(0,0,0.0042),zO2=new THREE.Matrix4().makeTranslation(0,0,-0.0042-0.0011);
+  const imIn=inst(plate,M.chain,Array(cnt).fill(I4)),imOut=inst(pl2,M.chain,Array(cnt).fill(I4)),imR=inst(new THREE.CylinderGeometry(0.0018,0.0018,0.0098,8),M.dark,Array(cnt).fill(I4));
+  const m4=new THREE.Matrix4(),m5=new THREE.Matrix4(),qq=new THREE.Quaternion(),qR=new THREE.Quaternion().setFromAxisAngle(new V3(1,0,0),Math.PI/2),pp=new V3(),pr=new V3(),one=new V3(1,1,1),Zax=new V3(0,0,1);
+  // ledd k ligger ph meter lenger ut langs banen; innerledd og ytterledd annenhver gang
+  AP.chain=ph=>{for(let k=0;k<cnt;k++){const d=((k*pitch+pitch/2+ph)%total+total)%total;let lo=0,hi=seg.length-1;while(lo<hi){const md=(lo+hi+1)>>1;if(cum[md]<=d)lo=md;else hi=md-1}
+      const a=P3[lo],b=P3[lo+1],t=Math.min(1,(d-cum[lo])/seg[lo]);pp.copy(a).lerp(b,t);qq.setFromAxisAngle(Zax,Math.atan2(b.y-a.y,b.x-a.x));m4.compose(pp,qq,one);const j=k>>1;
+      if(k%2){imOut.setMatrixAt(j,m5.copy(m4).multiply(zI2));imOut.setMatrixAt(j+nH,m5.copy(m4).multiply(zO2))}else{imIn.setMatrixAt(j,m5.copy(m4).multiply(zI));imIn.setMatrixAt(j+nH,m5.copy(m4).multiply(zO))}
+      pr.set(b.x-a.x,b.y-a.y,0).normalize().multiplyScalar(pitch/2).add(pp);imR.setMatrixAt(k,m5.compose(pr,qR,one))}
+    imIn.instanceMatrix.needsUpdate=imOut.instanceMatrix.needsUpdate=imR.instanceMatrix.needsUpdate=true};
+  AP.chain(0);
   // girfører
-  if(D.t==='der'){const dm=M.der,sram=/^SRAM/.test(D.n),E=D.e,udh=!!D.udh,dk=E==='di2'?M.dark:M.black;
-    // Oppbygging som et ekte bakgir sett fra drivsiden: festebolt i girhengeren (H), B-knoke bakover, parallellogram skrått ned og bakover
-    // til P-knoken (burets dreiepunkt, litt bak og over styretrinsen), og buret som henger ned og litt frem med de to trinsene.
-    const zOut=zch-0.0088,zIn=zch+0.0084;
-    const H=udh?p2(GM.RA.x,GM.RA.y):A(GM.RA,p2(-0.003,-0.027)),P=A(G,p2(-0.026,0.01)),Bp=udh?A(H,p2(-0.016,-0.03)):A(H,p2(-0.012,-0.008));
-    const zB0=-(TZ+(udh?0.012:0.007)),zB1=zB0-0.017,zBc=(zB0+zB1)/2,zP0=zOut-0.0012,zP1=zOut-0.019,zPc=(zP0+zP1)/2;
-    // B-knoke: avrundet støpt kropp fra festebolten bakover, festebolt med unbrako og B-skrue bak
-    sweep([v(A(H,p2(0.006,0.002)),zBc),v(M2(H,Bp,0.5),zBc),v(Bp,zBc)],u=>({w:0.0115-0.001*u,h:0.0085,n:3}),dm,null,{up:new V3(0,0,1),n:16,r:24});
-    cyl(v(H,zB0+0.001),v(H,zB1-0.0008),udh?0.017:0.0118,dm,32);
-    bolt(v(H,zB1-0.0008),new V3(0,0,-1),udh?0.008:0.0056,M.bolts);cyl(v(H,zB1-0.0015),v(H,zB1-0.0022),udh?0.0038:0.0028,M.socket,6);
-    if(!udh){const bs=A(H,p2(-0.011,0.009));bolt(v(bs,zBc),new V3(-0.5,0.85,0).normalize(),0.002,M.bolts)}
-    // parallellogram: kropp, mørk dekselplate på yttersiden og fire leddpinner
-    const B3=v(Bp,zBc),P3=v(P,zPc),bd=U2(Sb(P,Bp)),bn=Rot(bd,Math.PI/2),Lbp=L2(Sb(P,Bp)),bw=udh||E?0.0128:0.0115;
-    sweep([B3,B3.clone().lerp(P3,0.5),P3],u=>({w:bw*(1-0.1*Math.sin(Math.PI*u)),h:0.0072,n:3.2}),dm,null,{up:new V3(0,0,1),n:20,r:24});
-    sweep([B3.clone().setZ(zBc-0.0082),B3.clone().lerp(P3,0.5).setZ((zBc+zPc)/2-0.0082),P3.clone().setZ(zPc-0.0082)],u=>({w:bw*1.06*endR(u,0.1,0.1),h:0.0011,n:3.6}),dk,null,{up:new V3(0,0,1),n:20,r:24});
-    if(!E)[0.14,0.86].forEach(u=>[-1,1].forEach(k=>{const c=v(A(M2(Bp,P,u),K(bn,k*bw*0.62)),zBc+(zPc-zBc)*u-0.0094);cyl(c,c.clone().add(new V3(0,0,-0.0012)),0.0021,M.steel,12)}));
-    // P-knoke: sylinder utenfor ytre burplate, med clutchdeksel (Shimano har clutchbryter på toppen)
-    cyl(v(P,zP0),v(P,zP1),0.0135,dm,36);cyl(v(P,zP1),v(P,zP1-0.0025),0.012,dk,36);
-    if(!sram&&!E){const lv=rbox(0.017,0.005,0.007,0.002,dk);orient(lv,v(A(P,p2(0.003,0.0135)),zPc),0.3)}
-    else if(sram&&!E){cyl(v(A(P,p2(-0.009,0.006)),zP1-0.0005),v(A(P,p2(-0.009,0.006)),zP1-0.003),0.0028,M.steel,12)}
-    // kabel: wirestopp med justeringsskrue på toppen av B-knoken, wiren går ned til klemmebolten på parallellogrammet
-    const top=A(M2(H,Bp,0.45),p2(0,0.0125));
-    if(!E){const be=A(top,p2(0.013,0.003));cyl(v(top,zBc-0.002),v(be,zBc-0.002),0.0034,dm,14);cyl(v(A(top,p2(0.006,0.0015)),zBc-0.002),v(be,zBc-0.002),0.0045,M.dark,14);
-      const pin=A(M2(Bp,P,0.58),K(bn,bw+0.001));cyl(v(top,zBc-0.002),v(pin,(zBc+zPc)/2-0.004),0.0007,M.inner,6);bolt(v(pin,(zBc+zPc)/2-0.004),new V3(0,0,-1),0.0026,M.bolts);
-      ANCH.der=v(be,zBc-0.002);ANCH.derIn=v(A(be,p2(0.045,0.004)),zBc+0.006)}
-    else if(E==='di2'){const pe=A(top,p2(0.008,0.002));cyl(v(top,zBc-0.002),v(pe,zBc-0.002),0.0028,M.black,12);ANCH.der=v(pe,zBc-0.002);ANCH.derIn=v(A(pe,p2(0.04,0.004)),zBc+0.006)}
-    else{// AXS: batteri på toppen av parallellogrammet, med knapp og lys. Trådløs, ingen kabel
-      const tp=A(M2(Bp,P,0.45),K(bn,bw+0.0072)),zm=(zBc+zPc)/2,bat=rbox(0.036,0.0135,0.022,0.004,M.black);orient(bat,v(tp,zm),Math.atan2(bd.y,bd.x));
-      const btn=A(tp,K(bn,0.007));cyl(v(btn,zm-0.006),v(btn,zm-0.006).add(v(K(bn,0.0016))),0.0028,M.steel,16);
-      sph(v(A(btn,K(bd,-0.009)),zm-0.006).add(v(K(bn,0.0005))),0.0011,new THREE.MeshStandardMaterial({color:0x2fd06a,emissive:0x2fd06a,emissiveIntensity:0.8}))}
-    // bur: ytre plate fra P-knoken rundt begge trinsene (tennene synes utenfor platen), mindre indre plate
-    const hull=(cs,z,dz,m)=>{const pts=[];cs.forEach(([c,r])=>{for(let i=0;i<32;i++){const a=i/32*Math.PI*2;pts.push(new THREE.Vector2(c.x+Math.cos(a)*r,c.y+Math.sin(a)*r))}});
-      pts.sort((p,q)=>p.x-q.x||p.y-q.y);const cr=(o,a,b)=>(a.x-o.x)*(b.y-o.y)-(a.y-o.y)*(b.x-o.x),lo=[],up=[];
-      pts.forEach(p=>{while(lo.length>=2&&cr(lo[lo.length-2],lo[lo.length-1],p)<=0)lo.pop();lo.push(p)});
-      for(let i=pts.length-1;i>=0;i--){const p=pts[i];while(up.length>=2&&cr(up[up.length-2],up[up.length-1],p)<=0)up.pop();up.push(p)}
-      const g=new THREE.ExtrudeGeometry(new THREE.Shape(lo.slice(0,-1).concat(up.slice(0,-1))),{depth:dz,bevelEnabled:true,bevelThickness:0.0005,bevelSize:0.0007,bevelSegments:2});g.translate(0,0,z-dz/2);return put(new THREE.Mesh(g,m))};
-    hull([[P,0.0098],[G,0.0112],[Tn,0.0122]],zOut,0.0018,dm);
-    hull([[G,0.0098],[Tn,0.0108]],zIn,0.0014,dm);
-    [[G,12],[Tn,nP2]].forEach(([c,nT])=>{const j=v(c,zch),gm=gear(nT,0.006,0.0034,M.black);gm.position.copy(j);
-      cyl(j.clone().setZ(zOut+0.0009),j.clone().setZ(zIn-0.0007),0.006,M.dark,16);bolt(j.clone().setZ(zOut-0.0009),new V3(0,0,-1),0.0042,M.bolts)});
-    FOCUS.der=v(M2(P,Tn,0.45),zch-0.01);FOCUS.derG=v(G,zch);
+  if(D.t==='der'){const dm=M.der,{P,pulleys}=rearDer(D,G,Tn,zR,nP2);AP.pulleys=pulleys;
+    FOCUS.der=v(M2(P,Tn,0.45),zR-0.01);FOCUS.derG=v(G,zR);
     if(rings.length>1){const zr=-0.059,R0=ringR+0.006,R1=ringR+0.024,sa=Math.atan2(GM.s.y,GM.s.x),a0=sa-0.42,a1=sa+0.12;
       [zr-0.0058,zr+0.0058].forEach((z,k)=>{const sh=new THREE.Shape();sh.absarc(0,0,R1,a0,a1,false);sh.absarc(0,0,R0,a1,a0,true);sh.closePath();
         const gg=new THREE.ExtrudeGeometry(sh,{depth:0.0016,bevelEnabled:true,bevelThickness:0.0005,bevelSize:0.0005,bevelSegments:2,curveSegments:16});gg.translate(0,0,z-0.0008);const me=put(new THREE.Mesh(gg,dm));me.position.copy(bb)});
@@ -1836,6 +1921,7 @@ function drivetrain(){
     FOCUS.guard=v(M2(GM.BB,tail,0.4),zP);
   }
   // kranker og pedaler
+  const nCr=B.children.length;
   cyl(bb.clone().setZ(-0.076),bb.clone().setZ(0.076),0.012,M.steel,24);
   const cl=st.crankLen/1000,ang=-55*D2R;FOCUS.crank=bb.clone();
   [[-1,ang],[1,ang+Math.PI]].forEach(([s,a])=>{
@@ -1856,8 +1942,9 @@ function drivetrain(){
       const me=put(new THREE.Mesh(g,cm));me.position.copy(bb).setZ(zA);me.rotation.z=a;
       if(st.crank==='square')cyl(bb.clone().setZ(zA+s*0.008),bb.clone().setZ(zA+s*0.012),0.0115,cm,32);
       bolt(bb.clone().setZ(zA+s*(th/2+0.003)),new V3(0,0,s),0.006,M.bolts)}
-    pedal(pd,s);
+    const nb=B.children.length;pedal(pd,s);AP.pedals.push(B.children[nb]);
   });
+  AP.crank.push(pivotFrom(nCr,bb));ANIM.parts=AP;applyAnim()
 }
 // pedaler bygges i en gruppe med lokal z utover fra kranken, x fremover og y opp
 function plate(shapeFn,th,m,bev=0.0012){const sh=shapeFn();const g=new THREE.ExtrudeGeometry(sh,{depth:th,bevelEnabled:true,bevelThickness:bev,bevelSize:bev,bevelSegments:3,curveSegments:10});g.translate(0,0,-th/2);return new THREE.Mesh(g,m)}
@@ -2147,10 +2234,10 @@ function cables(){
   const sh=ANCH.shift,dst=ANCH.der||ANCH.hubShift;
   if(sh&&dst){
     if(!inner||!ANCH.der){const dd=U2(Sb(GM.DTF,GM.BB)),dn=Rot(dd,-Math.PI/2);
-      route([sh,sh.clone().add(new V3(0.1,-0.08,0.03)),v(A(A(GM.HTB,K(n,0.05)),K(up,0.02)),-0.015),v(A(A(GM.DTF,K(dd,-0.08)),K(dn,GM.dtH(0.85)+0.004)),-0.008),v(A(K(dd,0.08),K(dn,GM.dtH(0.1)+0.004)),-0.01),v(A(GM.BB,p2(-0.03,-0.03)),-0.03),v(M2(GM.BB,GM.RA,.5),-0.05),...(ANCH.derIn?[ANCH.derIn]:[]),dst],sR,sM)}
+      route([sh,sh.clone().add(new V3(0.1,-0.08,0.03)),v(A(A(GM.HTB,K(n,0.05)),K(up,0.02)),-0.015),v(A(A(GM.DTF,K(dd,-0.08)),K(dn,GM.dtH(0.85)+0.004)),-0.008),v(A(K(dd,0.08),K(dn,GM.dtH(0.1)+0.004)),-0.01),v(A(GM.BB,p2(-0.03,-0.03)),-0.03),v(M2(GM.BB,GM.RA,.5),-0.05),...(ANCH.derPath||[]),dst],sR,sM)}
     else{const E=entry(-1,-0.016);if(!integ)route(leverTo(sh,E),sR,sM);
-      if(R==='semi'){const q=port(ANCH.portBB(-1));route([q,v(A(GM.BB,p2(-0.03,-0.035)),-0.03),v(M2(GM.BB,GM.RA,.4),-0.058).add(new V3(0,0.016,0)),v(M2(GM.BB,GM.RA,.85),-0.068).add(new V3(0,0.012,0)),...(ANCH.derIn?[ANCH.derIn]:[]),dst],sR,sM)}
-      else{const q=port(ANCH.portCS(-1,0.075));route(ANCH.derIn?[q,q.clone().lerp(ANCH.derIn,0.5).add(new V3(0,0.004,-0.006)),ANCH.derIn,dst]:[q,q.clone().add(new V3(-0.02,-0.01,-0.012)),dst.clone().add(new V3(0.012,0.02,0)),dst],sR,sM)}}}
+      if(R==='semi'){const q=port(ANCH.portBB(-1));route([q,v(A(GM.BB,p2(-0.03,-0.035)),-0.03),v(M2(GM.BB,GM.RA,.4),-0.058).add(new V3(0,0.016,0)),v(M2(GM.BB,GM.RA,.85),-0.068).add(new V3(0,0.012,0)),...(ANCH.derPath||[]),dst],sR,sM)}
+      else{const q=port(ANCH.portCS(-1,0.075));route(ANCH.derPath?[q,q.clone().lerp(ANCH.derPath[0],0.5).add(new V3(0,0.004,-0.006)),...ANCH.derPath,dst]:[q,q.clone().add(new V3(-0.02,-0.01,-0.012)),dst.clone().add(new V3(0.012,0.02,0)),dst],sR,sM)}}}
   // forgir
   if(ANCH.shiftF&&ANCH.fd){const f=ANCH.shiftF;
     if(!inner){const dd=U2(Sb(GM.DTF,GM.BB)),dn=Rot(dd,-Math.PI/2);
@@ -2189,6 +2276,7 @@ function loop(){requestAnimationFrame(loop);
     cam.theta=f.th+(t.th-f.th)*e;cam.phi=f.ph+(t.ph-f.ph)*e;cam.r=f.r+(t.r-f.r)*e;cam.target.lerpVectors(f.tg,t.tg,e);if(k>=1)tween=null;dirty=true}
   if(cam.spin){cam.theta+=0.004;dirty=true}
   if(PH.on){photoTick();flushStale();return}
+  if(ANIM.on){const now=performance.now(),dt=Math.min(0.05,(now-ANIM.t)/1000);ANIM.t=now;ANIM.crank-=dt*CADENCE/60*Math.PI*2;applyAnim();dirty=true}
   if(!dirty)return;dirty=false;   // tegn bare når noe har endret seg
   setCam();render();flushStale()}
 const ptrs=new Map();let pinch0=0,r0=0,mid0=null,lastTap=0,moved=0;
@@ -2212,7 +2300,7 @@ const up=e=>{const p=ptrs.get(e.pointerId);ptrs.delete(e.pointerId);pinch0=0;mid
 canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);
 canvas.addEventListener('dblclick',e=>pickAt(e.clientX,e.clientY));
 canvas.addEventListener('wheel',e=>{e.preventDefault();lastAuto=null;dirty=true;zoomAt(Math.exp(e.deltaY*0.0012),e.clientX,e.clientY)},{passive:false});
-document.getElementById('views').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-autof')){setAutoF(!autoF);return}lastAuto=null;dirty=true;if(b.hasAttribute('data-quality')){setQuality(quality==='high'?'fast':'high');return}if(b.hasAttribute('data-spin')&&PH.on)return;if(b.dataset.view)goView(b.dataset.view);else if(b.dataset.focus)focusPart(b.dataset.focus);else setSpin(!cam.spin)});
+document.getElementById('views').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.hasAttribute('data-autof')){setAutoF(!autoF);return}if(b.hasAttribute('data-pedal')){setPedal(!ANIM.on);return}lastAuto=null;dirty=true;if(b.hasAttribute('data-quality')){setQuality(quality==='high'?'fast':'high');return}if(b.hasAttribute('data-spin')&&PH.on)return;if(b.dataset.view)goView(b.dataset.view);else if(b.dataset.focus)focusPart(b.dataset.focus);else setSpin(!cam.spin)});
 
 /* ===================== TEKST ===================== */
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
